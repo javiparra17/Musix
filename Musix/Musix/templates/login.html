@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+        <div>
+            {% include "header.html" %}
+        </div>
+        <div>
+            <form method="post">
+                {% csrf_token %}
+                {{form}}
+                <input type="submit" value="Sign in" />
+            </form>
+        </div>
+        <div>
+            {% include "footer.html" %}
+        </div>
+    </body>
+</html>

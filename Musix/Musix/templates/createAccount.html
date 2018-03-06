@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create account</title>
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+        <div>
+            {% include "header.html" %}
+        </div>
+        <div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form}}
+                <input type="submit" value="Create account" />
+            </form>
+        </div>
+        <div>
+            {% include "footer.html" %}
+        </div>
+    </body>
+</html>
