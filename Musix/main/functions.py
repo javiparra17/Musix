@@ -14,3 +14,20 @@ def listToString(list):
         else:
             res = res + list[i] + ", "
     return res
+
+def splitInstruments(string):
+    res = ""
+    del1 = string.split("[")
+    del2 = del1[1].split("]")
+    splt = del2[0].split("u'")
+
+    for i in splt:
+        if i is not splt[0]:
+            if i is splt[len(splt)-1]:
+                aux = i.split("'")
+                res += aux[0]
+            else:
+                aux = i.split("'")
+                res += aux[0] + ", "
+
+    return res

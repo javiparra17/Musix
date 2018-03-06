@@ -26,9 +26,9 @@ def createSong(request):
     if request.method == 'POST':
         form = CreateSongForm(request.POST)
         if form.is_valid():
-            print form.requiredInstruments
             preSong = form.save(commit=False)
-            preSong.user = request.user
+            preSong.requiredInstruments = functions.splitInstruments(preSong.requiredInstruments)
+            #preSong.user = request.user
             preSong.save()
             return redirect('index.html')
     else:

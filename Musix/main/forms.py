@@ -55,11 +55,10 @@ class CreateSongForm(forms.ModelForm):
 
 class TrackForm(forms.ModelForm):
     instrument = forms.CharField(widget=forms.Select(choices=INSTRUMENTS))
-    sound = forms.FileField(required=True)
 
     class Meta:
         model = Track
-        fields = {'instrument'}
+        fields = {'instrument', 'sound'}
 
 class LoginForm(forms.ModelForm):
     email = forms.EmailField(required=True, max_length=40)

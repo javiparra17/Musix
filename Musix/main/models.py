@@ -27,16 +27,16 @@ class Song(models.Model):
     name = models.CharField(max_length=20, blank=False)
     author = models.CharField(max_length=30, blank=False)
     description = models.TextField(max_length=500, blank=False)
-    requiredInstruments = models.TextField(max_length=10000, blank=True, choices=INSTRUMENTS)
+    requiredInstruments = models.TextField(max_length=10000, blank=True)
     additionalInstruments = models.BooleanField()
     finished = models.BooleanField(default=False)
 
-    creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, unique=False)
+    #creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, unique=False)
 
 class Track(models.Model):
     #id = models.IntegerField(primary_key=True, unique=True)
     instrument = models.CharField(blank=False, max_length=100)
-    sound = models.FileField(blank=False, upload_to='Musix/Musix/tracks/1')
+    sound = models.FileField(blank=False, upload_to='1')
 
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
     # song = models.ForeignKey(Song, on_delete=models.CASCADE, null=False)
