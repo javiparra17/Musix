@@ -1,10 +1,8 @@
-{% block extrahead %}
-        <link rel="icon" href="../Musix/images/favicon.ico" sizes="48x48" />
-{% endblock %}
+{% load static %}
 
 <div id="mainLogoDiv">
     <a href="index.html">
-        <img src="../Musix/images/Musix.png" id="mainLogo" />
+        <img src="{% static "images/musix.png" %}" id="mainLogo" />
     </a>
 </div>
 
