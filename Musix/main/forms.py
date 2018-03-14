@@ -12,23 +12,19 @@ GENDERS = choices.GENDERS
 INSTRUMENTS = choices.INSTRUMENTS
 YESORNOT = choices.YESORNOT
 
-class UserForm(UserCreationForm):
+class PersonForm(forms.ModelForm):
     name = forms.CharField(required=True, max_length=30)
     surname = forms.CharField(required=True, max_length=150)
     gender = forms.CharField(required=True, widget=forms.RadioSelect(choices=GENDERS))
     #birthdate = forms.DateField(widget=forms.SelectDateWidget)
-    description = forms.CharField(required=False, widget=forms.Textarea, max_length=500)
     country = forms.CharField(required=True, widget=forms.Select(choices=COUNTRIES), initial="ES")
-    city = forms.CharField(required=False)
-    photo = forms.ImageField(required=False)
-    email = forms.EmailField(required=True, max_length=40)
 
     class Meta:
-        model = User
-        fields = ('name', 'surname', 'gender', 'description', 'country', 'city', 'photo', 'email', 'username', 'password1', 'password2')
+        model = Person
+        fields = ('name', 'surname', 'gender', 'country')
 
     def save(self, commit=True):
-        user = super(UserForm, self).save(commit=False)
+        user = super(PersonForm, self).save(commit=False)
         user.name = self.cleaned_data["name"]
         user.surname = self.cleaned_data["surname"]
         user.gender = self.cleaned_data["gender"]
@@ -43,18 +39,14 @@ class UserForm(UserCreationForm):
 
 
 class CreateSongForm(forms.ModelForm):
-    name = forms.CharField(required=True, max_length=20)
-    author = forms.CharField(required=True, max_length=30)
-    description = forms.CharField(required=True, max_length=500, widget=forms.Textarea)
     requiredInstruments = forms.CharField(required=True, widget=forms.CheckboxSelectMultiple(choices=INSTRUMENTS), label="Required instruments")
-    additionalInstruments = forms.BooleanField(required=True, widget=forms.RadioSelect(choices=YESORNOT), label="Additional instruments?")
+    additionalInstruments = forms.CharField(required=True, widget=forms.RadioSelect(choices=YESORNOT), label="Additional instruments?")
 
     class Meta:
         model = Song
         fields = ('name', 'author', 'description', 'requiredInstruments', 'additionalInstruments')
 
 class TrackForm(forms.ModelForm):
-    instrument = forms.CharField(widget=forms.Select(choices=INSTRUMENTS))
 
     class Meta:
         model = Track

@@ -12,12 +12,12 @@ def index(request):
 
 def createAccount(request):
     if request.method == 'POST':
-        form = UserForm(request.POST)
+        form = PersonForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('index.html')
     else:
-        form = UserForm()
+        form = PersonForm()
 
     return render(request, 'createAccount.html', {'form':form })
 
@@ -28,6 +28,7 @@ def createSong(request):
         if form.is_valid():
             preSong = form.save(commit=False)
             preSong.requiredInstruments = functions.splitInstruments(preSong.requiredInstruments)
+            preSong.finished = False
             #preSong.user = request.user
             preSong.save()
             return redirect('index.html')
@@ -41,7 +42,8 @@ def uploadTrack(request):
     if request.method == 'POST':
         form = TrackForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            preTrack = form.save(commit=False)
+            preTrack.save()
             return redirect('index.html')
     else:
         form = TrackForm()
