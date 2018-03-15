@@ -12,19 +12,24 @@ GENDERS = choices.GENDERS
 INSTRUMENTS = choices.INSTRUMENTS
 YESORNOT = choices.YESORNOT
 
-class PersonForm(forms.ModelForm):
-    name = forms.CharField(required=True, max_length=30)
-    surname = forms.CharField(required=True, max_length=150)
+class MusicianForm(forms.ModelForm):
+    name = forms.CharField(label="Name", widget=forms.TextInput, required=True)
+    surname = forms.CharField(label="Surname", widget=forms.TextInput, required=True)
+    username = forms.CharField(label="Username", widget=forms.TextInput, required=True)
+    email = forms.EmailField(label="Email", widget=forms.TextInput, required=True)
+    password = forms.CharField(label="Password", widget=forms.PasswordInput, required=True)
+    password2 = forms.CharField(label="Confirm password", widget=forms.PasswordInput, required=True)
+
     gender = forms.CharField(required=True, widget=forms.RadioSelect(choices=GENDERS))
     #birthdate = forms.DateField(widget=forms.SelectDateWidget)
     country = forms.CharField(required=True, widget=forms.Select(choices=COUNTRIES), initial="ES")
 
     class Meta:
-        model = Person
-        fields = ('name', 'surname', 'gender', 'country')
+        model = Musician
+        fields = ('name', 'surname', 'username', 'email', 'gender', 'description', 'country', 'photo', 'city', 'password', 'password2')
 
     def save(self, commit=True):
-        user = super(PersonForm, self).save(commit=False)
+        user = super(MusicianForm, self).save(commit=False)
         user.name = self.cleaned_data["name"]
         user.surname = self.cleaned_data["surname"]
         user.gender = self.cleaned_data["gender"]
