@@ -12,6 +12,18 @@ GENDERS = choices.GENDERS
 INSTRUMENTS = choices.INSTRUMENTS
 YESORNOT = choices.YESORNOT
 
+class CreateSongForm(forms.ModelForm):
+    requiredInstruments = forms.CharField(required=True, widget=forms.CheckboxSelectMultiple(choices=INSTRUMENTS), label="Required instruments")
+    additionalInstruments = forms.CharField(required=True, widget=forms.RadioSelect(choices=YESORNOT), label="Additional instruments?")
+
+    class Meta:
+        model = Song
+        fields = ('name', 'author', 'description', 'requiredInstruments', 'additionalInstruments')
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label="Username", widget=forms.TextInput, required=True)
+    password = forms.CharField(label='Password', widget=forms.PasswordInput, required=True)
+
 class MusicianForm(forms.ModelForm):
     name = forms.CharField(label="Name", widget=forms.TextInput, required=True)
     surname = forms.CharField(label="Surname", widget=forms.TextInput, required=True)
@@ -42,25 +54,8 @@ class MusicianForm(forms.ModelForm):
             user.save()
         return user
 
-
-class CreateSongForm(forms.ModelForm):
-    requiredInstruments = forms.CharField(required=True, widget=forms.CheckboxSelectMultiple(choices=INSTRUMENTS), label="Required instruments")
-    additionalInstruments = forms.CharField(required=True, widget=forms.RadioSelect(choices=YESORNOT), label="Additional instruments?")
-
-    class Meta:
-        model = Song
-        fields = ('name', 'author', 'description', 'requiredInstruments', 'additionalInstruments')
-
 class TrackForm(forms.ModelForm):
 
     class Meta:
         model = Track
         fields = {'instrument', 'sound'}
-
-class LoginForm(forms.ModelForm):
-    email = forms.EmailField(required=True, max_length=40)
-    password = forms.CharField(required=True, max_length=30, widget=forms.PasswordInput)
-
-    class Meta:
-        model = User
-        fields = ('email', 'password')

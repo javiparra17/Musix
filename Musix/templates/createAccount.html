@@ -10,11 +10,11 @@
             {% include "header.html" %}
         </div>
         <div>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
+            <form method="post" enctype="multipart/form-data" action="">{% csrf_token %}
                 {{form}}
                 <input type="submit" value="Create account" />
             </form>
+            {{error}}
         </div>
         <div>
             {% include "footer.html" %}

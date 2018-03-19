@@ -1,16 +1,10 @@
 from django.shortcuts import render, redirect
-from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from forms import *
 from models import *
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from django.template import RequestContext
-
-def index(request):
-    return render(request, "index.html")
 
 def createAccount(request):
     if not request.user.is_anonymous():
@@ -27,11 +21,11 @@ def createAccount(request):
                 return HttpResponseRedirect('index.html')
             else:
                 error = "The passwords are not the same"
-                return render_to_response('createAccount.html', {'form': form, 'error': error})
+                return render(request, 'createAccount.html', {'form': form, 'error': error})
     else:
         form = MusicianForm()
 
-    return render_to_response('createAccount.html', {'form':form})
+    return render(request, 'createAccount.html', {'form':form})
 
 #@login_required(login_url='/login.html')
 def createSong(request):
@@ -49,6 +43,31 @@ def createSong(request):
 
     return render(request, 'createSong.html', {'form':form })
 
+def index(request):
+    return render(request, "index.html")
+
+def loginUser(request):
+    if not request.user:
+        return HttpResponseRedirect('/')
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            if user is not None:
+                login(request, user)
+                return redirect('index.html')
+        else:
+            error = "Incorrect user or password"
+            return render(request, 'login.html', {'form': form}, {'error': error})
+    else:
+        form = LoginForm()
+        return render(request, 'login.html', {'form': form})
+
+#@login_required(login_url='/login.html')
+def logoutUser(request):
+    logout(request)
+    return render(request, 'index.html', {'auth': False})
+
 #@login_required(login_url='/login.html')
 def uploadTrack(request):
     if request.method == 'POST':
@@ -61,25 +80,3 @@ def uploadTrack(request):
         form = TrackForm()
 
     return render(request, 'uploadTrack.html', {'form':form })
-
-def loginUser(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request.POST)
-        if form.is_valid():
-            email = request.POST['email']
-            password = request.POST['password']
-            user = authenticate(username=email, password=password)
-            if user is not None:
-                login(request, user)
-                return render(request, '/index.html')
-            #else:
-                # Return an 'invalid login' error message.
-    else:
-        form = AuthenticationForm()
-
-    return render(request, 'login.html', {'form':form })
-
-from django.contrib.auth import logout
-
-def logout_view(request):
-    logout(request)
