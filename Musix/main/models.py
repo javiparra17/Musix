@@ -6,6 +6,7 @@ import choices
 COUNTRIES = choices.COUNTRIES
 GENDERS = choices.GENDERS
 INSTRUMENTS = choices.INSTRUMENTS
+STATUS = choices.STATUS
 YESORNOT = choices.YESORNOT
 
 # Create your models here.
@@ -38,6 +39,7 @@ class Song(models.Model):
 class Track(models.Model):
     instrument = models.CharField(blank=False, max_length=100, choices=INSTRUMENTS)
     sound = models.FileField(blank=False, upload_to='1', null=False)
+    status = models.CharField(blank=False, max_length=20, choices=STATUS)
 
-    #user = models.ForeignKey(Musician, on_delete=models.DO_NOTHING, null=True)
-    #song = models.ForeignKey(Song, on_delete=models.DO_NOTHING, null=False)
+    musician = models.ForeignKey(Musician, on_delete=models.DO_NOTHING, null=True)
+    song = models.ForeignKey(Song, on_delete=models.DO_NOTHING, null=False)

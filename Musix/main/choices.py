@@ -264,6 +264,12 @@ INSTRUMENTS = (
     ('Xylo', 'Xylophone'),
 )
 
+STATUS = (
+    ('P', 'Pending'),
+    ('A', 'Accepted'),
+    ('D', 'Denied'),
+)
+
 VOICES = (
     ('Soprano', 'Soprano'),
     ('Mezzosoprano', 'Mezzosoprano'),
