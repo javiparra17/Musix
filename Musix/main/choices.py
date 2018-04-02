@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
 
+# Dictionaries for choice fields. Organised alphabetically.
+
 COUNTRIES =(
     ('AF', 'Afganistán'),
     ('AL', 'Albania'),
