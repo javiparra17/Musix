@@ -32,11 +32,11 @@ def createSong(request):
     if request.method == 'POST':
         form = CreateSongForm(request.POST)
         if form.is_valid():
-            preSong = form.save(commit=False)
-            preSong.requiredInstruments = functions.splitInstruments(preSong.requiredInstruments)
-            preSong.finished = False
-            #preSong.user = request.user
-            preSong.save()
+            #creator = request.user
+            requiredInstruments = functions.splitInstruments(form.cleaned_data['requiredInstruments'])
+            Song.objects.create(name=form.cleaned_data['name'], author=form.cleaned_data['author'],
+                                description=form.cleaned_data['description'], requiredInstruments=requiredInstruments,
+                                additionalInstruments=form.cleaned_data['additionalInstruments'], finished=False)
             return redirect('index.html')
     else:
         form = CreateSongForm()
@@ -73,8 +73,7 @@ def uploadTrack(request):
     if request.method == 'POST':
         form = TrackForm(request.POST, request.FILES)
         if form.is_valid():
-            preTrack = form.save(commit=False)
-            preTrack.save()
+            Track.objects.create(instrument=form.cleaned_data['instrument'], sound=form.cleaned_data['sound'])
             return redirect('index.html')
     else:
         form = TrackForm()

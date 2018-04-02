@@ -13,12 +13,14 @@ YESORNOT = choices.YESORNOT
 class Actor(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+class Administrator(Actor):
+    pass
+
 class Musician(Actor):
     gender = models.CharField(max_length=7, blank=False, choices=GENDERS)
     description = models.TextField(max_length=500, blank=True)
     country = models.CharField(max_length=100, blank=False, choices=COUNTRIES, default='ES')
     photo = models.ImageField(null=True)
-    #birthdate = models.DateField(null=True)
     city = models.CharField(max_length=50, blank=True)
     registrationDate = models.DateField(auto_now_add=True)
     premium = models.BooleanField(default=False, null=False)
