@@ -15,16 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from main.views import *
+from main import views
 
 admin.autodiscover()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^i18n/', include('django.conf.urls.i18n')),
-    url(r'^index', index),
-    url(r'^createAccount', createAccount),
-    url(r'^createSong', createSong),
-    url(r'^login', loginUser),
-    url(r'^uploadTrack', uploadTrack),
+    url(r'^', views.index),
+    url(r'^createAccount', views.createAccount),
+    url(r'^createSong', views.createSong),
+    url(r'^login', views.loginUser),
+    url(r'^uploadTrack', views.uploadTrack),
 ]

@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django import forms
-import choices
+import main.choices as choices
 
 COUNTRIES = choices.COUNTRIES
 GENDERS = choices.GENDERS

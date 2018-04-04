@@ -1,11 +1,8 @@
 # -*- encoding: utf-8 -*-
 from django import forms
-from models import *
-import functions
-import views
-import choices
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from main.models import *
+import main.functions
+import main.choices as choices
 
 COUNTRIES = choices.COUNTRIES
 GENDERS = choices.GENDERS
