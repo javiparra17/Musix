@@ -1,0 +1,28 @@
+#loginLogoDiv{
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: 5%;
+}
+
+#loginLogo{
+    width: 40%;
+}
+
+form{
+    text-align: center;
+}
+
+#id_username, #id_password{
+    width: 30%;
+    height: 8%;
+    margin-bottom: 2%;
+    font-family: "Axaxax Rg";
+    font-size: 20px;
+}
+
+#buttonLogin{
+    width: 10%;
+    height: 7%;
+    font-family: "Axaxax Rg";
+    font-size: 20px;
+}
