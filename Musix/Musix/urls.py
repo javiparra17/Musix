@@ -22,9 +22,9 @@ admin.autodiscover()
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^i18n/', include('django.conf.urls.i18n')),
-    url(r'^', views.index),
-    url(r'^createAccount', views.createAccount),
-    url(r'^createSong', views.createSong),
-    url(r'^login', views.loginUser),
-    url(r'^uploadTrack', views.uploadTrack),
+    url(r'^index', views.index, name='index'),
+    url(r'^createAccount', views.createAccount, name='createAccount'),
+    url(r'^createSong', views.createSong, name='createSong'),
+    url(r'^login', views.loginUser, name='login'),
+    url(r'^uploadTrack', views.uploadTrack, name='uploadTrack'),
 ]
