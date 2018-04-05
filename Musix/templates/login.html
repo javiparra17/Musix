@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Login</title>
-        <meta charset="utf-8">
-    </head>
+{% include "base.html" %}
+{% load static %}
 
-    <body>
-        <div>
-            {% include "header.html" %}
-        </div>
-        <div>
-            <form method="post">
-                {% csrf_token %}
-                {{form}}
-                <input type="submit" value="Sign in" />
-            </form>
-        </div>
-        <div>
-            {% include "footer.html" %}
-        </div>
-    </body>
-</html>
+<link type="text/css" rel="stylesheet" href="{% static "css/login.css" %}"/>
+
+<div id="loginLogoDiv">
+    <a href="/index/">
+        <img src="{% static "images/musix.png" %}" id="loginLogo" />
+    </a>
+</div>
+
+<div>
+    <form method="post" id="form" class="form" role="form" autocomplete="on">
+        {% csrf_token %}
+        <input type="text" name="username" id="id_username" placeholder="Username">
+        <br />
+        <input type="password" name="password" id="id_password" placeholder="Password">
+        <br />
+        <input type="submit" value="Login" id="buttonLogin"/>
+    </form>
+
+
+
+</div>
