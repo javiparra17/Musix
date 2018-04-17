@@ -66,16 +66,16 @@ def listMusicians(request):
 #@login_required(login_url='/login.html')
 def createSong(request):
     if request.method == 'POST':
-        form = CreateSongForm(request.POST)
+        form = SongForm(request.POST)
         if form.is_valid():
             #creator = request.user
-            requiredInstruments = functions.splitInstruments(form.cleaned_data['requiredInstruments'])
+            requiredInstruments = form.cleaned_data['requiredInstruments']
             Song.objects.create(name=form.cleaned_data['name'], author=form.cleaned_data['author'],
                                 description=form.cleaned_data['description'], requiredInstruments=requiredInstruments,
                                 additionalInstruments=form.cleaned_data['additionalInstruments'], finished=False)
             return redirect('index.html')
     else:
-        form = CreateSongForm()
+        form = SongForm()
 
     return render(request, 'createSong.html', {'form':form })
 

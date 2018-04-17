@@ -9,14 +9,6 @@ GENDERS = choices.GENDERS
 INSTRUMENTS = choices.INSTRUMENTS
 YESORNOT = choices.YESORNOT
 
-class CreateSongForm(forms.ModelForm):
-    requiredInstruments = forms.CharField(required=True, widget=forms.CheckboxSelectMultiple(choices=INSTRUMENTS), label="Required instruments")
-    additionalInstruments = forms.CharField(required=True, widget=forms.RadioSelect(choices=YESORNOT), label="Additional instruments?")
-
-    class Meta:
-        model = Song
-        fields = ('name', 'author', 'description', 'requiredInstruments', 'additionalInstruments')
-
 class LoginForm(forms.Form):
     username = forms.CharField(label="Username", widget=forms.TextInput, required=True)
     password = forms.CharField(label='Password', widget=forms.PasswordInput, required=True)
@@ -50,6 +42,14 @@ class MusicianForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+class SongForm(forms.ModelForm):
+    requiredInstruments = forms.CharField(required=True, widget=forms.CheckboxSelectMultiple(choices=INSTRUMENTS), label="Required instruments")
+    additionalInstruments = forms.CharField(required=True, widget=forms.RadioSelect(choices=YESORNOT), label="Additional instruments?")
+
+    class Meta:
+        model = Song
+        fields = ('name', 'author', 'description', 'requiredInstruments', 'additionalInstruments')
 
 class TrackForm(forms.ModelForm):
 
