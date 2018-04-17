@@ -78,8 +78,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'musix.db',
+        # 'USER': 'musix',
+        # 'PASSWORD': '1234',
+        # 'HOST': '127.0.0.1',
+        # 'PORT': '3306',
     }
 }
+
+DEFAULT_INDEX_TABLESPACE = 10000,
 
 
 # Password validation
