@@ -24,7 +24,9 @@ urlpatterns = [
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^index', views.index, name='index'),
     url(r'^createAccount', views.createAccount, name='createAccount'),
+    url(r'^createInstrument', views.createInstrument, name='createInstrument'),
     url(r'^createSong', views.createSong, name='createSong'),
+    url(r'^instruments', views.listInstruments, name='instruments'),
     url(r'^login', views.loginUser, name='login'),
     url(r'^uploadTrack', views.uploadTrack, name='uploadTrack'),
 ]

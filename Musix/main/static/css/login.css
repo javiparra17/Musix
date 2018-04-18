@@ -25,18 +25,27 @@ form{
     height: 7%;
     font-family: "Axaxax Rg";
     font-size: 20px;
+    color: black;
     margin-bottom: 2%;
 }
 
 #rememberme{
     font-family: Arial;
     font-size: 14px;
+    color: black;
     margin-right: 2%;
     margin-left: 0.3%;
 }
 
 #checkBoxRememberme{
     transform: scale(1.2);
+}
+
+#haveAccount{
+    font-family: Arial;
+    font-size: 14px;
+    color: black;
+    margin-left: 0.3%;
 }
 
 a:link, a:visited{

@@ -85,7 +85,7 @@ DATABASES = {
     }
 }
 
-DEFAULT_INDEX_TABLESPACE = 10000,
+# DEFAULT_INDEX_TABLESPACE = 10000,
 
 
 # Password validation
@@ -110,13 +110,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-_ = lambda s: s
-
-LANGUAGES = (
- ('es', _('Spanish')),
- ('en', _('English')),
-)
+# LANGUAGE_CODE = 'en-us'
+# _ = lambda s: s
+#
+# LANGUAGES = (
+#     ('es', _('Spanish')),
+#     ('en', _('English')),
+# )
 
 TIME_ZONE = 'UTC'
 
@@ -126,14 +126,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOCALE_PATHS = (
- os.path.join(BASE_DIR, "locale"),
-)
+# LOCALE_PATHS = (
+#     os.path.join(BASE_DIR, "locale"),
+# )
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'tracks')
-MEDIA_URL = '/tracks/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'main/static/media')
+MEDIA_URL = '/media/'
