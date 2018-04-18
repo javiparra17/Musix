@@ -10,3 +10,4 @@ player.startPlayback("C:\Users\Javier\SONIDOS\ANTENA 3\ATRAPA UN MILLON\BSO Atra
 
 while player.isPlaying():
     time.sleep(0.01)
+

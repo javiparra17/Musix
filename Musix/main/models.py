@@ -4,7 +4,6 @@ import main.choices as choices
 
 COUNTRIES = choices.COUNTRIES
 GENDERS = choices.GENDERS
-INSTRUMENTS = choices.INSTRUMENTS
 STATUS = choices.STATUS
 YESORNOT = choices.YESORNOT
 
@@ -20,7 +19,8 @@ class Administrator(Actor):
     pass
 
 class Instrument(models.Model):
-    name = models.CharField(max_length=100, blank=False, choices=INSTRUMENTS)
+    name = models.CharField(max_length=100, blank=False)
+    image = models.ImageField(max_length=1000, blank=False, upload_to='instruments')
 
 class Musician(Actor):
     gender = models.CharField(max_length=7, blank=False, choices=GENDERS)
@@ -30,9 +30,6 @@ class Musician(Actor):
     city = models.CharField(max_length=50, blank=True)
     registrationDate = models.DateField(auto_now_add=True)
     premium = models.BooleanField(default=False, null=False)
-
-    class Meta:
-        db_tablespace = "tables"
 
 class Song(models.Model):
     name = models.CharField(max_length=20, blank=False)
@@ -44,15 +41,12 @@ class Song(models.Model):
     creator = models.ForeignKey(Musician, on_delete=models.DO_NOTHING, null=True)
     requiredInstruments = models.ManyToManyField(Instrument)
 
-    class Meta:
-        db_tablespace = "tables"
-
 class Status(models.Model):
     status = models.CharField(blank=False, max_length=20, choices=STATUS)
 
 class Track(models.Model):
-    instrument = models.CharField(blank=False, max_length=100, choices=INSTRUMENTS)
-    sound = models.FileField(blank=False, upload_to='1', null=False)
+    instrument = models.CharField(blank=False, max_length=100)
+    sound = models.FileField(blank=False, upload_to='tracks', null=False)
 
     status = models.ForeignKey(Status, on_delete=models.DO_NOTHING, null=False)
     musician = models.ForeignKey(Musician, on_delete=models.DO_NOTHING, null=True)

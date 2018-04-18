@@ -1,13 +1,18 @@
 # -*- encoding: utf-8 -*-
 from django import forms
 from main.models import *
-import main.functions
 import main.choices as choices
+import functions
 
 COUNTRIES = choices.COUNTRIES
 GENDERS = choices.GENDERS
-INSTRUMENTS = choices.INSTRUMENTS
+INSTRUMENTS = functions.createTupleInstruments()
 YESORNOT = choices.YESORNOT
+
+class InstrumentForm(forms.ModelForm):
+    class Meta:
+        model = Instrument
+        fields = ('name', 'image')
 
 class LoginForm(forms.Form):
     username = forms.CharField(label="Username", widget=forms.TextInput, required=True)
@@ -52,6 +57,7 @@ class SongForm(forms.ModelForm):
         fields = ('name', 'author', 'description', 'requiredInstruments', 'additionalInstruments')
 
 class TrackForm(forms.ModelForm):
+    instrument = forms.CharField(required=True, widget=forms.Select(choices=INSTRUMENTS), label="Required instruments")
 
     class Meta:
         model = Track

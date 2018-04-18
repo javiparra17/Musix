@@ -1,0 +1,35 @@
+{% include 'base.html' %}
+{% load static %}
+
+<link type="text/css" rel="stylesheet" href="{% static "css/createInstrument.css" %}"/>
+<script type="text/javascript" src="{% static "js/images.js" %}"></script>
+
+<div>
+    {% include "header.html" %}
+</div>
+
+<div>
+    <h1 id="titleInstruments">Create instrument</h1>
+</div>
+
+<div>
+    <form method="post" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_name">Name</label>
+            <input type="text" name="name" id="id_name" class="form-control" required>
+            {% if error %}
+                <label class="label label-danger" id="labelError">{{ error }}</label>
+            {% endif %}
+        </div>
+        <br />
+
+        <div class="form-group">
+            <label for="id_image">Image</label>
+            <input type="file" name="image" id="id_image" required>
+        </div>
+        <br />
+
+        <input type="submit" value="Create instrument" id="buttonCreateInstrument" />
+    </form>
+</div>

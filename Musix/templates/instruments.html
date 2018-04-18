@@ -1,0 +1,39 @@
+{% include 'base.html' %}
+{% load static %}
+
+<link type="text/css" rel="stylesheet" href="{% static "css/instruments.css" %}"/>
+
+<div>
+    {% include "header.html" %}
+</div>
+
+<div id="tableInstrumentsDiv">
+    <table class="table table-responsive table-hover" id="tableInstruments">
+        <thead>
+            <tr class="info">
+                <th>Name</th>
+                <th>Image</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in instruments %}
+                <tr>
+                    <td>{{ i.name }}</td>
+                    <td><img src="{% static "media/" %}{{ i.image }}" id="imageInstrument"></td>
+                    <td>
+                        <button class="btn btn-warning" onclick="location.href='/editInstrument/{{ i.id }}'">Edit</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" onclick="location.href='/deleteInstrument/{{ i.id }}'">Delete</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <button class="btn btn-default" onclick="location.href='/createInstrument'" id="buttonCreateInstrument">Create instrument</button>
+</div>

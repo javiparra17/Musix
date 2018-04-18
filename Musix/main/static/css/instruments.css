@@ -1,0 +1,32 @@
+#tableInstruments{
+    width: 98%;
+}
+
+th{
+    font-size: 24px;
+}
+
+td{
+    font-size: 20px;
+}
+
+td, th, tr{
+    text-align: center;
+}
+
+tbody{
+    padding-right: 50%;
+}
+
+#imageInstrument{
+    width: 7%;
+    height: 7%;
+}
+
+button{
+    width: 100px;
+}
+
+#buttonCreateInstrument{
+    width: 200px;
+}

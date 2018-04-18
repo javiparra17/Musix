@@ -151,3 +151,29 @@ def denyTrack(request, trackId):
         track.save()
 
     return HttpResponseRedirect('/tracks')
+
+# INSTRUMENT
+# Views to create, edit and delete instruments
+
+def createInstrument(request):
+    if request.method == 'POST':
+        form = InstrumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            image = form.cleaned_data['image']
+
+            checkInstrument = Instrument.objects.filter(name=name)
+            if checkInstrument:
+                error = "This instrument already exists"
+                return render(request, 'createInstrument.html', {'form': form, 'error': error})
+            else:
+                Instrument.objects.create(name=name, image=image)
+                return redirect('/instruments')
+    else:
+        form = InstrumentForm()
+    return render(request, 'createInstrument.html', {'form':form})
+
+def listInstruments(request):
+    instruments = Instrument.objects.all()
+
+    return render(request, 'instruments.html', {'instruments': instruments})

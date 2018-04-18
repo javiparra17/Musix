@@ -1,3 +1,5 @@
+import models
+
 def uploadFile(file):
     with open('some/file/name.txt', 'wb+') as destination:
         for chunk in file.chunks():
@@ -5,6 +7,14 @@ def uploadFile(file):
 
 def generateMediaDirectoryName(username, folder):
     return "Musix/tracks/" + str(username) + "/" + str(folder)
+
+def createTupleInstruments():
+    res = []
+    instruments = models.Instrument.objects.all()
+    for i in instruments:
+        aux = (i.name, i.name)
+        res.append(aux)
+    return tuple(res)
 
 def listToString(list):
     res = ""
