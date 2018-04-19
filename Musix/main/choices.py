@@ -245,25 +245,6 @@ GENDERS = (
     ('O', 'Other'),
 )
 
-INSTRUMENTS = (
-    ('AcGuitar', 'Acoustic guitar'),
-    ('Bass', 'Bass'),
-    ('Cello', 'Cello'),
-    ('Clarinet', 'Clarinet'),
-    ('Drums', 'Drums'),
-    ('ElecGuitar', 'Electric guitar'),
-    ('Flute', 'Flute'),
-    ('Harm', 'Harmonica'),
-    ('Organ', 'Organ'),
-    ('Piano', 'Piano'),
-    ('Sax', 'Saxophone'),
-    ('Synth', 'Synth'),
-    ('Trombone', 'Trombone'),
-    ('Trumpet', 'Trumpet'),
-    ('Violin', 'Violin'),
-    ('Xylo', 'Xylophone'),
-)
-
 STATUS = (
     ('P', 'Pending'),
     ('A', 'Accepted'),

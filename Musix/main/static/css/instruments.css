@@ -19,11 +19,11 @@ tbody{
 }
 
 #imageInstrument{
-    width: 7%;
-    height: 7%;
+    width: 5%;
+    height: 5%;
 }
 
-button{
+#editDeleteButton{
     width: 100px;
 }
 

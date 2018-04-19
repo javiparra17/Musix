@@ -6,6 +6,7 @@ import main.functions as functions
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+import os
 
 def index(request):
     return render(request, "index.html")
@@ -177,3 +178,23 @@ def listInstruments(request):
     instruments = Instrument.objects.all()
 
     return render(request, 'instruments.html', {'instruments': instruments})
+
+def editInstrument(request, instrumentId):
+    instrument = Instrument.objects.get(id=instrumentId)
+    if request.method == "POST":
+        form = InstrumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            instrument.name = form.cleaned_data['name']
+            instrument.image = form.cleaned_data['image']
+            instrument.save()
+            return HttpResponseRedirect('/instruments')
+    else:
+        form = InstrumentEditForm(instance=instrument)
+    return render(request, "editInstrument.html", {'form': form, 'instrument': instrument})
+
+
+def deleteInstrument(request, instrumentId):
+    instrument = Instrument.objects.get(id=instrumentId)
+    instrument.delete()
+
+    return HttpResponseRedirect('/instruments')

@@ -14,6 +14,11 @@ class InstrumentForm(forms.ModelForm):
         model = Instrument
         fields = ('name', 'image')
 
+class InstrumentEditForm(forms.ModelForm):
+    class Meta:
+        model = Instrument
+        fields = ('name', 'image')
+
 class LoginForm(forms.Form):
     username = forms.CharField(label="Username", widget=forms.TextInput, required=True)
     password = forms.CharField(label='Password', widget=forms.PasswordInput, required=True)

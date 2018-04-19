@@ -27,8 +27,13 @@ label{
     font-size: 17px;
 }
 
-#buttonCreateInstrument, #buttonCancel{
-    width: 20%;
+#imageInstrument{
+    width: 100px;
+    height: 100px;
+}
+
+#buttonEditInstrument, #buttonCancel{
+    width: 15%;
     height: 7%;
     font-family: "Axaxax Rg";
     font-size: 20px;

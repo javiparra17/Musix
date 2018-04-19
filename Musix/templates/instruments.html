@@ -2,37 +2,43 @@
 {% load static %}
 
 <link type="text/css" rel="stylesheet" href="{% static "css/instruments.css" %}"/>
+<script type="text/javascript" src="{% static "js/tables.js" %}"></script>
 
 <div>
     {% include "header.html" %}
 </div>
 
-<div id="tableInstrumentsDiv">
-    <table class="table table-responsive table-hover" id="tableInstruments">
-        <thead>
-            <tr class="info">
-                <th>Name</th>
-                <th>Image</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for i in instruments %}
-                <tr>
-                    <td>{{ i.name }}</td>
-                    <td><img src="{% static "media/" %}{{ i.image }}" id="imageInstrument"></td>
-                    <td>
-                        <button class="btn btn-warning" onclick="location.href='/editInstrument/{{ i.id }}'">Edit</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-danger" onclick="location.href='/deleteInstrument/{{ i.id }}'">Delete</button>
-                    </td>
+{% if instruments %}
+
+    <div id="tableInstrumentsDiv">
+        <table class="table table-responsive table-hover" id="tableInstruments">
+            <thead>
+                <tr class="info">
+                    <th onclick="sortTable(0, 'tableInstrumentsDiv')">Name</th>
+                    <th>Image</th>
+                    <th></th>
+                    <th></th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                {% for i in instruments %}
+                    <tr>
+                        <td>{{ i.name }}</td>
+                        <td><img src="{% static "media/" %}{{ i.image }}" id="imageInstrument"></td>
+                        <td>
+                            <a href="/editInstrument/{{ i.id }}" role="button" class="btn btn-warning" id="editDeleteButton">Edit</a>
+                        </td>
+                        <td>
+                            <a href="/deleteInstrument/{{ i.id }}" role="button" class="btn btn-danger" id="editDeleteButton"
+                            onclick="return confirm('Are you sure?')">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endif %}
 
 <div>
     <button class="btn btn-default" onclick="location.href='/createInstrument'" id="buttonCreateInstrument">Create instrument</button>
