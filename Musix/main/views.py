@@ -89,12 +89,14 @@ def mySongs(request):
     return render(request, 'mySongs.html', {'songs': songs})
 
 #@login_required(login_url='/login.html')
-def closeSong(request, songId):
+def finishSong(request, songId):
     song = Song.objects.filter(id=songId)
 
-    if song.finished == False:
-        song.finished = True
-        song.save()
+    if song.creator == request.user:
+        if song.finished == False:
+            song.finished = True
+            song.save()
+
     return HttpResponseRedirect('/mySongs')
 
 #@login_required(login_url='/login.html')

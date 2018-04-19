@@ -1,0 +1,47 @@
+{% include 'base.html' %}
+{% load static %}
+
+<link type="text/css" rel="stylesheet" href="{% static "css/instruments.css" %}"/>
+<script type="text/javascript" src="{% static "js/tables.js" %}"></script>
+
+<div>
+    {% include "header.html" %}
+</div>
+
+{% if songs %}
+
+    <div id="tableSongsDiv">
+        <table class="table table-responsive table-hover" id="tableSongs">
+            <thead>
+                <tr class="info">
+                    <th onclick="sortTable(0, 'tableSongsDiv')">Name</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in songs %}
+                    <tr>
+                        <td>{{ s.name }}</td>
+                        <td>
+                            {% if not s.finished %}
+                            <a href="/finishSong/{{ s.id }}" role="button" class="btn btn-success" id="finishButton"
+                               onclick="return confirm('Are you sure?')">Finish</a>
+                            {% else %}
+                            <label>Finished</label>
+                        </td>
+                        <td>
+                            <a href="/deleteSong/{{ s.id }}" role="button" class="btn btn-danger" id="deleteButton"
+                            onclick="return confirm('Are you sure?')">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endif %}
+
+<div>
+    <button class="btn btn-default" onclick="location.href='/createInstrument'" id="buttonCreateInstrument">Create instrument</button>
+</div>

@@ -20,7 +20,7 @@ class Administrator(Actor):
 
 class Instrument(models.Model):
     name = models.CharField(max_length=100, blank=False)
-    image = models.ImageField(max_length=1000, blank=False, upload_to='instruments')
+    image = models.ImageField(blank=False, upload_to='instruments')
 
 class Musician(Actor):
     gender = models.CharField(max_length=7, blank=False, choices=GENDERS)

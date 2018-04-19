@@ -8,9 +8,8 @@ def uploadFile(file):
 def generateMediaDirectoryName(username, folder):
     return "Musix/tracks/" + str(username) + "/" + str(folder)
 
-def createTupleInstruments():
+def createTupleInstruments(instruments):
     res = []
-    instruments = models.Instrument.objects.all()
     for i in instruments:
         aux = (i.name, i.name)
         res.append(aux)

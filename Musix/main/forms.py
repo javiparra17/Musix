@@ -6,7 +6,7 @@ import functions
 
 COUNTRIES = choices.COUNTRIES
 GENDERS = choices.GENDERS
-INSTRUMENTS = functions.createTupleInstruments()
+INSTRUMENTS = functions.createTupleInstruments(Instrument.objects.all())
 YESORNOT = choices.YESORNOT
 
 class InstrumentForm(forms.ModelForm):
