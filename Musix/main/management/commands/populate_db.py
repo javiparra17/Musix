@@ -12,27 +12,49 @@ class Command(BaseCommand):
     help = 'Populate the database'
 
     def _populate(self):
-        # admin_user = User.objects.create_user(email='admin@musix.com',
-        #                                       username='admin',
-        #                                       password='admin')
-        # admin_user.save()
-        # admin = models.Administrator(user=admin_user)
-        # admin.save()
 
-        # userM1 = User.objects.create_user(first_name='musician1Name',
-        #                                   last_name='musician1Surname',
-        #                                   email='musician1@musix.com',
-        #                                   username='musician1',
-        #                                   password='musician1')
-        # userM1.save()
-        # musician1 = models.Musician(user=userM1,
-        #                             gender='M',
-        #                             description="Description1",
-        #                             country='ES',
-        #                             city='City1',
-        #                             registrationDate=parse_date('2017-07-15'),
-        #                             premium=False)
-        # musician1.save()
+        # ADMINISTRATOR
+
+        admin_user = User.objects.create_user(email='admin@musix.com',
+                                              username='admin',
+                                              password='admin')
+        admin_user.save()
+        admin = models.Administrator(user=admin_user)
+        admin.save()
+
+        # MUSICIAN
+
+        userM1 = User.objects.create_user(first_name='musician1Name',
+                                          last_name='musician1Surname',
+                                          email='musician1@hotmail.com',
+                                          username='musician1',
+                                          password='musician1')
+        userM1.save()
+        musician1 = models.Musician(user=userM1,
+                                    gender='M',
+                                    description="Description1",
+                                    country='ES',
+                                    city='City1',
+                                    registrationDate=parse_date('2017-07-15'),
+                                    premium=False)
+        musician1.save()
+
+        userM2 = User.objects.create_user(first_name='musician2Name',
+                                          last_name='musician2Surname',
+                                          email='musician2@hotmail.com',
+                                          username='musician2',
+                                          password='musician2')
+        userM2.save()
+        musician2 = models.Musician(user=userM2,
+                                    gender='M',
+                                    description="Description2",
+                                    country='ES',
+                                    city='City2',
+                                    registrationDate=parse_date('2018-01-04'),
+                                    premium=False)
+        musician2.save()
+
+        # INSTRUMENT
 
         instrument1 = models.Instrument(name="Acoustic guitar", image="instruments/acousticGuitar.png")
         instrument1.save()
