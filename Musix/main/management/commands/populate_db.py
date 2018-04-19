@@ -1,0 +1,65 @@
+from django.contrib.auth.models import User
+from main import models
+from django.utils.dateparse import parse_date
+import django.core.management as djangocmd
+from django.core.management.base import BaseCommand
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+class Command(BaseCommand):
+    args = 'none'
+    help = 'Populate the database'
+
+    def _populate(self):
+        # admin_user = User.objects.create_user(email='admin@musix.com',
+        #                                       username='admin',
+        #                                       password='admin')
+        # admin_user.save()
+        # admin = models.Administrator(user=admin_user)
+        # admin.save()
+
+        # userM1 = User.objects.create_user(first_name='musician1Name',
+        #                                   last_name='musician1Surname',
+        #                                   email='musician1@musix.com',
+        #                                   username='musician1',
+        #                                   password='musician1')
+        # userM1.save()
+        # musician1 = models.Musician(user=userM1,
+        #                             gender='M',
+        #                             description="Description1",
+        #                             country='ES',
+        #                             city='City1',
+        #                             registrationDate=parse_date('2017-07-15'),
+        #                             premium=False)
+        # musician1.save()
+
+        instrument1 = models.Instrument(name="Acoustic guitar", image="instruments/acousticGuitar.png")
+        instrument1.save()
+
+        instrument2 = models.Instrument(name="Bass", image="instruments/bass.png")
+        instrument2.save()
+
+        instrument3 = models.Instrument(name="Cello", image="instruments/cello.png")
+        instrument3.save()
+
+        instrument4 = models.Instrument(name="Clarinet", image="instruments/clarinet.png")
+        instrument4.save()
+
+        instrument5 = models.Instrument(name="Drums", image="instruments/drums.png")
+        instrument5.save()
+
+        instrument6 = models.Instrument(name="Electric guitar", image="instruments/electricGuitar.png")
+        instrument6.save()
+
+        instrument7 = models.Instrument(name="Piano", image="instruments/piano.png")
+        instrument7.save()
+
+        instrument8 = models.Instrument(name="Violin", image="instruments/violin.png")
+        instrument8.save()
+
+    def handle(self, *args, **options):
+        djangocmd.call_command('flush', interactive=False)
+        djangocmd.call_command('migrate')
+        print "Populating database..."
+        self._populate()
