@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^index', views.index, name='index'),
+    url(r'^finishSong/(?P<songId>\d+)', views.finishSong, name='finishSong'),
     url(r'^createAccount', views.createAccount, name='createAccount'),
     url(r'^createInstrument', views.createInstrument, name='createInstrument'),
     url(r'^createSong', views.createSong, name='createSong'),
@@ -30,5 +31,6 @@ urlpatterns = [
     url(r'^editInstrument/(?P<instrumentId>\d+)', views.editInstrument, name='editInstrument'),
     url(r'^instruments', views.listInstruments, name='instruments'),
     url(r'^login', views.loginUser, name='login'),
+    url(r'^mySongs', views.mySongs, name='mySongs'),
     url(r'^uploadTrack', views.uploadTrack, name='uploadTrack'),
 ]
