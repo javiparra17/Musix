@@ -1,7 +1,7 @@
 {% include 'base.html' %}
 {% load static %}
 
-<link type="text/css" rel="stylesheet" href="{% static "css/instruments.css" %}"/>
+<link type="text/css" rel="stylesheet" href="{% static "css/mySongs.css" %}"/>
 <script type="text/javascript" src="{% static "js/tables.js" %}"></script>
 
 <div>
@@ -10,11 +10,16 @@
 
 {% if songs %}
 
+    <div>
+        <h1 id="titleMySongs">My songs</h1>
+    </div>
+
     <div id="tableSongsDiv">
         <table class="table table-responsive table-hover" id="tableSongs">
             <thead>
                 <tr class="info">
                     <th onclick="sortTable(0, 'tableSongsDiv')">Name</th>
+                    <th></th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -24,15 +29,20 @@
                     <tr>
                         <td>{{ s.name }}</td>
                         <td>
+                            <a href="/mySongs/{{ s.id }}" role="button" class="btn btn-info" id="infoButton">Info</a>
+                        </td>
+                        <td>
                             {% if not s.finished %}
-                            <a href="/finishSong/{{ s.id }}" role="button" class="btn btn-success" id="finishButton"
-                               onclick="return confirm('Are you sure?')">Finish</a>
+                                <a href="/finishSong/{{ s.id }}" role="button" class="btn btn-success" id="finishButton"
+                                   onclick="return confirm('Are you sure?')">Finish</a>
                             {% else %}
-                            <label>Finished</label>
+                                <a href="/reopenSong/{{ s.id }}" role="button" class="btn btn-success" id="reopenButton"
+                                   onclick="return confirm('Are you sure?')">Reopen</a>
+                            {% endif %}
                         </td>
                         <td>
                             <a href="/deleteSong/{{ s.id }}" role="button" class="btn btn-danger" id="deleteButton"
-                            onclick="return confirm('Are you sure?')">Delete</a>
+                                   onclick="return confirm('Are you sure?')">Delete</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -43,5 +53,5 @@
 {% endif %}
 
 <div>
-    <button class="btn btn-default" onclick="location.href='/createInstrument'" id="buttonCreateInstrument">Create instrument</button>
+    <button class="btn btn-default" onclick="location.href='/createSong'" id="buttonCreateSong">Create song</button>
 </div>

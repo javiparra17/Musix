@@ -1,0 +1,39 @@
+#titleMySongs{
+    font-family: "Axaxax Rg";
+    font-size: 40px;
+    color: black;
+    margin-left: 1%;
+    margin-bottom: 2%;
+}
+
+#tableSongs{
+    width: 98%;
+}
+
+th{
+    font-size: 24px;
+}
+
+td{
+    font-size: 20px;
+}
+
+td, th, tr{
+    text-align: center;
+}
+
+tbody{
+    padding-right: 50%;
+}
+
+#infoButton{
+    width: 100px;
+}
+
+#finishButton, #reopenButton, #deleteButton{
+    width: 100px;
+}
+
+#buttonCreateSong{
+    width: 200px;
+}

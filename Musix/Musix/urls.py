@@ -28,9 +28,12 @@ urlpatterns = [
     url(r'^createInstrument', views.createInstrument, name='createInstrument'),
     url(r'^createSong', views.createSong, name='createSong'),
     url(r'^deleteInstrument/(?P<instrumentId>\d+)', views.deleteInstrument, name='deleteInstrument'),
+    url(r'^deleteSong/(?P<songId>\d+)', views.deleteSong, name='deleteSong'),
     url(r'^editInstrument/(?P<instrumentId>\d+)', views.editInstrument, name='editInstrument'),
     url(r'^instruments', views.listInstruments, name='instruments'),
     url(r'^login', views.loginUser, name='login'),
+    url(r'^logout', views.logoutUser, name='logout'),
     url(r'^mySongs', views.mySongs, name='mySongs'),
+    url(r'^reopenSong/(?P<songId>\d+)', views.reopenSong, name='reopenSong'),
     url(r'^uploadTrack', views.uploadTrack, name='uploadTrack'),
 ]

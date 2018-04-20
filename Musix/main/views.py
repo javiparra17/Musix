@@ -4,7 +4,8 @@ from main.forms import *
 from main.models import *
 import main.functions as functions
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import authenticate
+from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 import os
 
@@ -37,25 +38,29 @@ def createAccount(request):
 
 def loginUser(request):
     if not request.user:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/index')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
             if user is not None:
-                login(request, user)
-                return redirect('index.html')
+                auth_views.login(request, user)
+                return HttpResponseRedirect('/index')
+            else:
+                error = "Incorrect user or password"
+                return render(request, 'login.html', {'form': form}, {'error': error})
         else:
-            error = "Incorrect user or password"
-            return render(request, 'login.html', {'form': form}, {'error': error})
+            return render(request, 'login.html', {'form': form})
     else:
         form = LoginForm()
         return render(request, 'login.html', {'form': form})
 
 #@login_required(login_url='/login.html')
 def logoutUser(request):
-    logout(request)
-    return render(request, 'index.html', {'auth': False})
+    auth_views.logout(request)
+    return HttpResponseRedirect('/index')
 
 def listMusicians(request):
     musicians = Musician.objects.all()
@@ -80,32 +85,66 @@ def createSong(request):
 
     return render(request, 'createSong.html', {'form':form })
 
-#@login_required(login_url='/login.html')
+@login_required(login_url='/login.html')
 def mySongs(request):
     user = request.user
-    musician = Musician.objects.filter(user=user)
+    musician = Musician.objects.get(user=user)
     songs = Song.objects.filter(creator=musician)
 
     return render(request, 'mySongs.html', {'songs': songs})
 
-#@login_required(login_url='/login.html')
+@login_required(login_url='/login.html')
 def finishSong(request, songId):
-    song = Song.objects.filter(id=songId)
+    song = Song.objects.get(id=songId)
+    musician = Musician.objects.get(user=request.user)
 
-    if song.creator == request.user:
+    if song.creator == musician:
         if song.finished == False:
             song.finished = True
             song.save()
+        else:
+            error = "This song is already finished"
+            return render(request, 'mySongs.html', {'error': error})
+    else:
+        error = "You can't finish this song"
+        return render(request, 'mySongs.html', {'error': error})
 
     return HttpResponseRedirect('/mySongs')
 
-#@login_required(login_url='/login.html')
+@login_required(login_url='/login.html')
 def reopenSong(request, songId):
-    song = Song.objects.filter(id=songId)
+    song = Song.objects.get(id=songId)
+    musician = Musician.objects.get(user=request.user)
 
-    if song.finished == True:
-        song.finished = False
-        song.save()
+    if song.creator == musician:
+        if song.finished == True:
+            song.finished = False
+            song.save()
+        else:
+            error = "This song is already opened"
+            return render(request, 'mySongs.html', {'error': error})
+    else:
+        error = "You can't reopen this song"
+        return render(request, 'mySongs.html', {'error': error})
+
+    return HttpResponseRedirect('/mySongs')
+
+@login_required(login_url='/login.html')
+def deleteSong(request, songId):
+    song = Song.objects.get(id=songId)
+    musician = Musician.objects.get(user=request.user)
+    tracks = Track.objects.filter(song=song)
+
+    if song.creator == musician:
+        if len(tracks) == 0:
+            song.delete()
+        else:
+            error = "You can't delete a song with tracks"
+            return render(request, 'mySongs.html', {'error': error})
+    else:
+        error = "You can't reopen this song"
+        return render(request, 'mySongs.html', {'error': error})
+
     return HttpResponseRedirect('/mySongs')
 
 def listSongs(request):
@@ -158,6 +197,7 @@ def denyTrack(request, trackId):
 # INSTRUMENT
 # Views to create, edit and delete instruments
 
+@login_required(login_url='/login.html')
 def createInstrument(request):
     if request.method == 'POST':
         form = InstrumentForm(request.POST, request.FILES)
@@ -165,7 +205,7 @@ def createInstrument(request):
             name = form.cleaned_data['name']
             image = form.cleaned_data['image']
 
-            checkInstrument = Instrument.objects.filter(name=name)
+            checkInstrument = Instrument.objects.get(name=name)
             if checkInstrument:
                 error = "This instrument already exists"
                 return render(request, 'createInstrument.html', {'form': form, 'error': error})
@@ -176,11 +216,13 @@ def createInstrument(request):
         form = InstrumentForm()
     return render(request, 'createInstrument.html', {'form':form})
 
+@login_required(login_url='/login.html')
 def listInstruments(request):
     instruments = Instrument.objects.all()
 
     return render(request, 'instruments.html', {'instruments': instruments})
 
+@login_required(login_url='/login.html')
 def editInstrument(request, instrumentId):
     instrument = Instrument.objects.get(id=instrumentId)
     if request.method == "POST":
@@ -194,7 +236,7 @@ def editInstrument(request, instrumentId):
         form = InstrumentEditForm(instance=instrument)
     return render(request, "editInstrument.html", {'form': form, 'instrument': instrument})
 
-
+@login_required(login_url='/login.html')
 def deleteInstrument(request, instrumentId):
     instrument = Instrument.objects.get(id=instrumentId)
     instrument.delete()
