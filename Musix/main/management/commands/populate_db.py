@@ -51,7 +51,7 @@ class Command(BaseCommand):
                                     country='ES',
                                     city='City2',
                                     registrationDate=parse_date('2018-01-04'),
-                                    premium=False)
+                                    premium=True)
         musician2.save()
 
         # INSTRUMENT
@@ -80,8 +80,18 @@ class Command(BaseCommand):
         instrument8 = models.Instrument(name="Violin", image="instruments/violin.png")
         instrument8.save()
 
+        # SONG
+
+        song1 = models.Song(name="song1", author="author1", description="description1", additionalInstruments="N",
+                            finished=False, creator=musician2)
+        song1.save()
+        song1.requiredInstruments.add(instrument1)
+        song1.requiredInstruments.add(instrument2)
+        song1.save()
+
     def handle(self, *args, **options):
         djangocmd.call_command('flush', interactive=False)
         djangocmd.call_command('migrate')
         print "Populating database..."
         self._populate()
+        print "All is OK"
