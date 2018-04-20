@@ -147,9 +147,20 @@ def deleteSong(request, songId):
 
     return HttpResponseRedirect('/mySongs')
 
-def listSongs(request):
-    songs = Song.objects.filter(finished=True)
-    return render(request, 'songs.html', {'songs': songs})
+def songs(request):
+    if request.user:
+        songs = Song.objects.all()
+    else:
+        songs = Song.objects.filter(finished=True)
+
+    info = False
+
+    return render(request, 'songs.html', {'songs': songs, 'info': info})
+
+def songInfo(request, songId):
+    song = Song.objects.get(id=songId)
+
+    return render(request, 'song.html', {'song': song})
 
 # TRACK
 # Views to upload tracks, accept and deny tracks, and list tracks for a song
@@ -217,7 +228,7 @@ def createInstrument(request):
     return render(request, 'createInstrument.html', {'form':form})
 
 @login_required(login_url='/login.html')
-def listInstruments(request):
+def instruments(request):
     instruments = Instrument.objects.all()
 
     return render(request, 'instruments.html', {'instruments': instruments})

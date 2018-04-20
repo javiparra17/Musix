@@ -30,10 +30,12 @@ urlpatterns = [
     url(r'^deleteInstrument/(?P<instrumentId>\d+)', views.deleteInstrument, name='deleteInstrument'),
     url(r'^deleteSong/(?P<songId>\d+)', views.deleteSong, name='deleteSong'),
     url(r'^editInstrument/(?P<instrumentId>\d+)', views.editInstrument, name='editInstrument'),
-    url(r'^instruments', views.listInstruments, name='instruments'),
+    url(r'^instruments', views.instruments, name='instruments'),
     url(r'^login', views.loginUser, name='login'),
     url(r'^logout', views.logoutUser, name='logout'),
     url(r'^mySongs', views.mySongs, name='mySongs'),
     url(r'^reopenSong/(?P<songId>\d+)', views.reopenSong, name='reopenSong'),
+    url(r'^songs', views.songs, name='songs'),
+    url(r'^song/(?P<songId>\d+)', views.songInfo, name='songInfo'),
     url(r'^uploadTrack', views.uploadTrack, name='uploadTrack'),
 ]

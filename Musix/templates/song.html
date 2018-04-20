@@ -1,0 +1,11 @@
+{% include 'base.html' %}
+{% load static %}
+
+<link type="text/css" rel="stylesheet" href="{% static "css/song.css" %}"/>
+<script type="text/javascript" src="{% static "js/tables.js" %}"></script>
+
+<div>
+    {% include "header.html" %}
+</div>
+
+<h1 id="name">{{ song.name }}</h1>

@@ -1,0 +1,36 @@
+#titleSongs{
+    font-family: "Axaxax Rg";
+    font-size: 40px;
+    color: black;
+    margin-left: 1%;
+    margin-bottom: 2%;
+}
+
+#tableSongs{
+    width: 98%;
+    margin-left: 1%;
+}
+
+th{
+    font-size: 24px;
+}
+
+td{
+    font-size: 20px;
+}
+
+td, th, tr{
+    text-align: center;
+}
+
+tbody{
+    margin-right: 50%;
+}
+
+#infoButton, #likeButton, #dislikeButton{
+    width: 100px;
+}
+
+#participateButton{
+    width: 120px;
+}

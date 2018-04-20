@@ -8,6 +8,7 @@
 
 #tableSongs{
     width: 98%;
+    margin-left: 1%;
 }
 
 th{
@@ -26,14 +27,29 @@ tbody{
     padding-right: 50%;
 }
 
-#infoButton{
-    width: 100px;
-}
-
-#finishButton, #reopenButton, #deleteButton{
+#infoButton, #finishButton, #reopenButton, #deleteButton{
     width: 100px;
 }
 
 #buttonCreateSong{
     width: 200px;
+}
+
+#notSongsDiv{
+    text-align: center;
+}
+
+#h1NotSongs{
+    font-family: "Axaxax Rg";
+    font-size: 50px;
+    color: black;
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 2%;
+}
+
+#buttonCreateSong2{
+    width: 300px;
+    font-size: 28px;
+    color: black;
 }
