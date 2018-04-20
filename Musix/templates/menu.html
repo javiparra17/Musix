@@ -3,11 +3,26 @@
 
 <link type="text/css" rel="stylesheet" href="{% static "css/menu.css" %}"/>
 
-<div id="menuDiv">
-    <ul>
-        <li><a href="/createAccount">Songs</a></li>
-        <li><a href="/login">People</a></li>
-        <li><a href="/createAccount">Create account</a></li>
-        <li><a href="/login">Login</a></li>
-    </ul>
-</div>
+{% if not user.is_authenticated %}
+
+    <div id="menuDiv">
+        <ul>
+            <li><a href="/createAccount">Songs</a></li>
+            <li><a href="/login">Musicians</a></li>
+            <li><a href="/createAccount">Create account</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+    </div>
+
+{% else %}
+
+    <div id="menuDiv">
+        <ul id="ulUser">
+            <li><a href="">Songs</a></li>
+            <li><a href="">Musicians</a></li>
+            <li><a href="/myProfile">My profile</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </div>
+
+{% endif %}
