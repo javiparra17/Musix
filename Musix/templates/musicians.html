@@ -1,0 +1,42 @@
+{% include 'base.html' %}
+{% load static %}
+
+<link type="text/css" rel="stylesheet" href="{% static "css/musicians.css" %}"/>
+<script type="text/javascript" src="{% static "js/tables.js" %}"></script>
+
+<div>
+    {% include "header.html" %}
+</div>
+
+{% if musicians %}
+    <div>
+        <h1 id="titleMusicians">Musicians</h1>
+    </div>
+
+    <div id="tableMusiciansDiv">
+        <table class="table table-responsive table-hover" id="tableMusicians">
+            <thead>
+                <tr class="info">
+                    <th></th>
+                    <th onclick="sortTable(0, 'tableMusiciansDiv')">Username</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in musicians %}
+                    <tr>
+                        <td>
+                            {{ m.photo }}
+                        </td>
+                        <td>
+                            <a href="/profile/{{ m.id }}" id="profileButton">{{ m.user.username }}</a>
+                        </td>
+                        <td>
+                            <a href="/likeUser/{{ m.id }}" role="button" class="btn btn-success" id="likeButton">Like</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}

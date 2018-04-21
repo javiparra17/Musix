@@ -62,7 +62,7 @@ def logoutUser(request):
     auth_views.logout(request)
     return HttpResponseRedirect('/index')
 
-def listMusicians(request):
+def musicians(request):
     musicians = Musician.objects.all()
     return render(request, 'musicians.html', {'musicians': musicians})
 
