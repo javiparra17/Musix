@@ -6,10 +6,15 @@
 <div>
     {% include "header.html" %}
 </div>
+
 <div>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{form}}
         <input type="submit" value="Create song" />
     </form>
+</div>
+
+<div>
+    {% include "footer.html" %}
 </div>
