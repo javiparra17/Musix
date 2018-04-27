@@ -1,4 +1,4 @@
-import models
+import os
 
 def uploadFile(file):
     with open('some/file/name.txt', 'wb+') as destination:
@@ -14,6 +14,11 @@ def createTupleInstruments(instruments):
         aux = (i.name, i.name)
         res.append(aux)
     return tuple(res)
+
+def deleteFile(path):
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    root = BASE_DIR + path
+    os.remove(root)
 
 def listToString(list):
     res = ""

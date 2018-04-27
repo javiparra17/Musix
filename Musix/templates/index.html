@@ -1,10 +1,20 @@
 {% include "base.html" %}
 {% load static %}
 
+<link type="text/css" rel="stylesheet" href="{% static "css/index.css" %}"/>
+
 <div>
     {% include "header.html" %}
 </div>
 
 <div>
     {% include "menu.html" %}
+</div>
+
+<div id="imageDirectorDiv">
+    <img src="{% static "images/director.png" %}" id="imageDirector">
+</div>
+
+<div>
+    {% include "footer.html" %}
 </div>

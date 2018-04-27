@@ -1,4 +1,4 @@
-#titleInstruments{
+#titleSongs{
     font-family: "Axaxax Rg";
     font-size: 40px;
     color: black;
@@ -6,7 +6,7 @@
     margin-bottom: 2%;
 }
 
-#tableInstruments{
+#tableSongs{
     width: 98%;
     margin-left: 1%;
 }
@@ -24,18 +24,13 @@ td, th, tr{
 }
 
 tbody{
-    padding-right: 50%;
+    margin-right: 50%;
 }
 
-#imageInstrument{
-    width: 5%;
-    height: 5%;
-}
-
-#editDeleteButton{
+#infoButton, #likeButton, #dislikeButton{
     width: 100px;
 }
 
-#buttonCreateInstrument{
-    width: 200px;
+#participateButton{
+    width: 120px;
 }

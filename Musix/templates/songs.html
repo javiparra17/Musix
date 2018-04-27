@@ -1,7 +1,7 @@
 {% include 'base.html' %}
 {% load static %}
 
-<link type="text/css" rel="stylesheet" href="{% static "css/mySongs.css" %}"/>
+<link type="text/css" rel="stylesheet" href="{% static "css/songs.css" %}"/>
 <script type="text/javascript" src="{% static "js/tables.js" %}"></script>
 
 <div>
@@ -9,9 +9,8 @@
 </div>
 
 {% if songs %}
-
     <div>
-        <h1 id="titleMySongs">My songs</h1>
+        <h1 id="titleSongs">Songs</h1>
     </div>
 
     <div id="tableSongsDiv">
@@ -33,31 +32,19 @@
                         </td>
                         <td>
                             {% if not s.finished %}
-                                <a href="/finishSong/{{ s.id }}" role="button" class="btn btn-success" id="finishButton"
-                                   onclick="return confirm('Are you sure?')">Finish</a>
+                                <a href="/participate/{{ s.id }}" role="button" class="btn btn-success"
+                                   id="participateButton">Participate</a>
                             {% else %}
-                                <a href="/reopenSong/{{ s.id }}" role="button" class="btn btn-success" id="reopenButton"
-                                   onclick="return confirm('Are you sure?')">Reopen</a>
+                                <button class="btn btn-success" id="listenButton">Listen</button>
                             {% endif %}
                         </td>
                         <td>
-                            <a href="/deleteSong/{{ s.id }}" role="button" class="btn btn-danger" id="deleteButton"
-                                   onclick="return confirm('Are you sure?')">Delete</a>
+                            <a href="/likeSong/{{ s.id }}" role="button" class="btn btn-success" id="likeButton">Like</a>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-    </div>
-
-    <div>
-        <button class="btn btn-default" onclick="location.href='/createSong'" id="buttonCreateSong">Create song</button>
-    </div>
-
-{% else %}
-    <div id="notSongsDiv">
-        <h1 id="h1NotSongs">You haven't songs yet</h1>
-        <button class="btn btn-default" onclick="location.href='/createSong'" id="buttonCreateSong2">Create song</button>
     </div>
 {% endif %}
 
