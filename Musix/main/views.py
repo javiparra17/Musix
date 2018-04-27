@@ -216,13 +216,13 @@ def createInstrument(request):
             name = form.cleaned_data['name']
             image = form.cleaned_data['image']
 
-            checkInstrument = Instrument.objects.get(name=name)
-            if checkInstrument:
-                error = "This instrument already exists"
-                return render(request, 'createInstrument.html', {'form': form, 'error': error})
-            else:
+            checkInstrument = Instrument.objects.filter(name=name)
+            if len(checkInstrument) == 0:
                 Instrument.objects.create(name=name, image=image)
                 return redirect('/instruments')
+            else:
+                error = "This instrument already exists"
+                return render(request, 'createInstrument.html', {'form': form, 'error': error})
     else:
         form = InstrumentForm()
     return render(request, 'createInstrument.html', {'form':form})
@@ -239,17 +239,26 @@ def editInstrument(request, instrumentId):
     if request.method == "POST":
         form = InstrumentForm(request.POST, request.FILES)
         if form.is_valid():
+            path = "/static/media/" + str(instrument.image)
+            functions.deleteFile(path)
+
             instrument.name = form.cleaned_data['name']
             instrument.image = form.cleaned_data['image']
+
             instrument.save()
             return HttpResponseRedirect('/instruments')
     else:
-        form = InstrumentEditForm(instance=instrument)
+        form = InstrumentForm(instance=instrument)
     return render(request, "editInstrument.html", {'form': form, 'instrument': instrument})
 
 @login_required(login_url='/login.html')
 def deleteInstrument(request, instrumentId):
     instrument = Instrument.objects.get(id=instrumentId)
+
+    image = instrument.image
+    path = "/static/media/" + str(image)
+    functions.deleteFile(path)
+
     instrument.delete()
 
     return HttpResponseRedirect('/instruments')
