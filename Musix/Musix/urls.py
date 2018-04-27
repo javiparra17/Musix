@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^logout', views.logoutUser, name='logout'),
     url(r'^mySongs', views.mySongs, name='mySongs'),
     url(r'^musicians', views.musicians, name='musicians'),
+    url(r'^profile/(?P<musicianId>\d+)', views.profile, name='profile'),
     url(r'^reopenSong/(?P<songId>\d+)', views.reopenSong, name='reopenSong'),
     url(r'^songs', views.songs, name='songs'),
     url(r'^song/(?P<songId>\d+)', views.songInfo, name='songInfo'),
