@@ -23,10 +23,12 @@ class Instrument(models.Model):
     image = models.ImageField(blank=False, upload_to='instruments')
 
 class Musician(Actor):
-    gender = models.CharField(max_length=7, blank=False, choices=GENDERS)
+    phone = models.CharField(max_length=20, blank=True)
+    gender = models.CharField(max_length=7, blank=True, choices=GENDERS)
     description = models.TextField(max_length=500, blank=True)
-    country = models.CharField(max_length=100, blank=False, choices=COUNTRIES, default='ES')
-    photo = models.ImageField(null=True)
+    photo = models.ImageField(null=True, blank=True)
+    bithdate = models.DateField(null=True)
+    country = models.CharField(max_length=100, blank=True, choices=COUNTRIES, default='ES')
     city = models.CharField(max_length=50, blank=True)
     registrationDate = models.DateField(auto_now_add=True)
     premium = models.BooleanField(default=False, null=False)
