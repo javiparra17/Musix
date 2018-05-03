@@ -1,6 +1,6 @@
 from main.models import Instrument
 from main.forms import InstrumentForm
-import main.functions as functions
+from main.services import instrument as service
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -16,7 +16,7 @@ def create_instrument(request):
 
             check_instrument = Instrument.objects.filter(name=name)
             if len(check_instrument) == 0:
-                Instrument.objects.create(name=name, image=image)
+                service.create_instrument(name, image)
                 return redirect('/instruments')
             else:
                 error = "This instrument already exists"
@@ -40,13 +40,11 @@ def edit_instrument(request, instrument_id):
     if request.method == "POST":
         form = InstrumentForm(request.POST, request.FILES)
         if form.is_valid():
-            path = "/static/media/" + str(instrument.image)
-            functions.deleteFile(path)
+            name = form.cleaned_data['name']
+            image = form.cleaned_data['image']
 
-            instrument.name = form.cleaned_data['name']
-            instrument.image = form.cleaned_data['image']
+            service.edit_instrument(instrument, name, image)
 
-            instrument.save()
             return HttpResponseRedirect('/instruments')
     else:
         form = InstrumentForm(instance=instrument)
@@ -55,13 +53,9 @@ def edit_instrument(request, instrument_id):
 
 
 @login_required(login_url='/login.html')
-def delete_instrument(instrument_id):
+def delete_instrument(request, instrument_id):
     instrument = Instrument.objects.get(id=instrument_id)
 
-    image = instrument.image
-    path = "/static/media/" + str(image)
-    functions.deleteFile(path)
-
-    instrument.delete()
+    service.delete_instrument(instrument)
 
     return HttpResponseRedirect('/instruments')
