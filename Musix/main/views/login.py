@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 from django.contrib.auth import views as auth_views
 
-def loginUser(request):
+
+def login_user(request):
     if not request.user:
         return HttpResponseRedirect('/index')
     if request.method == 'POST':
@@ -19,14 +20,16 @@ def loginUser(request):
                 return HttpResponseRedirect('/index')
             else:
                 error = "Incorrect user or password"
-                return render(request, 'login.html', {'form': form}, {'error': error})
+                return render(request, 'login.html',
+                              {'form': form}, {'error': error})
         else:
             return render(request, 'login.html', {'form': form})
     else:
         form = LoginForm()
         return render(request, 'login.html', {'form': form})
 
+
 @login_required(login_url='/login.html')
-def logoutUser(request):
+def logout_user(request):
     auth_views.logout(request)
     return HttpResponseRedirect('/index')

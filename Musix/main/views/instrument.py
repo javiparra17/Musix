@@ -5,34 +5,38 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
+
 @login_required(login_url='/login.html')
-def createInstrument(request):
+def create_instrument(request):
     if request.method == 'POST':
         form = InstrumentForm(request.POST, request.FILES)
         if form.is_valid():
             name = form.cleaned_data['name']
             image = form.cleaned_data['image']
 
-            checkInstrument = Instrument.objects.filter(name=name)
-            if len(checkInstrument) == 0:
+            check_instrument = Instrument.objects.filter(name=name)
+            if len(check_instrument) == 0:
                 Instrument.objects.create(name=name, image=image)
                 return redirect('/instruments')
             else:
                 error = "This instrument already exists"
-                return render(request, 'createInstrument.html', {'form': form, 'error': error})
+                return render(request, 'createInstrument.html',
+                              {'form': form, 'error': error})
     else:
         form = InstrumentForm()
-    return render(request, 'createInstrument.html', {'form':form})
+    return render(request, 'createInstrument.html', {'form': form})
+
 
 @login_required(login_url='/login.html')
 def instruments(request):
-    instruments = Instrument.objects.all()
+    all_instruments = Instrument.objects.all()
 
-    return render(request, 'instruments.html', {'instruments': instruments})
+    return render(request, 'instruments.html', {'instruments': all_instruments})
+
 
 @login_required(login_url='/login.html')
-def editInstrument(request, instrumentId):
-    instrument = Instrument.objects.get(id=instrumentId)
+def edit_instrument(request, instrument_id):
+    instrument = Instrument.objects.get(id=instrument_id)
     if request.method == "POST":
         form = InstrumentForm(request.POST, request.FILES)
         if form.is_valid():
@@ -46,11 +50,13 @@ def editInstrument(request, instrumentId):
             return HttpResponseRedirect('/instruments')
     else:
         form = InstrumentForm(instance=instrument)
-    return render(request, "editInstrument.html", {'form': form, 'instrument': instrument})
+    return render(request, "editInstrument.html",
+                  {'form': form, 'instrument': instrument})
+
 
 @login_required(login_url='/login.html')
-def deleteInstrument(request, instrumentId):
-    instrument = Instrument.objects.get(id=instrumentId)
+def delete_instrument(instrument_id):
+    instrument = Instrument.objects.get(id=instrument_id)
 
     image = instrument.image
     path = "/static/media/" + str(image)

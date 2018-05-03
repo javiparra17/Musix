@@ -1,40 +1,49 @@
-from main.models import Song, Musician
+from main.models import Song, Musician, Track
 from main.forms import SongForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
-#@login_required(login_url='/login.html')
-def createSong(request):
+
+@login_required(login_url='/login.html')
+def create_song(request):
     if request.method == 'POST':
         form = SongForm(request.POST)
         if form.is_valid():
-            #creator = request.user
-            requiredInstruments = form.cleaned_data['requiredInstruments']
-            Song.objects.create(name=form.cleaned_data['name'], author=form.cleaned_data['author'],
-                                description=form.cleaned_data['description'], requiredInstruments=requiredInstruments,
-                                additionalInstruments=form.cleaned_data['additionalInstruments'], finished=False)
+            creator = request.user.musician
+            name = form.cleaned_data['name']
+            author = form.cleaned_data['author']
+            description = form.cleaned_data['description']
+            required_instruments = form.cleaned_data['requiredInstruments']
+            additional_instruments = form.cleaned_data['additionalInstruments']
+            Song.objects.create(name=name, author=author,
+                                description=description,
+                                requiredInstruments=required_instruments,
+                                additionalInstruments=additional_instruments,
+                                finished=False, creator=creator)
             return redirect('index.html')
     else:
         form = SongForm()
 
-    return render(request, 'createSong.html', {'form':form })
+    return render(request, 'createSong.html', {'form': form})
+
 
 @login_required(login_url='/login.html')
-def mySongs(request):
+def my_songs(request):
     user = request.user
     musician = Musician.objects.get(user=user)
-    songs = Song.objects.filter(creator=musician)
+    all_songs = Song.objects.filter(creator=musician)
 
-    return render(request, 'mySongs.html', {'songs': songs})
+    return render(request, 'mySongs.html', {'songs': all_songs})
+
 
 @login_required(login_url='/login.html')
-def finishSong(request, songId):
-    song = Song.objects.get(id=songId)
+def finish_song(request, song_id):
+    song = Song.objects.get(id=song_id)
     musician = Musician.objects.get(user=request.user)
 
     if song.creator == musician:
-        if song.finished == False:
+        if not song.finished:
             song.finished = True
             song.save()
         else:
@@ -46,13 +55,14 @@ def finishSong(request, songId):
 
     return HttpResponseRedirect('/mySongs')
 
+
 @login_required(login_url='/login.html')
-def reopenSong(request, songId):
-    song = Song.objects.get(id=songId)
+def reopen_song(request, song_id):
+    song = Song.objects.get(id=song_id)
     musician = Musician.objects.get(user=request.user)
 
     if song.creator == musician:
-        if song.finished == True:
+        if song.finished:
             song.finished = False
             song.save()
         else:
@@ -64,9 +74,10 @@ def reopenSong(request, songId):
 
     return HttpResponseRedirect('/mySongs')
 
+
 @login_required(login_url='/login.html')
-def deleteSong(request, songId):
-    song = Song.objects.get(id=songId)
+def delete_song(request, song_id):
+    song = Song.objects.get(id=song_id)
     musician = Musician.objects.get(user=request.user)
     tracks = Track.objects.filter(song=song)
 
@@ -82,17 +93,19 @@ def deleteSong(request, songId):
 
     return HttpResponseRedirect('/mySongs')
 
+
 def songs(request):
     if request.user:
-        songs = Song.objects.all()
+        all_songs = Song.objects.all()
     else:
-        songs = Song.objects.filter(finished=True)
+        all_songs = Song.objects.filter(finished=True)
 
     info = False
 
-    return render(request, 'songs.html', {'songs': songs, 'info': info})
+    return render(request, 'songs.html', {'songs': all_songs, 'info': info})
 
-def songInfo(request, songId):
-    song = Song.objects.get(id=songId)
+
+def song_info(request, song_id):
+    song = Song.objects.get(id=song_id)
 
     return render(request, 'song.html', {'song': song})
