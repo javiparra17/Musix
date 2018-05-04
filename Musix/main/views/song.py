@@ -1,5 +1,6 @@
 from main.models import Song, Musician, Track
 from main.forms import SongForm
+from main.services import song as service
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -10,18 +11,18 @@ def create_song(request):
     if request.method == 'POST':
         form = SongForm(request.POST)
         if form.is_valid():
-            creator = request.user.musician
             name = form.cleaned_data['name']
             author = form.cleaned_data['author']
             description = form.cleaned_data['description']
             required_instruments = form.cleaned_data['requiredInstruments']
             additional_instruments = form.cleaned_data['additionalInstruments']
-            Song.objects.create(name=name, author=author,
-                                description=description,
-                                requiredInstruments=required_instruments,
-                                additionalInstruments=additional_instruments,
-                                finished=False, creator=creator)
-            return redirect('index.html')
+            user = request.user
+            creator = Musician.objects.get(user=user)
+
+            service.create_song(name, author, description, required_instruments,
+                                additional_instruments, creator)
+
+            return redirect('mySongs.html')
     else:
         form = SongForm()
 
@@ -32,7 +33,7 @@ def create_song(request):
 def my_songs(request):
     user = request.user
     musician = Musician.objects.get(user=user)
-    all_songs = Song.objects.filter(creator=musician)
+    all_songs = service.my_songs(musician)
 
     return render(request, 'mySongs.html', {'songs': all_songs})
 
@@ -44,8 +45,7 @@ def finish_song(request, song_id):
 
     if song.creator == musician:
         if not song.finished:
-            song.finished = True
-            song.save()
+            service.finish_song(musician, song)
         else:
             error = "This song is already finished"
             return render(request, 'mySongs.html', {'error': error})
@@ -63,8 +63,7 @@ def reopen_song(request, song_id):
 
     if song.creator == musician:
         if song.finished:
-            song.finished = False
-            song.save()
+            service.reopen_song(musician, song)
         else:
             error = "This song is already opened"
             return render(request, 'mySongs.html', {'error': error})
@@ -88,24 +87,27 @@ def delete_song(request, song_id):
             error = "You can't delete a song with tracks"
             return render(request, 'mySongs.html', {'error': error})
     else:
-        error = "You can't reopen this song"
+        error = "This song is not yours"
         return render(request, 'mySongs.html', {'error': error})
 
     return HttpResponseRedirect('/mySongs')
 
 
 def songs(request):
-    if request.user:
-        all_songs = Song.objects.all()
+    user = request.user.is_authenticated()
+    if user:
+        logged = True
     else:
-        all_songs = Song.objects.filter(finished=True)
+        logged = False
 
-    info = False
+    all_songs = service.songs(logged)
 
-    return render(request, 'songs.html', {'songs': all_songs, 'info': info})
+    return render(request, 'songs.html', {'songs': all_songs})
 
 
 def song_info(request, song_id):
     song = Song.objects.get(id=song_id)
+    required_instruments = song.requiredInstruments.all()
 
-    return render(request, 'song.html', {'song': song})
+    return render(request, 'song.html', {'song': song, 'required_instruments':
+        required_instruments})
