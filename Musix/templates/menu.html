@@ -14,8 +14,15 @@
         </ul>
     </div>
 
-{% else %}
+{% elif user.username == "admin" %}
+    <div id="menuDiv">
+        <ul id="ulAdmin">
+            <li><a href="/instruments">Instruments</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </div>
 
+{% else %}
     <div id="menuDiv">
         <ul id="ulUser">
             <li><a href="/songs">Songs</a></li>

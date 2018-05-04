@@ -1,6 +1,5 @@
 #menuDiv{
     text-align: center;
-    border-radius: 40%;
     background-color: white;
 }
 
@@ -21,4 +20,8 @@ a:link, a:visited{
 
 a:hover{
     color: #0066d9;
+}
+
+td, th, tr{
+    text-align: center;
 }
