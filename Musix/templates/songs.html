@@ -8,6 +8,10 @@
     {% include "header.html" %}
 </div>
 
+<div>
+    {% include "menu.html" %}
+</div>
+
 {% if songs %}
     <div>
         <h1 id="titleSongs">Songs</h1>
@@ -20,27 +24,27 @@
                     <th onclick="sortTable(0, 'tableSongsDiv')">Name</th>
                     <th></th>
                     <th></th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 {% for s in songs %}
                     <tr>
-                        <td>{{ s.name }}</td>
                         <td>
-                            <a href="/song/{{ s.id }}" role="button" class="btn btn-info" id="infoButton">Info</a>
+                            <a href="/song/{{ s.id }}" id="infoButton">{{ s.name }}</a>
                         </td>
-                        <td>
-                            {% if not s.finished %}
-                                <a href="/participate/{{ s.id }}" role="button" class="btn btn-success"
-                                   id="participateButton">Participate</a>
-                            {% else %}
-                                <button class="btn btn-success" id="listenButton">Listen</button>
-                            {% endif %}
-                        </td>
-                        <td>
-                            <a href="/likeSong/{{ s.id }}" role="button" class="btn btn-success" id="likeButton">Like</a>
-                        </td>
+                        {% if s.creator.user != user %}
+                            <td>
+                                {% if not s.finished %}
+                                    <a href="/participate/{{ s.id }}" role="button" class="btn btn-success"
+                                    id="participateButton">Participate</a>
+                                {% elif s.finished %}
+                                    <button class="btn btn-success" id="listenButton">Listen</button>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="/likeSong/{{ s.id }}" role="button" class="btn btn-success" id="likeButton">Like</a>
+                            </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>

@@ -8,7 +8,26 @@
     {% include "header.html" %}
 </div>
 
-<h1 id="name">{{ song.name }}</h1>
+<div>
+    {% include "menu.html" %}
+</div>
+
+<h1 id="h1">{{ song.name }} - {{ song.author }}</h1>
+
+<p id="pDescription">{{ song.description }}</p>
+
+{% if not song.finished and user.is_authenticated %}
+    <table class="table table-responsive " id="tableInstruments">
+        <tbody>
+            {% for i in required_instruments %}
+                <tr>
+                    <img src="{% static "media/" %}{{ i.image }}" id="imageInstrument">
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
 
 <div>
     {% include "footer.html" %}

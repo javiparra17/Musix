@@ -27,10 +27,26 @@ tbody{
     margin-right: 50%;
 }
 
-#infoButton, #likeButton, #dislikeButton{
+#infoButton:link, #infoButton:visited{
+	color: black;
+	text-decoration: none;
+}
+
+#infoButton:hover{
+    color: #0066d9;
+}
+
+#likeButton, #dislikeButton{
     width: 100px;
 }
 
 #participateButton{
     width: 120px;
+}
+
+#likeButton:link, #likeButton:visited,
+#dislikeButton:link, #dislikeButton:visited,
+#participateButton:link, #participateButton:visited{
+    color: white;
+	text-decoration: none;
 }
