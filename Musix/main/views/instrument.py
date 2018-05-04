@@ -29,7 +29,7 @@ def create_instrument(request):
 
 @login_required(login_url='/login.html')
 def instruments(request):
-    all_instruments = Instrument.objects.all()
+    all_instruments = service.instruments()
 
     return render(request, 'instruments.html', {'instruments': all_instruments})
 
