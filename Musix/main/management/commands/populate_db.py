@@ -5,7 +5,9 @@ import django.core.management as djangocmd
 from django.core.management.base import BaseCommand
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = \
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 
 class Command(BaseCommand):
     args = 'none'
@@ -24,13 +26,13 @@ class Command(BaseCommand):
 
         # MUSICIAN
 
-        userM1 = User.objects.create_user(first_name='musician1Name',
-                                          last_name='musician1Surname',
-                                          email='musician1@hotmail.com',
-                                          username='musician1',
-                                          password='musician1')
-        userM1.save()
-        musician1 = models.Musician(user=userM1,
+        user1 = User.objects.create_user(first_name='musician1Name',
+                                         last_name='musician1Surname',
+                                         email='musician1@hotmail.com',
+                                         username='musician1',
+                                         password='musician1')
+        user1.save()
+        musician1 = models.Musician(user=user1,
                                     gender='M',
                                     description="Description1",
                                     country='ES',
@@ -39,13 +41,13 @@ class Command(BaseCommand):
                                     premium=False)
         musician1.save()
 
-        userM2 = User.objects.create_user(first_name='musician2Name',
-                                          last_name='musician2Surname',
-                                          email='musician2@hotmail.com',
-                                          username='musician2',
-                                          password='musician2')
-        userM2.save()
-        musician2 = models.Musician(user=userM2,
+        user2 = User.objects.create_user(first_name='musician2Name',
+                                         last_name='musician2Surname',
+                                         email='musician2@hotmail.com',
+                                         username='musician2',
+                                         password='musician2')
+        user2.save()
+        musician2 = models.Musician(user=user2,
                                     gender='M',
                                     description="Description2",
                                     country='ES',
@@ -56,38 +58,74 @@ class Command(BaseCommand):
 
         # INSTRUMENT
 
-        instrument1 = models.Instrument(name="Acoustic guitar", image="instruments/acousticGuitar.png")
+        instrument1 = models.Instrument(name="Acoustic guitar",
+                                        image="instruments/acousticGuitar.png")
         instrument1.save()
 
-        instrument2 = models.Instrument(name="Bass", image="instruments/bass.png")
+        instrument2 = models.Instrument(name="Bass",
+                                        image="instruments/bass.png")
         instrument2.save()
 
-        instrument3 = models.Instrument(name="Cello", image="instruments/cello.png")
+        instrument3 = models.Instrument(name="Cello",
+                                        image="instruments/cello.png")
         instrument3.save()
 
-        instrument4 = models.Instrument(name="Clarinet", image="instruments/clarinet.png")
+        instrument4 = models.Instrument(name="Clarinet",
+                                        image="instruments/clarinet.png")
         instrument4.save()
 
-        instrument5 = models.Instrument(name="Drums", image="instruments/drums.png")
+        instrument5 = models.Instrument(name="Drums",
+                                        image="instruments/drums.png")
         instrument5.save()
 
-        instrument6 = models.Instrument(name="Electric guitar", image="instruments/electricGuitar.png")
+        instrument6 = models.Instrument(name="Electric guitar",
+                                        image="instruments/electricGuitar.png")
         instrument6.save()
 
-        instrument7 = models.Instrument(name="Piano", image="instruments/piano.png")
+        instrument7 = models.Instrument(name="Piano",
+                                        image="instruments/piano.png")
         instrument7.save()
 
-        instrument8 = models.Instrument(name="Violin", image="instruments/violin.png")
+        instrument8 = models.Instrument(name="Violin",
+                                        image="instruments/violin.png")
         instrument8.save()
 
         # SONG
 
-        song1 = models.Song(name="song1", author="author1", description="description1", additionalInstruments="N",
-                            finished=False, creator=musician2)
+        song1 = models.Song(name="Bohemian rhapsody", author="Queen",
+                            description="An amazing song of Queen",
+                            additionalInstruments="N", finished=False,
+                            creator=musician2)
         song1.save()
-        song1.requiredInstruments.add(instrument1)
         song1.requiredInstruments.add(instrument2)
+        song1.requiredInstruments.add(instrument5)
+        song1.requiredInstruments.add(instrument6)
+        song1.requiredInstruments.add(instrument7)
         song1.save()
+
+        song2 = models.Song(name="I dreamed a dream", author="Les Miserables",
+                            description="A song of the film Les Miserables",
+                            additionalInstruments="Y",
+                            finished=False, creator=musician2)
+        song2.save()
+
+        song2.requiredInstruments.add(instrument3)
+        song2.requiredInstruments.add(instrument4)
+        song2.requiredInstruments.add(instrument7)
+        song2.requiredInstruments.add(instrument8)
+        song2.save()
+
+        song3 = models.Song(name="Yellow submarine", author="The Beatles",
+                            description="A song of The Beatles",
+                            additionalInstruments="N",
+                            finished=True, creator=musician2)
+        song3.save()
+
+        song3.requiredInstruments.add(instrument1)
+        song3.requiredInstruments.add(instrument2)
+        song3.requiredInstruments.add(instrument5)
+        song3.requiredInstruments.add(instrument7)
+        song3.save()
 
     def handle(self, *args, **options):
         djangocmd.call_command('flush', interactive=False)
