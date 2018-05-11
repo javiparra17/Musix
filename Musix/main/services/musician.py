@@ -1,6 +1,6 @@
 from main.models import Musician
 
 
-def musicians():
-    all_musicians = Musician.objects.all()
+def musicians(musician):
+    all_musicians = Musician.objects.exclude(id=musician.id)
     return all_musicians

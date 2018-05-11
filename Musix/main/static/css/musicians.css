@@ -43,3 +43,9 @@ tbody{
 #participateButton{
     width: 120px;
 }
+
+#likeButton:link, #likeButton:visited,
+#dislikeButton:link, #dislikeButton:visited{
+    color: white;
+	text-decoration: none;
+}
