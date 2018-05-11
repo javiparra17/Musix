@@ -22,7 +22,7 @@
             <thead>
                 <tr class="info">
                     <th onclick="sortTable(0, 'tableSongsDiv')">Name</th>
-                    <th></th>
+                    <th onclick="sortTable(1, 'tableSongsDiv')"></th>
                     <th></th>
                 </tr>
             </thead>
@@ -44,6 +44,9 @@
                             <td>
                                 <a href="/likeSong/{{ s.id }}" role="button" class="btn btn-success" id="likeButton">Like</a>
                             </td>
+                        {% else %}
+                            <td></td>
+                            <td></td>
                         {% endif %}
                     </tr>
                 {% endfor %}
