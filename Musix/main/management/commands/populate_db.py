@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 from django.contrib.auth.models import User
 from main import models
 from django.utils.dateparse import parse_date
@@ -26,8 +28,8 @@ class Command(BaseCommand):
 
         # MUSICIAN
 
-        user1 = User.objects.create_user(first_name='musician1Name',
-                                         last_name='musician1Surname',
+        user1 = User.objects.create_user(first_name='Víctor',
+                                         last_name=' Moya',
                                          email='musician1@hotmail.com',
                                          username='musician1',
                                          password='musician1')
@@ -36,13 +38,13 @@ class Command(BaseCommand):
                                     gender='M',
                                     description="Description1",
                                     country='ES',
-                                    city='City1',
+                                    city='Madrid',
                                     registrationDate=parse_date('2017-07-15'),
                                     premium=False)
         musician1.save()
 
-        user2 = User.objects.create_user(first_name='musician2Name',
-                                         last_name='musician2Surname',
+        user2 = User.objects.create_user(first_name='Javier',
+                                         last_name='Parra',
                                          email='musician2@hotmail.com',
                                          username='musician2',
                                          password='musician2')
@@ -51,10 +53,25 @@ class Command(BaseCommand):
                                     gender='M',
                                     description="Description2",
                                     country='ES',
-                                    city='City2',
+                                    city='Fregenal de la Sierra',
                                     registrationDate=parse_date('2018-01-04'),
                                     premium=True)
         musician2.save()
+
+        user3 = User.objects.create_user(first_name='Alicia',
+                                         last_name='Vázquez',
+                                         email='musician3@hotmail.com',
+                                         username='musician3',
+                                         password='musician3')
+        user3.save()
+        musician3 = models.Musician(user=user3,
+                                    gender='F',
+                                    description="Description3",
+                                    country='ES',
+                                    city='Valencia',
+                                    registrationDate=parse_date('2018-01-28'),
+                                    premium=True)
+        musician3.save()
 
         # INSTRUMENT
 
@@ -126,6 +143,19 @@ class Command(BaseCommand):
         song3.requiredInstruments.add(instrument5)
         song3.requiredInstruments.add(instrument7)
         song3.save()
+
+        song4 = models.Song(name="Tu canción", author="Alfred y Amaia",
+                            description="La canción que representará a España "
+                                        "en Eurovisión 2018",
+                            additionalInstruments="N",
+                            finished=False, creator=musician3)
+        song4.save()
+
+        song4.requiredInstruments.add(instrument1)
+        song4.requiredInstruments.add(instrument2)
+        song4.requiredInstruments.add(instrument5)
+        song4.requiredInstruments.add(instrument7)
+        song4.save()
 
     def handle(self, *args, **options):
         djangocmd.call_command('flush', interactive=False)
