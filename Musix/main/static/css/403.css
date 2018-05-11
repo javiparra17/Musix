@@ -1,0 +1,32 @@
+#loginLogoDiv{
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: 5%;
+}
+
+#loginLogo{
+    width: 40%;
+}
+
+#image403{
+    width: 200px;
+    margin-left: 300px;
+}
+
+#divText403{
+    margin-left: 50px;
+}
+
+h1, h2{
+    color: black;
+}
+
+h1{
+    font-size: 100px;
+    font-family: Arial;
+}
+
+h2{
+    font-size: 80px;
+    font-family: "Axaxax Rg";
+}
