@@ -1,13 +1,19 @@
-from main.models import Instrument
+from main.models import Instrument, Administrator
 from main.forms import InstrumentForm
 from main.services import instrument as service
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 
 
 @login_required(login_url='/login.html')
 def create_instrument(request):
+    try:
+        Administrator.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise PermissionDenied
+
     if request.method == 'POST':
         form = InstrumentForm(request.POST, request.FILES)
         if form.is_valid():
@@ -29,6 +35,11 @@ def create_instrument(request):
 
 @login_required(login_url='/login.html')
 def instruments(request):
+    try:
+        Administrator.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise PermissionDenied
+
     all_instruments = service.instruments()
 
     return render(request, 'instruments.html', {'instruments': all_instruments})
@@ -36,6 +47,11 @@ def instruments(request):
 
 @login_required(login_url='/login.html')
 def edit_instrument(request, instrument_id):
+    try:
+        Administrator.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise PermissionDenied
+
     instrument = Instrument.objects.get(id=instrument_id)
     if request.method == "POST":
         form = InstrumentForm(request.POST, request.FILES)
@@ -54,6 +70,11 @@ def edit_instrument(request, instrument_id):
 
 @login_required(login_url='/login.html')
 def delete_instrument(request, instrument_id):
+    try:
+        Administrator.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise PermissionDenied
+
     instrument = Instrument.objects.get(id=instrument_id)
 
     service.delete_instrument(instrument)
