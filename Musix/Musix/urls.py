@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^editInstrument/(?P<instrument_id>\d+)', views.edit_instrument,
         name='editInstrument'),
     url(r'^instruments', views.instruments, name='instruments'),
+    url(r'^getPremium', views.get_premium, name='getPremium'),
     url(r'^login', views.login_user, name='login'),
     url(r'^logout', views.logout_user, name='logout'),
     url(r'^mySongs', views.my_songs, name='mySongs'),

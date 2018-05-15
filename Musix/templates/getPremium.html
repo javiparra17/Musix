@@ -1,0 +1,22 @@
+{% include 'base.html' %}
+{% load static %}
+
+<link type="text/css" rel="stylesheet" href="{% static "css/getPremium.css" %}"/>
+
+<div>
+    {% include "header.html" %}
+</div>
+
+<div>
+    {% include "menu.html" %}
+</div>
+
+<div>
+    {% if error %}
+        <h1>{{ error }}</h1>
+    {% endif %}
+</div>
+
+<div>
+    {% include "footer.html" %}
+</div>
