@@ -1,49 +1,92 @@
-from main.models import Track, Song
+from main.models import Track, Song, Musician
 from main.forms import TrackForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from main.services import track as service
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 
 
 @login_required(login_url='/login.html')
-def upload_track(request):
+def upload_track(request, song_id):
+    try:
+        musician = Musician.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise PermissionDenied
+    
+    song = Song.objects.get(id=song_id)
+
     if request.method == 'POST':
         form = TrackForm(request.POST, request.FILES)
         if form.is_valid():
-            Track.objects.create(instrument=form.cleaned_data['instrument'],
-                                 sound=form.cleaned_data['sound'])
-            return redirect('index.html')
+            instrument = form.cleaned_data['instrument']
+            sound = form.cleaned_data['sound']
+
+            service.upload_track(instrument, sound, musician, song)
+            return redirect('myTracks.html')
     else:
         form = TrackForm()
 
-    return render(request, 'uploadTrack.html', {'form':form})
+    return render(request, 'uploadTrack.html', {'form': form})
 
 
 @login_required(login_url='/login.html')
-def listTracks(request, songId):
-    song = Song.objects.filter(id=songId)
-    tracks = Track.objects.filter(song=song)
+def my_tracks(request):
+    try:
+        musician = Musician.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise PermissionDenied
 
-    return render(request, 'tracks.html', {'tracks': tracks})
+    mytracks = service.my_tracks(musician)
+
+    return render(request, 'myTracks.html', {'tracks': mytracks})
 
 
 @login_required(login_url='/login.html')
-def acceptTrack(request, trackId):
-    track = Track.objects.filter(id=trackId)
+def tracks(request, song_id):
+    try:
+        musician = Musician.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise PermissionDenied
 
-    if track.status == 'P':
-        track.status = 'A'
-        track.save()
+    if not musician.premium:
+        raise PermissionDenied
+
+    song = Song.objects.get(id=song_id)
+    song_tracks = service.tracks(song)
+
+    return render(request, 'tracks.html', {'tracks': song_tracks, 'song': song})
+
+
+@login_required(login_url='/login.html')
+def accept_track(request, track_id):
+    try:
+        musician = Musician.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise PermissionDenied
+
+    if not musician.premium:
+        raise PermissionDenied
+
+    track = Track.objects.filter(id=track_id)
+
+    service.accept_track(track)
 
     return HttpResponseRedirect('/tracks')
 
 
 @login_required(login_url='/login.html')
-def denyTrack(request, trackId):
-    track = Track.objects.filter(id=trackId)
+def deny_track(request, track_id):
+    try:
+        musician = Musician.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise PermissionDenied
 
-    if track.status == 'P':
-        track.status = 'D'
-        track.save()
+    if not musician.premium:
+        raise PermissionDenied
+
+    track = Track.objects.filter(id=track_id)
+
+    service.deny_track(track)
 
     return HttpResponseRedirect('/tracks')
