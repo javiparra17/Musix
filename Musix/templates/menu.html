@@ -27,9 +27,26 @@
         <ul id="ulUser">
             <li><a href="/songs">Songs</a></li>
             <li><a href="/musicians">Musicians</a></li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown">My music<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="myTracks.html">My tracks</a>
+                    </li>
+                    <li>
+                        <a href="mySongs.html">My songs</a>
+                    </li>
+                </ul>
+            </li>
+
             <li><a href="/profile/{{ user.username }}">My profile</a></li>
             <li><a href="/logout">Logout</a></li>
         </ul>
     </div>
 
 {% endif %}
+
+<script>
+    $('.dropdown-toggle').dropdown()
+</script>
