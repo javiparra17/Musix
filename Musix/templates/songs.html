@@ -35,7 +35,7 @@
                         {% if s.creator.user != user %}
                             <td>
                                 {% if not s.finished %}
-                                    <a href="/participate/{{ s.id }}" role="button" class="btn btn-success"
+                                    <a href="/uploadTrack/{{ s.id }}" role="button" class="btn btn-success"
                                     id="participateButton">Participate</a>
                                 {% elif s.finished %}
                                     <button class="btn btn-success" id="listenButton">Listen</button>

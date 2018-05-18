@@ -1,4 +1,4 @@
-from main.models import Song, Musician, Track
+from main.models import Song, Musician, Track, Instrument
 from main.forms import SongForm
 from main.services import song as service
 from django.shortcuts import render, redirect
@@ -16,6 +16,8 @@ def create_song(request):
 
     if not musician.premium:
         raise PermissionDenied
+
+    instruments = Instrument.objects.all()
 
     if request.method == 'POST':
         form = SongForm(request.POST)
@@ -35,7 +37,8 @@ def create_song(request):
     else:
         form = SongForm()
 
-    return render(request, 'createSong.html', {'form': form})
+    return render(request, 'createSong.html', {'form': form,
+                                               'instruments': instruments})
 
 
 @login_required(login_url='/login.html')

@@ -8,6 +8,10 @@
     {% include "header.html" %}
 </div>
 
+<div>
+    {% include "menu.html" %}
+</div>
+
 {% if songs %}
 
     <div>
@@ -27,9 +31,11 @@
             <tbody>
                 {% for s in songs %}
                     <tr>
-                        <td>{{ s.name }}</td>
                         <td>
-                            <a href="/song/{{ s.id }}" role="button" class="btn btn-info" id="infoButton">Info</a>
+                            <a href="/song/{{ s.id }}" id="infoButton">{{ s.name }}</a>
+                        </td>
+                        <td>
+                            <a href="/tracks/{{ s.id }}" role="button" class="btn btn-info" id="tracksButton">Tracks</a>
                         </td>
                         <td>
                             {% if not s.finished %}

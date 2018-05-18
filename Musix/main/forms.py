@@ -2,11 +2,9 @@
 from django import forms
 from main.models import *
 import main.choices as choices
-import main.functions as functions
 
 COUNTRIES = choices.COUNTRIES
 GENDERS = choices.GENDERS
-INSTRUMENTS = functions.create_tuple_instruments(Instrument.objects.all())
 YESORNOT = choices.YESORNOT
 
 
@@ -43,15 +41,6 @@ class MusicianForm(forms.ModelForm):
 
 
 class SongForm(forms.ModelForm):
-    requiredInstruments = forms.CharField(required=True,
-                                          widget=forms.CheckboxSelectMultiple(
-                                              choices=INSTRUMENTS),
-                                          label="Required instruments")
-    additionalInstruments = forms.CharField(required=True,
-                                            widget=forms.RadioSelect(
-                                                choices=YESORNOT),
-                                            label="Additional instruments?")
-
     class Meta:
         model = Song
         fields = ('name', 'author', 'description', 'requiredInstruments',
@@ -59,10 +48,6 @@ class SongForm(forms.ModelForm):
 
 
 class TrackForm(forms.ModelForm):
-    instrument = forms.CharField(required=True,
-                                 widget=forms.Select(choices=INSTRUMENTS),
-                                 label="Required instruments")
-
     class Meta:
         model = Track
         fields = {'instrument', 'sound'}
