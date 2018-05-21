@@ -39,3 +39,8 @@ tbody{
 #buttonCreateInstrument{
     width: 200px;
 }
+
+#editDeleteButton:link, #editDeleteButton:visited{
+    color: white;
+	text-decoration: none;
+}

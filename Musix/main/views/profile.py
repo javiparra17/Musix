@@ -1,6 +1,8 @@
 from main.models import Musician
 from django.shortcuts import render
+from django.contrib.auth.models import User
 
-def profile(request, musicianId):
-    musician = Musician.objects.get(id=musicianId)
-    return render(request, 'profile.html', {'musician': musician,})
+def profile(request, musician_username):
+    user = User.objects.get(username=musician_username)
+    musician = Musician.objects.get(user=user)
+    return render(request, 'profile.html', {'musician': musician})

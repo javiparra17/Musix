@@ -1,0 +1,41 @@
+#h1{
+    font-family: "Arial";
+    font-size: 40px;
+    color: black;
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+
+#pDescription{
+    font-family: "Arial";
+    font-size: 20px;
+    color: black;
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+
+#iNeed{
+    font-family: "Arial";
+    font-size: 20px;
+    color: black;
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+
+#imageInstrument{
+    width: 80px;
+    height: 80px;
+}
+
+#buttonUploadTrack{
+    width: 200px;
+    font-size: 18px;
+    color: black;
+}
+
+#buttonPublishSong{
+    width: 200px;
+    height: 40px;
+    font-family: "Axaxax Rg";
+    font-size: 20px;
+}

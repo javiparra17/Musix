@@ -31,8 +31,31 @@ tbody{
     width: 100px;
 }
 
+#infoButton:link, #infoButton:visited{
+	color: black;
+	text-decoration: none;
+}
+
+#infoButton:hover{
+    color: #0066d9;
+}
+
 #buttonCreateSong{
     width: 200px;
+}
+
+#buttonCreateSong2{
+    width: 300px;
+    font-size: 28px;
+    color: black;
+}
+
+#tracksButton:link, #tracksButton:visited,
+#finishButton:link, #finishButton:visited,
+#reopenButton:link, #reopenButton:visited,
+#deleteButton:link, #deleteButton:visited{
+    color: white;
+	text-decoration: none;
 }
 
 #notSongsDiv{
@@ -46,10 +69,4 @@ tbody{
     text-align: center;
     margin-top: 5%;
     margin-bottom: 2%;
-}
-
-#buttonCreateSong2{
-    width: 300px;
-    font-size: 28px;
-    color: black;
 }

@@ -1,61 +1,82 @@
-from main.models import Instrument
+from main.models import Instrument, Administrator
 from main.forms import InstrumentForm
-import main.functions as functions
+from main.services import instrument as service
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+
 
 @login_required(login_url='/login.html')
-def createInstrument(request):
+def create_instrument(request):
+    try:
+        Administrator.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise PermissionDenied
+
     if request.method == 'POST':
         form = InstrumentForm(request.POST, request.FILES)
         if form.is_valid():
             name = form.cleaned_data['name']
             image = form.cleaned_data['image']
 
-            checkInstrument = Instrument.objects.filter(name=name)
-            if len(checkInstrument) == 0:
-                Instrument.objects.create(name=name, image=image)
+            check_instrument = Instrument.objects.filter(name=name)
+            if len(check_instrument) == 0:
+                service.create_instrument(name, image)
                 return redirect('/instruments')
             else:
                 error = "This instrument already exists"
-                return render(request, 'createInstrument.html', {'form': form, 'error': error})
+                return render(request, 'createInstrument.html',
+                              {'form': form, 'error': error})
     else:
         form = InstrumentForm()
-    return render(request, 'createInstrument.html', {'form':form})
+    return render(request, 'createInstrument.html', {'form': form})
+
 
 @login_required(login_url='/login.html')
 def instruments(request):
-    instruments = Instrument.objects.all()
+    try:
+        Administrator.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise PermissionDenied
 
-    return render(request, 'instruments.html', {'instruments': instruments})
+    all_instruments = service.instruments()
+
+    return render(request, 'instruments.html', {'instruments': all_instruments})
+
 
 @login_required(login_url='/login.html')
-def editInstrument(request, instrumentId):
-    instrument = Instrument.objects.get(id=instrumentId)
+def edit_instrument(request, instrument_id):
+    try:
+        Administrator.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise PermissionDenied
+
+    instrument = Instrument.objects.get(id=instrument_id)
     if request.method == "POST":
         form = InstrumentForm(request.POST, request.FILES)
         if form.is_valid():
-            path = "/static/media/" + str(instrument.image)
-            functions.deleteFile(path)
+            name = form.cleaned_data['name']
+            image = form.cleaned_data['image']
 
-            instrument.name = form.cleaned_data['name']
-            instrument.image = form.cleaned_data['image']
+            service.edit_instrument(instrument, name, image)
 
-            instrument.save()
             return HttpResponseRedirect('/instruments')
     else:
         form = InstrumentForm(instance=instrument)
-    return render(request, "editInstrument.html", {'form': form, 'instrument': instrument})
+    return render(request, "editInstrument.html",
+                  {'form': form, 'instrument': instrument})
+
 
 @login_required(login_url='/login.html')
-def deleteInstrument(request, instrumentId):
-    instrument = Instrument.objects.get(id=instrumentId)
+def delete_instrument(request, instrument_id):
+    try:
+        Administrator.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise PermissionDenied
 
-    image = instrument.image
-    path = "/static/media/" + str(image)
-    functions.deleteFile(path)
+    instrument = Instrument.objects.get(id=instrument_id)
 
-    instrument.delete()
+    service.delete_instrument(instrument)
 
     return HttpResponseRedirect('/instruments')

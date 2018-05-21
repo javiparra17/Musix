@@ -8,6 +8,10 @@
     {% include "header.html" %}
 </div>
 
+<div>
+    {% include "menu.html" %}
+</div>
+
 {% if musicians %}
     <div>
         <h1 id="titleMusicians">Musicians</h1>
@@ -29,7 +33,7 @@
                             {{ m.photo }}
                         </td>
                         <td>
-                            <a href="/profile/{{ m.id }}" id="profileButton">{{ m.user.username }}</a>
+                            <a href="/profile/{{ m.user.username }}" id="profileButton">{{ m.user.username }}</a>
                         </td>
                         <td>
                             <a href="/likeUser/{{ m.id }}" role="button" class="btn btn-success" id="likeButton">Like</a>

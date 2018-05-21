@@ -1,0 +1,26 @@
+{% include 'base.html' %}
+{% load static %}
+
+<link type="text/css" rel="stylesheet" href="{% static "css/myTracks.css" %}"/>
+<script type="text/javascript" src="{% static "js/tables.js" %}"></script>
+
+<div>
+    {% include "header.html" %}
+</div>
+
+<div>
+    {% include "menu.html" %}
+</div>
+
+{% if tracks %}
+
+{% else %}
+    <div id="notTracksDiv">
+        <h1 id="h1NotTracks">You haven't tracks yet</h1>
+        <button class="btn btn-default" onclick="location.href='/songs'" id="buttonViewSongs">View songs</button>
+    </div>
+{% endif %}
+
+<div>
+    {% include "footer.html" %}
+</div>

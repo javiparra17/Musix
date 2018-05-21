@@ -2,7 +2,7 @@
 
 # Dictionaries for choice fields. Organised alphabetically.
 
-COUNTRIES =(
+COUNTRIES = (
     ('AF', 'Afganistán'),
     ('AL', 'Albania'),
     ('DE', 'Alemania'),

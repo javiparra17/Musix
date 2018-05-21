@@ -1,0 +1,30 @@
+{% include 'base.html' %}
+{% load static %}
+
+<link type="text/css" rel="stylesheet" href="{% static "css/publishSong.css" %}"/>
+
+<div>
+    {% include "header.html" %}
+</div>
+
+<div>
+    {% include "menu.html" %}
+</div>
+
+<div>
+    <form method="post" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_finishedSong">Song</label>
+            <input type="file" name="finishedSong" id="id_finishedSong" required>
+        </div>
+        <br />
+
+        <input type="submit" value="Publish song" id="buttonPublishSong" />
+        <input type="button" value="Cancel" id="buttonCancel" onclick="location.href='/song/{{ song.id }}'"/>
+    </form>
+</div>
+
+<div>
+    {% include "footer.html" %}
+</div>

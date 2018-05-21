@@ -1,0 +1,38 @@
+{% include 'base.html' %}
+{% load static %}
+
+<link type="text/css" rel="stylesheet" href="{% static "css/tracks.css" %}"/>
+<script type="text/javascript" src="{% static "js/tables.js" %}"></script>
+
+<div>
+    {% include "header.html" %}
+</div>
+
+<div>
+    {% include "menu.html" %}
+</div>
+
+{% if tracks %}
+
+    <div>
+        <h1 id="titleTracks">Tracks of <a href="/song/{{ song.id }}">{{ song.name }}</a>
+        </h1>
+    </div>
+
+{% else %}
+
+    <div>
+        <h1 id="titleTracks">Tracks of <a href="/song/{{ song.id }}">{{ song.name }}</a>
+        </h1>
+    </div>
+
+    <div id="notTracksDiv">
+        <h1 id="h1NotTracks">There are not tracks for this song</h1>
+    </div>
+
+
+{% endif %}
+
+<div>
+    {% include "footer.html" %}
+</div>

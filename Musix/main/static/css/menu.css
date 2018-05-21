@@ -1,6 +1,5 @@
 #menuDiv{
     text-align: center;
-    border-radius: 40%;
     background-color: white;
 }
 
@@ -22,3 +21,48 @@ a:link, a:visited{
 a:hover{
     color: #0066d9;
 }
+
+td, th, tr{
+    text-align: center;
+}
+
+
+.open .dropdown-toggle {
+    color: black;
+}
+
+.dropdown-menu li a {
+    color: black !important;
+}
+
+.dropdown-menu li a:hover {
+    color: #0066d9 !important;
+}
+
+.navbar {
+    margin-bottom: 0;
+    background-color: #49cede;
+    z-index: 9999;
+    border: 0;
+    font-size: 14px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+    font-family: Montserrat, sans-serif;
+}
+
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #49cede !important;
+    background-color: #fff !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+
+
