@@ -1,5 +1,5 @@
 from main.models import Song, Musician, Track, Instrument
-from main.forms import SongForm
+from main.forms import SongForm, FinishedSongForm
 from main.services import song as service
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
@@ -27,8 +27,7 @@ def create_song(request):
             description = form.cleaned_data['description']
             required_instruments = form.cleaned_data['requiredInstruments']
             additional_instruments = form.cleaned_data['additionalInstruments']
-            user = request.user
-            creator = Musician.objects.get(user=user)
+            creator = musician
 
             service.create_song(name, author, description, required_instruments,
                                 additional_instruments, creator)
@@ -111,6 +110,29 @@ def reopen_song(request, song_id):
 
 
 @login_required(login_url='/login.html')
+def publish_song(request, song_id):
+    try:
+        musician = Musician.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise PermissionDenied
+
+    if not musician.premium:
+        raise PermissionDenied
+
+    song = Song.objects.get(id=song_id)
+
+    if request.method == 'POST':
+        form = FinishedSongForm(request.POST, request.FILES)
+        if form.is_valid():
+            finishedSong = form.cleaned_data['finishedSong']
+            service.publish_song(song, finishedSong)
+            return redirect('/song/' + str(song.id))
+    else:
+        form = FinishedSongForm()
+    return render(request, 'publishSong.html', {'form': form, 'song': song})
+
+
+@login_required(login_url='/login.html')
 def delete_song(request, song_id):
     try:
         musician = Musician.objects.get(user=request.user)
@@ -128,8 +150,16 @@ def delete_song(request, song_id):
         if len(tracks) == 0:
             song.delete()
         else:
-            error = "You can't delete a song with tracks"
-            return render(request, 'mySongs.html', {'error': error})
+            if song.finished:
+                tracks.filter(status='P')
+                if tracks:
+                    error = "This song has pending tracks"
+                    return render(request, 'mySongs.html', {'error': error})
+                else:
+                    song.delete()
+            else:
+                error = "You can't delete a song with tracks"
+                return render(request, 'mySongs.html', {'error': error})
     else:
         error = "This song is not yours"
         return render(request, 'mySongs.html', {'error': error})
@@ -152,6 +182,8 @@ def songs(request):
 def song_info(request, song_id):
     song = Song.objects.get(id=song_id)
     required_instruments = song.requiredInstruments.all()
+    musician = song.creator
 
     return render(request, 'song.html',
-                  {'song': song, 'required_instruments': required_instruments})
+                  {'song': song, 'required_instruments': required_instruments,
+                   'musician': musician})

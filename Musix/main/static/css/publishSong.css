@@ -1,0 +1,22 @@
+form{
+    text-align: left;
+    margin-top: 2%;
+    margin-left: 2.3%;
+}
+
+label{
+    font-family: "Arial";
+    font-size: 20px;
+    color: black;
+}
+
+#id_song{
+    font-size: 17px;
+}
+
+#buttonPublishSong, #buttonCancel{
+    width: 20%;
+    height: 7%;
+    font-family: "Axaxax Rg";
+    font-size: 20px;
+}

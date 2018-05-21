@@ -35,7 +35,9 @@
                             <a href="/song/{{ s.id }}" id="infoButton">{{ s.name }}</a>
                         </td>
                         <td>
-                            <a href="/tracks/{{ s.id }}" role="button" class="btn btn-info" id="tracksButton">Tracks</a>
+                            {% if not s.finished %}
+                                <a href="/tracks/{{ s.id }}" role="button" class="btn btn-info" id="tracksButton">Tracks</a>
+                            {% endif %}
                         </td>
                         <td>
                             {% if not s.finished %}

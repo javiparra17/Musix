@@ -28,6 +28,14 @@
     </table>
 {% endif %}
 
+{% if not song.finished and user.id == musician.user.id %}
+    <input type="button" value="Publish song" id="buttonPublishSong" onclick="location.href='/publishSong/{{ song.id }}'"/>
+{% endif %}
+
+{% if song.finished %}
+    <audio src="{% static "media/" %}{{ song.finishedSong }}" controls></audio>
+{% endif %}
+
 
 <div>
     {% include "footer.html" %}

@@ -38,7 +38,10 @@
                                     <a href="/uploadTrack/{{ s.id }}" role="button" class="btn btn-success"
                                     id="participateButton">Participate</a>
                                 {% elif s.finished %}
-                                    <button class="btn btn-success" id="listenButton">Listen</button>
+                                    <button class="btn btn-success" id="listenButton"
+                                            onclick="location.href='/song/{{ s.id }}'">
+                                        Listen
+                                    </button>
                                 {% endif %}
                             </td>
                             <td>

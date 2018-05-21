@@ -43,6 +43,8 @@ urlpatterns = [
     url(r'^myTracks', views.my_tracks, name='myTracks'),
     url(r'^musicians', views.musicians, name='musicians'),
     url(r'^profile/(?P<musician_username>\w+)', views.profile, name='profile'),
+    url(r'^publishSong/(?P<song_id>\d+)', views.publish_song,
+        name='publishSong'),
     url(r'^reopenSong/(?P<song_id>\d+)', views.reopen_song, name='reopenSong'),
     url(r'^songs', views.songs, name='songs'),
     url(r'^song/(?P<song_id>\d+)', views.song_info, name='songInfo'),

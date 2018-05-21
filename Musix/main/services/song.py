@@ -1,21 +1,24 @@
 from main.models import Song, Track
+import main.functions as functions
 
 
 def create_song(name, author, description, required_instruments,
                 additional_instruments, creator):
     song = Song.objects.create(name=name, author=author,
                                description=description,
-                               requiredInstruments=required_instruments,
                                additionalInstruments=additional_instruments,
                                finished=False, creator=creator)
+
+    song.requiredInstruments = required_instruments
+    song.save()
 
     return song
 
 
 def my_songs(musician):
-    songs = Song.objects.filter(creator=musician)
+    mysongs = Song.objects.filter(creator=musician)
 
-    return songs
+    return mysongs
 
 
 def finish_song(musician, song):
@@ -40,6 +43,13 @@ def reopen_song(musician, song):
         return "You can't reopen this song"
 
 
+def publish_song(song, sound):
+    song.finishedSong = sound
+    song.save()
+
+    return song
+
+
 def delete_song(musician, song):
     tracks = Track.objects.filter(song=song)
 
@@ -47,7 +57,17 @@ def delete_song(musician, song):
         if len(tracks) == 0:
             song.delete()
         else:
-            return "You can't delete a song with tracks"
+            if song.finished:
+                tracks.filter(status='P')
+                if tracks:
+                    return "This song has pending tracks"
+                else:
+                    sound = song.finishedSong
+                    path = "/static/media/" + str(sound)
+                    functions.delete_file(path)
+                    song.delete()
+            else:
+                return "You can't delete an open song with tracks"
     else:
         return "This song is not yours"
 

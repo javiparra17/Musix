@@ -8,6 +8,12 @@ GENDERS = choices.GENDERS
 YESORNOT = choices.YESORNOT
 
 
+class FinishedSongForm(forms.ModelForm):
+    class Meta:
+        model = Song
+        fields = ('finishedSong',)
+
+
 class InstrumentForm(forms.ModelForm):
     class Meta:
         model = Instrument
@@ -43,8 +49,8 @@ class MusicianForm(forms.ModelForm):
 class SongForm(forms.ModelForm):
     class Meta:
         model = Song
-        fields = ('name', 'author', 'description', 'requiredInstruments',
-                  'additionalInstruments')
+        fields = ('name', 'author', 'description', 'additionalInstruments',
+                  'requiredInstruments')
 
 
 class TrackForm(forms.ModelForm):
