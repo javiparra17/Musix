@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'Musix.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'musix.db',
+        'NAME': os.path.join(BASE_DIR, 'musix.db'),
         # 'USER': 'musix',
         # 'PASSWORD': '1234',
         # 'HOST': '127.0.0.1',

@@ -6,10 +6,6 @@ def upload_file(file):
             destination.write(chunk)
 
 
-def generate_media_directory_name(username, folder):
-    return "Musix/tracks/" + str(username) + "/" + str(folder)
-
-
 def create_tuple_instruments(instruments):
     res = []
     for i in instruments:
