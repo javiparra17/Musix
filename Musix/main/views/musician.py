@@ -1,4 +1,3 @@
-from main.models import Musician
 from django.shortcuts import render
 from main.services import musician as service
 

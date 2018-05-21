@@ -1,7 +1,7 @@
 from main.models import Song, Musician, Track, Instrument
 from main.forms import SongForm, FinishedSongForm
 from main.services import song as service
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
@@ -124,8 +124,8 @@ def publish_song(request, song_id):
     if request.method == 'POST':
         form = FinishedSongForm(request.POST, request.FILES)
         if form.is_valid():
-            finishedSong = form.cleaned_data['finishedSong']
-            service.publish_song(song, finishedSong)
+            finished_song = form.cleaned_data['finishedSong']
+            service.publish_song(song, finished_song)
             return redirect('/song/' + str(song.id))
     else:
         form = FinishedSongForm()
@@ -180,7 +180,7 @@ def songs(request):
 
 
 def song_info(request, song_id):
-    song = Song.objects.get(id=song_id)
+    song = get_object_or_404(Song, id=song_id)
     required_instruments = song.requiredInstruments.all()
     musician = song.creator
 

@@ -1,4 +1,4 @@
-from main.models import Track, Song, Musician
+from main.models import Track, Song
 from main.forms import TrackForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
