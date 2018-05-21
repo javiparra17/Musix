@@ -7,7 +7,7 @@
         <img src="{% static "images/musix.png" %}" id="mainLogo" />
     </a>
 
-    {% if user.is_authenticated and user.username != "admin" %}
+    {% if user.is_authenticated and user.username != "admin" and not premium%}
         <a href="getPremium.html">
             <h2 id="getPremium">Get Premium</h2>
         </a>
