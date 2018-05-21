@@ -44,21 +44,18 @@ class Song(models.Model):
     additionalInstruments = models.CharField(blank=False, max_length=5,
                                              choices=YESORNOT)
     finished = models.BooleanField(default=False, null=False)
+    finishedSong = models.FileField(blank=True, upload_to='songs', null=True)
 
     creator = models.ForeignKey(Musician, on_delete=models.DO_NOTHING,
                                 null=True)
     requiredInstruments = models.ManyToManyField(Instrument)
 
 
-class Status(models.Model):
-    status = models.CharField(blank=False, max_length=20, choices=STATUS)
-
-
 class Track(models.Model):
     instrument = models.CharField(blank=False, max_length=100)
     sound = models.FileField(blank=False, upload_to='tracks', null=False)
 
-    status = models.ForeignKey(Status, on_delete=models.DO_NOTHING, null=False)
+    status = models.CharField(blank=False, max_length=20, choices=STATUS)
     musician = models.ForeignKey(Musician, on_delete=models.DO_NOTHING,
                                  null=True)
     song = models.ForeignKey(Song, on_delete=models.DO_NOTHING, null=False)

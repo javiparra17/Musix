@@ -135,7 +135,8 @@ class Command(BaseCommand):
         song3 = models.Song(name="Yellow submarine", author="The Beatles",
                             description="A song of The Beatles",
                             additionalInstruments="N",
-                            finished=True, creator=musician2)
+                            finished=True, creator=musician2,
+                            finishedSong='songs/Yellow submarine.mp3')
         song3.save()
 
         song3.requiredInstruments.add(instrument1)
