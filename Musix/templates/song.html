@@ -16,17 +16,24 @@
 
 <p id="pDescription">{{ song.description }}</p>
 
-{% if not song.finished and user.is_authenticated %}
-    <table class="table table-responsive " id="tableInstruments">
-        <tbody>
-            {% for i in required_instruments %}
-                <tr>
-                    <img src="{% static "media/" %}{{ i.image }}" id="imageInstrument">
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% endif %}
+<div>
+    {% if not song.finished and user.is_authenticated %}
+        <h3 id="iNeed">I need this instruments</h3>
+        <table class="table table-responsive " id="tableInstruments">
+            <tbody>
+                {% for i in required_instruments %}
+                    <tr>
+                        <img src="{% static "media/" %}{{ i.image }}" id="imageInstrument">
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if user.musician.id != song.creator.id %}
+            <h3 id="iNeed">So...you can upload your track here</h3>
+            <button class="btn btn-default" onclick="location.href='/uploadTrack/{{ song.id }}'" id="buttonUploadTrack">Upload track</button>
+        {% endif %}
+    {% endif %}
+</div>
 
 {% if not song.finished and user.id == musician.user.id %}
     <input type="button" value="Publish song" id="buttonPublishSong" onclick="location.href='/publishSong/{{ song.id }}'"/>

@@ -2,21 +2,35 @@
     font-family: "Arial";
     font-size: 40px;
     color: black;
-    margin-left: 1%;
-    margin-bottom: 2%;
+    margin-left: 15px;
+    margin-bottom: 20px;
 }
 
 #pDescription{
     font-family: "Arial";
     font-size: 20px;
     color: black;
-    margin-left: 1%;
-    margin-bottom: 2%;
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+
+#iNeed{
+    font-family: "Arial";
+    font-size: 20px;
+    color: black;
+    margin-left: 15px;
+    margin-bottom: 20px;
 }
 
 #imageInstrument{
     width: 80px;
     height: 80px;
+}
+
+#buttonUploadTrack{
+    width: 200px;
+    font-size: 18px;
+    color: black;
 }
 
 #buttonPublishSong{
