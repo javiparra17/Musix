@@ -16,7 +16,7 @@
 </div>
 
 <div>
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" action="">
         {% csrf_token %}
         <div class="form-group">
             <label for="id_name">Name</label>
@@ -37,11 +37,11 @@
         <br />
 
         <div class="form-group">
-            <label for="id_requiredInstruments">Required instruments</label>
+            <label>Required instruments</label>
             <br />
             {% for i in instruments %}
-                <input type="checkbox" name="{{ i.name }}" value="{{ i.name }}">
-                    <label id="nameInstrument">{{ i.name }}</label>
+                <input type="checkbox" id="id_requiredInstruments" name="requiredInstruments" value="{{ i.id }}">
+                    <label id="nameInstrument" for="id_requiredInstruments">{{ i.name }}</label>
                 <br />
             {% endfor %}
         </div>
