@@ -10,7 +10,7 @@ from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 @login_required(login_url='/login.html')
 def create_song(request):
     try:
-        musician = Musician.objects.get(user=request.user)
+        musician = request.user.musician
     except ObjectDoesNotExist:
         raise PermissionDenied
 
@@ -43,7 +43,7 @@ def create_song(request):
 @login_required(login_url='/login.html')
 def my_songs(request):
     try:
-        musician = Musician.objects.get(user=request.user)
+        musician = request.user.musician
     except ObjectDoesNotExist:
         raise PermissionDenied
 
@@ -60,7 +60,7 @@ def my_songs(request):
 @login_required(login_url='/login.html')
 def finish_song(request, song_id):
     try:
-        musician = Musician.objects.get(user=request.user)
+        musician = request.user.musician
     except ObjectDoesNotExist:
         raise PermissionDenied
 
@@ -86,7 +86,7 @@ def finish_song(request, song_id):
 @login_required(login_url='/login.html')
 def reopen_song(request, song_id):
     try:
-        musician = Musician.objects.get(user=request.user)
+        musician = request.user.musician
     except ObjectDoesNotExist:
         raise PermissionDenied
 
@@ -112,7 +112,7 @@ def reopen_song(request, song_id):
 @login_required(login_url='/login.html')
 def publish_song(request, song_id):
     try:
-        musician = Musician.objects.get(user=request.user)
+        musician = request.user.musician
     except ObjectDoesNotExist:
         raise PermissionDenied
 
@@ -135,7 +135,7 @@ def publish_song(request, song_id):
 @login_required(login_url='/login.html')
 def delete_song(request, song_id):
     try:
-        musician = Musician.objects.get(user=request.user)
+        musician = request.user.musician
     except ObjectDoesNotExist:
         raise PermissionDenied
 

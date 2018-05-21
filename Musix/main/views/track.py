@@ -10,7 +10,7 @@ from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 @login_required(login_url='/login.html')
 def upload_track(request, song_id):
     try:
-        musician = Musician.objects.get(user=request.user)
+        musician = request.user.musician
     except ObjectDoesNotExist:
         raise PermissionDenied
     
@@ -33,7 +33,7 @@ def upload_track(request, song_id):
 @login_required(login_url='/login.html')
 def my_tracks(request):
     try:
-        musician = Musician.objects.get(user=request.user)
+        musician = request.user.musician
     except ObjectDoesNotExist:
         raise PermissionDenied
 
@@ -45,7 +45,7 @@ def my_tracks(request):
 @login_required(login_url='/login.html')
 def tracks(request, song_id):
     try:
-        musician = Musician.objects.get(user=request.user)
+        musician = request.user.musician
     except ObjectDoesNotExist:
         raise PermissionDenied
 
@@ -61,7 +61,7 @@ def tracks(request, song_id):
 @login_required(login_url='/login.html')
 def accept_track(request, track_id):
     try:
-        musician = Musician.objects.get(user=request.user)
+        musician = request.user.musician
     except ObjectDoesNotExist:
         raise PermissionDenied
 
@@ -78,7 +78,7 @@ def accept_track(request, track_id):
 @login_required(login_url='/login.html')
 def deny_track(request, track_id):
     try:
-        musician = Musician.objects.get(user=request.user)
+        musician = request.user.musician
     except ObjectDoesNotExist:
         raise PermissionDenied
 

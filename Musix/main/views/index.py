@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 @login_required(login_url='/login.html')
 def get_premium(request):
     try:
-        musician = Musician.objects.get(user=request.user)
+        musician = request.user.musician
     except ObjectDoesNotExist:
         raise PermissionDenied
 

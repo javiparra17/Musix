@@ -5,8 +5,7 @@ from main.services import musician as service
 
 def musicians(request):
     try:
-        user = request.user
-        musician = Musician.objects.get(user=user)
+        musician = request.user.musician
 
         all_musicians = service.musicians(musician)
     except:

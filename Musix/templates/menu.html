@@ -34,9 +34,11 @@
                     <li>
                         <a href="/myTracks">My tracks</a>
                     </li>
-                    <li>
-                        <a href="/mySongs">My songs</a>
-                    </li>
+                    {% if user.musician.premium %}
+                        <li>
+                            <a href="/mySongs">My songs</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </li>
 
