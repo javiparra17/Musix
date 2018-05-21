@@ -2,5 +2,9 @@ from main.models import Musician
 
 
 def musicians(musician):
-    all_musicians = Musician.objects.exclude(id=musician.id)
+    if musician:
+        all_musicians = Musician.objects.exclude(id=musician.id)
+    else:
+        all_musicians = Musician.objects.all()
+
     return all_musicians
