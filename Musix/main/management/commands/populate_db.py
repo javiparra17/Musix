@@ -73,6 +73,21 @@ class Command(BaseCommand):
                                     premium=True)
         musician3.save()
 
+        user4 = User.objects.create_user(first_name='Miguel',
+                                         last_name='Montes',
+                                         email='musician4@hotmail.com',
+                                         username='musician4',
+                                         password='musician4')
+        user4.save()
+        musician4 = models.Musician(user=user4,
+                                    gender='M',
+                                    description="Description4",
+                                    country='ES',
+                                    city='Badajoz',
+                                    registrationDate=parse_date('2017-02-15'),
+                                    premium=False)
+        musician4.save()
+
         # INSTRUMENT
 
         instrument1 = models.Instrument(name="Acoustic guitar",
@@ -136,7 +151,7 @@ class Command(BaseCommand):
                             description="A song of The Beatles",
                             additionalInstruments="N",
                             finished=True, creator=musician2,
-                            finishedSong='songs/Yellow submarine.mp3')
+                            finishedSong="songs/Yellow submarine.mp3")
         song3.save()
 
         song3.requiredInstruments.add(instrument1)
@@ -157,6 +172,22 @@ class Command(BaseCommand):
         song4.requiredInstruments.add(instrument5)
         song4.requiredInstruments.add(instrument7)
         song4.save()
+
+        # TRACKS
+
+        track1 = models.Track(sound="tracks/Bohemian Rhapsody piano.mp3",
+                              status="P", instrument=instrument7,
+                              musician=musician1, song=song1)
+        track1.save()
+
+        track2 = models.Track(sound="tracks/Bohemian Rhapsody bajo.mp3",
+                              status="P", instrument=instrument2,
+                              musician=musician3, song=song1)
+        track2.save()
+
+        track3 = models.Track(sound="tracks/Bohemian Rhapsody batería.mp3",
+                              status="P", instrument=instrument7,musician=musician4, song=song1)
+        track3.save()
 
     def handle(self, *args, **options):
         djangocmd.call_command('flush', interactive=False)
