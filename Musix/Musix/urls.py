@@ -49,5 +49,5 @@ urlpatterns = [
     url(r'^songs', views.songs, name='songs'),
     url(r'^song/(?P<song_id>\d+)', views.song_info, name='songInfo'),
     url(r'^tracks/(?P<song_id>\d+)', views.tracks, name='tracks'),
-    url(r'^uploadTrack', views.upload_track, name='uploadTrack'),
+    url(r'^uploadTrack/(?P<song_id>\d+)', views.upload_track, name='uploadTrack'),
 ]
