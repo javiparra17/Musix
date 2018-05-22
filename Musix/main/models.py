@@ -5,7 +5,6 @@ import main.choices as choices
 COUNTRIES = choices.COUNTRIES
 GENDERS = choices.GENDERS
 STATUS = choices.STATUS
-YESORNOT = choices.YESORNOT
 
 
 class Actor(models.Model):
@@ -41,8 +40,7 @@ class Song(models.Model):
     name = models.CharField(max_length=20, blank=False)
     author = models.CharField(max_length=30, blank=False)
     description = models.TextField(max_length=500, blank=False)
-    additionalInstruments = models.CharField(blank=False, max_length=5,
-                                             choices=YESORNOT)
+    additionalInstruments = models.BooleanField(null=False)
     finished = models.BooleanField(default=False, null=False)
     finishedSong = models.FileField(blank=True, upload_to='songs', null=True)
 
@@ -52,10 +50,11 @@ class Song(models.Model):
 
 
 class Track(models.Model):
-    instrument = models.CharField(blank=False, max_length=100)
     sound = models.FileField(blank=False, upload_to='tracks', null=False)
-
     status = models.CharField(blank=False, max_length=20, choices=STATUS)
+
+    instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE,
+                                   null=False)
     musician = models.ForeignKey(Musician, on_delete=models.DO_NOTHING,
                                  null=True)
     song = models.ForeignKey(Song, on_delete=models.DO_NOTHING, null=False)

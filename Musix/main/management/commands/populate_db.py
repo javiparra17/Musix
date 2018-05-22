@@ -126,7 +126,7 @@ class Command(BaseCommand):
 
         song1 = models.Song(name="Bohemian rhapsody", author="Queen",
                             description="An amazing song of Queen",
-                            additionalInstruments="N", finished=False,
+                            additionalInstruments=False, finished=False,
                             creator=musician2)
         song1.save()
         song1.requiredInstruments.add(instrument2)
@@ -137,7 +137,7 @@ class Command(BaseCommand):
 
         song2 = models.Song(name="I dreamed a dream", author="Les Miserables",
                             description="A song of the film Les Miserables",
-                            additionalInstruments="Y",
+                            additionalInstruments=True,
                             finished=False, creator=musician2)
         song2.save()
 
@@ -149,7 +149,7 @@ class Command(BaseCommand):
 
         song3 = models.Song(name="Yellow submarine", author="The Beatles",
                             description="A song of The Beatles",
-                            additionalInstruments="N",
+                            additionalInstruments=False,
                             finished=True, creator=musician2,
                             finishedSong="songs/Yellow submarine.mp3")
         song3.save()
@@ -163,7 +163,7 @@ class Command(BaseCommand):
         song4 = models.Song(name="Tu canción", author="Alfred y Amaia",
                             description="La canción que representará a España "
                                         "en Eurovisión 2018",
-                            additionalInstruments="N",
+                            additionalInstruments=True,
                             finished=False, creator=musician3)
         song4.save()
 
@@ -186,7 +186,8 @@ class Command(BaseCommand):
         track2.save()
 
         track3 = models.Track(sound="tracks/Bohemian Rhapsody batería.mp3",
-                              status="P", instrument=instrument7,musician=musician4, song=song1)
+                              status="P", instrument=instrument5,
+                              musician=musician4, song=song1)
         track3.save()
 
     def handle(self, *args, **options):
