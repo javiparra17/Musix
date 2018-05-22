@@ -169,14 +169,20 @@ def delete_song(request, song_id):
 
 def songs(request):
     user = request.user.is_authenticated()
+    participations = []
     if user:
         logged = True
+        tracks = Track.objects.filter(musician=request.user.musician)\
+            .exclude(status="D")
+        for t in tracks:
+            participations.append(t.song)
     else:
         logged = False
 
     all_songs = service.songs(logged)
 
-    return render(request, 'songs.html', {'songs': all_songs})
+    return render(request, 'songs.html', {'songs': all_songs,
+                                          'participations': participations})
 
 
 def song_info(request, song_id):
@@ -184,6 +190,12 @@ def song_info(request, song_id):
     required_instruments = song.requiredInstruments.all()
     musician = song.creator
 
+    tracks = \
+        Track.objects.filter(musician=request.user.musician).exclude(status="D")
+    participations = []
+    for t in tracks:
+        participations.append(t.song)
+
     return render(request, 'song.html',
                   {'song': song, 'required_instruments': required_instruments,
-                   'musician': musician})
+                   'musician': musician, 'participations': participations})

@@ -35,8 +35,12 @@
                         {% if s.creator.user != user %}
                             <td>
                                 {% if not s.finished %}
-                                    <a href="/uploadTrack/{{ s.id }}" role="button" class="btn btn-success"
-                                    id="participateButton">Participate</a>
+                                    {% if s not in participations  %}
+                                        <a href="/uploadTrack/{{ s.id }}" role="button" class="btn btn-success"
+                                        id="participateButton">Participate</a>
+                                     {% else %}
+                                        You have already participated
+                                     {% endif %}
                                 {% elif s.finished %}
                                     <button class="btn btn-success" id="listenButton"
                                             onclick="location.href='/song/{{ s.id }}'">

@@ -14,6 +14,55 @@
 
 {% if tracks %}
 
+    <div>
+        <h1 id="titleMyTracks">My tracks</h1>
+    </div>
+
+    <div id="tableTracksDiv">
+        <table class="table table-responsive table-hover" id="tableTracks">
+            <thead>
+                <tr class="info">
+                    <th onclick="sortTable(0, 'tableTracksDiv')">Song</th>
+                    <th onclick="sortTable(1, 'tableTracksDiv')">Instrument</th>
+                    <th onclick="sortTable(2, 'tableTracksDiv')">Status</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in tracks %}
+                    <tr>
+                        <td>
+                            <a href="/song/{{ t.song.id }}" id="infoSong">{{ t.song.name }}</a>
+                        </td>
+                        <td>
+                            <img src="{% static "media/" %}{{ t.instrument.image }}"
+                                 id="imageInstrument" alt="{{ t.instrument.name }}">
+                        </td>
+                        <td>
+                            {% if t.status == 'P' %}
+                                Pending
+                            {% elif t.status == 'A' %}
+                                Accepted
+                            {% elif t.status == 'D' %}
+                                Denied
+                            {% endif %}
+                        </td>
+                        <td>
+                            <audio src="{% static "media/" %}{{ t.sound }}" controls></audio>
+                        </td>
+                        <td>
+                            {% if t.status != "A" %}
+                                <a href="/deleteTrack/{{ t.id }}" role="button" class="btn btn-danger" id="deleteButton"
+                                   onclick="return confirm('Are you sure?')">Delete</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% else %}
     <div id="notTracksDiv">
         <h1 id="h1NotTracks">You haven't tracks yet</h1>

@@ -18,7 +18,11 @@
 
 <div>
     {% if not song.finished and user.is_authenticated %}
-        <h3 id="iNeed">I need this instruments</h3>
+        {% if song.additionalInstruments %}
+            <h3 id="iNeed">I need this instruments or an instrument that you want</h3>
+        {% else %}
+            <h3 id="iNeed">I need this instruments</h3>
+        {% endif %}
         <table class="table table-responsive " id="tableInstruments">
             <tbody>
                 {% for i in required_instruments %}
@@ -29,8 +33,12 @@
             </tbody>
         </table>
         {% if user.musician.id != song.creator.id %}
-            <h3 id="iNeed">So...you can upload your track here</h3>
-            <button class="btn btn-default" onclick="location.href='/uploadTrack/{{ song.id }}'" id="buttonUploadTrack">Upload track</button>
+            {% if song not in participations %}
+                <h3 id="iNeed">So...you can upload your track here</h3>
+                <button class="btn btn-default" onclick="location.href='/uploadTrack/{{ song.id }}'" id="buttonUploadTrack">Upload track</button>
+            {% else %}
+                <h3 id="iNeed">But...you have already participated</h3>
+            {% endif %}
         {% endif %}
     {% endif %}
 </div>
@@ -40,7 +48,7 @@
 {% endif %}
 
 {% if song.finished %}
-    <audio src="{% static "media/" %}{{ song.finishedSong }}" controls></audio>
+    <audio src="{% static "media/" %}{{ song.finishedSong }}" controls id="audioSong"></audio>
 {% endif %}
 
 

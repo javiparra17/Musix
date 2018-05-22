@@ -1,4 +1,4 @@
-from main.models import Track, Song
+from main.models import Track, Song, Instrument
 from main.forms import TrackForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
@@ -15,6 +15,10 @@ def upload_track(request, song_id):
         raise PermissionDenied
     
     song = Song.objects.get(id=song_id)
+    if song.additionalInstruments:
+        instruments = Instrument.objects.all()
+    else:
+        instruments = song.requiredInstruments.all()
 
     if request.method == 'POST':
         form = TrackForm(request.POST, request.FILES)
@@ -27,7 +31,8 @@ def upload_track(request, song_id):
     else:
         form = TrackForm()
 
-    return render(request, 'uploadTrack.html', {'form': form})
+    return render(request, 'uploadTrack.html', {'form': form, 'song': song,
+                                                'instruments': instruments})
 
 
 @login_required(login_url='/login.html')
@@ -55,7 +60,12 @@ def tracks(request, song_id):
     song = Song.objects.get(id=song_id)
     song_tracks = service.tracks(song)
 
-    return render(request, 'tracks.html', {'tracks': song_tracks, 'song': song})
+    tracks_ids = []
+    for t in song_tracks:
+        tracks_ids.append(t.id)
+
+    return render(request, 'tracks.html', {'tracks': song_tracks, 'song': song,
+                                           'tracks_ids': tracks_ids})
 
 
 @login_required(login_url='/login.html')
@@ -68,11 +78,11 @@ def accept_track(request, track_id):
     if not musician.premium:
         raise PermissionDenied
 
-    track = Track.objects.filter(id=track_id)
+    track = Track.objects.get(id=track_id)
 
     service.accept_track(track)
 
-    return HttpResponseRedirect('/tracks')
+    return HttpResponseRedirect('/tracks/' + str(track.song.id))
 
 
 @login_required(login_url='/login.html')
@@ -85,8 +95,8 @@ def deny_track(request, track_id):
     if not musician.premium:
         raise PermissionDenied
 
-    track = Track.objects.filter(id=track_id)
+    track = Track.objects.get(id=track_id)
 
     service.deny_track(track)
 
-    return HttpResponseRedirect('/tracks')
+    return HttpResponseRedirect('/tracks/' + str(track.song.id))
