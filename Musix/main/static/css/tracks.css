@@ -7,8 +7,59 @@
 }
 
 #tableTracks{
-    width: 98%;
-    margin-left: 10px;
+    width: 1320px;
+    margin-left: 15px;
+}
+
+th{
+    font-size: 24px;
+}
+
+td{
+    font-size: 20px;
+}
+
+td, th, tr{
+    text-align: center;
+}
+
+tbody{
+    padding-right: 50%;
+}
+
+#imageInstrument{
+    width: 50px;
+    height: 50px;
+}
+
+#infoMusician, #acceptButton, #denyButton, #deleteButton{
+    width: 100px;
+    color: black;
+	text-decoration: none;
+}
+
+#infoMusician:link, #infoMusician:visited{
+    color: black;
+	text-decoration: none;
+}
+
+#infoMusician:hover{
+    color: #0066d9;
+}
+
+#acceptButton:link, #acceptButton:visited,
+#denyButton:link, #denyButton:visited,
+#deleteButton:link, #deleteButton:visited{
+    color: white;
+	text-decoration: none;
+}
+
+#thAudio{
+    width: 400px;
+}
+
+audio{
+    width: 400px;
 }
 
 #notTracksDiv{

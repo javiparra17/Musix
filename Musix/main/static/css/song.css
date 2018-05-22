@@ -31,6 +31,7 @@
     width: 200px;
     font-size: 18px;
     color: black;
+    margin-left: 15px;
 }
 
 #buttonPublishSong{
@@ -38,4 +39,10 @@
     height: 40px;
     font-family: "Axaxax Rg";
     font-size: 20px;
+    margin-left: 15px;
+}
+
+#audioSong{
+    width: 400px;
+    margin-left: 15px;
 }
