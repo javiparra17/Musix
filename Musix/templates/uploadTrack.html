@@ -1,22 +1,44 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Musix</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-    </head>
+{% include 'base.html' %}
+{% load static %}
 
-    <body>
-        <div>
-            {% include "header.html" %}
+<link type="text/css" rel="stylesheet" href="{% static "css/uploadTrack.css" %}"/>
+
+<div>
+    {% include "header.html" %}
+</div>
+
+<div>
+    {% include "menu.html" %}
+</div>
+
+<div>
+    <h1 id="titleUploadTrack">Upload track for "{{ song.name }}"</h1>
+</div>
+
+<div>
+    <form method="post" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_instrument">Instrument</label>
+             <select id="id_instrument" required>
+                 {% for i in instruments %}
+                    <option value="{{ i.name }}">{{ i.name }}</option>
+                 {% endfor %}
+            </select>
         </div>
-        <div>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{form}}
-                <input type="submit" value="Upload" />
-            </form>
+        <br />
+
+        <div class="form-group">
+            <label for="id_sound">Track</label>
+            <input type="file" name="sound" id="id_sound" required>
         </div>
-    </body>
-</html>
+        <br />
+
+        <input type="submit" value="Upload track" id="buttonUploadTrack" />
+        <input type="button" value="Cancel" id="buttonCancel" onclick="location.href='/song/{{ song.id }}'"/>
+    </form>
+</div>
+
+<div>
+    {% include "footer.html" %}
+</div>
