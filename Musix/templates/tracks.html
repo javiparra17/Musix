@@ -3,6 +3,7 @@
 
 <link type="text/css" rel="stylesheet" href="{% static "css/tracks.css" %}"/>
 <script type="text/javascript" src="{% static "js/tables.js" %}"></script>
+<script type="text/javascript" src="{% static "js/tracks.js" %}"></script>
 
 <div>
     {% include "header.html" %}
@@ -17,6 +18,51 @@
     <div>
         <h1 id="titleTracks">Tracks of <a href="/song/{{ song.id }}">{{ song.name }}</a>
         </h1>
+    </div>
+
+    <div>
+        <button onclick="listenAllTracks({{ tracks_ids }})">Listen all tracks</button>
+    </div>
+
+    <div id="tableTracksDiv">
+        <table class="table table-responsive table-hover" id="tableTracks">
+            <thead>
+                <tr class="info">
+                    <th onclick="sortTable(0, 'tableTracksDiv')">Creator</th>
+                    <th onclick="sortTable(1, 'tableTracksDiv')">Instrument</th>
+                    <th onclick="sortTable(2, 'tableTracksDiv')">Status</th>
+                    <th id="thAudio"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in tracks %}
+                    <tr>
+                        <td>
+                            <a href="/profile/{{ t.musician.user.username }}" id="infoMusician">{{ t.musician.user.username }}</a>
+                        </td>
+                        <td>
+                            <img src="{% static "media/" %}{{ t.instrument.image }}"
+                                 id="imageInstrument" alt="{{ t.instrument.name }}">
+                        </td>
+                        <td>
+                            {% if t.status == 'P' %}
+                                <a href="/acceptTrack/{{ t.id }}" role="button" class="btn btn-success" id="acceptButton"
+                                   onclick="return confirm('Are you sure?')">Accept</a>
+                                <a href="/denyTrack/{{ t.id }}" role="button" class="btn btn-danger" id="denyButton"
+                                   onclick="return confirm('Are you sure?')">Deny</a>
+                            {% elif t.status == 'A' %}
+                                Accepted
+                            {% elif t.status == 'D' %}
+                                Denied
+                            {% endif %}
+                        </td>
+                        <td>
+                            <audio src="{% static "media/" %}{{ t.sound }}" controls id="trackSound{{ t.id }}"></audio>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 {% else %}
