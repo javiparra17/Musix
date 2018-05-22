@@ -20,10 +20,6 @@
         </h1>
     </div>
 
-    <div>
-        <button onclick="listenAllTracks({{ tracks_ids }})">Listen all tracks</button>
-    </div>
-
     <div id="tableTracksDiv">
         <table class="table table-responsive table-hover" id="tableTracks">
             <thead>
@@ -31,7 +27,14 @@
                     <th onclick="sortTable(0, 'tableTracksDiv')">Creator</th>
                     <th onclick="sortTable(1, 'tableTracksDiv')">Instrument</th>
                     <th onclick="sortTable(2, 'tableTracksDiv')">Status</th>
-                    <th id="thAudio"></th>
+                    <th id="thAudio">
+                        <button id="playButton" class="btn-success"
+                                onclick="playAllTracks({{ tracks_ids }})">Listen all tracks</button>
+                        <button id="pauseButton" disabled class="btn-default"
+                                onclick="pauseAllTracks({{ tracks_ids }})">Pause</button>
+                        <button id="stopButton" disabled class="btn-default"
+                                onclick="stopAllTracks({{ tracks_ids }})">Stop</button>
+                    </th>
                 </tr>
             </thead>
             <tbody>

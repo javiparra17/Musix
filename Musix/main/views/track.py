@@ -60,8 +60,10 @@ def tracks(request, song_id):
     song = Song.objects.get(id=song_id)
     song_tracks = service.tracks(song)
 
+    song_tracksAP = song_tracks.exclude(status="D")
+
     tracks_ids = []
-    for t in song_tracks:
+    for t in song_tracksAP:
         tracks_ids.append(t.id)
 
     return render(request, 'tracks.html', {'tracks': song_tracks, 'song': song,
