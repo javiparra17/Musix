@@ -20,10 +20,10 @@
         {% csrf_token %}
         <div class="form-group">
             <label for="id_instrument">Instrument</label>
-             <select id="id_instrument" required>
-                 {% for i in instruments %}
-                    <option value="{{ i.name }}">{{ i.name }}</option>
-                 {% endfor %}
+            <select id="id_instrument" name="instrument" required>
+                {% for i in instruments %}
+                    <option id="id_instrument" value="{{ i.id }}">{{ i.name }}</option>
+                {% endfor %}
             </select>
         </div>
         <br />

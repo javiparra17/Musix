@@ -7,7 +7,7 @@ from main.services import track as service
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 
 
-@login_required(login_url='/login.html')
+#@login_required(login_url='/login.html')
 def upload_track(request, song_id):
     try:
         musician = request.user.musician
@@ -27,7 +27,8 @@ def upload_track(request, song_id):
             sound = form.cleaned_data['sound']
 
             service.upload_track(instrument, sound, musician, song)
-            return redirect('myTracks.html')
+
+            return redirect('/myTracks.html')
     else:
         form = TrackForm()
 
@@ -60,10 +61,10 @@ def tracks(request, song_id):
     song = Song.objects.get(id=song_id)
     song_tracks = service.tracks(song)
 
-    song_tracksAP = song_tracks.exclude(status="D")
+    song_tracks_ap = song_tracks.exclude(status="D")
 
     tracks_ids = []
-    for t in song_tracksAP:
+    for t in song_tracks_ap:
         tracks_ids.append(t.id)
 
     return render(request, 'tracks.html', {'tracks': song_tracks, 'song': song,
@@ -102,3 +103,26 @@ def deny_track(request, track_id):
     service.deny_track(track)
 
     return HttpResponseRedirect('/tracks/' + str(track.song.id))
+
+
+#@login_required(login_url='/login.html')
+def delete_track(request, track_id):
+    try:
+        musician = request.user.musician
+    except ObjectDoesNotExist:
+        raise PermissionDenied
+
+    track = Track.objects.get(id=track_id)
+
+    if track.musician == musician:
+        if track.status == "P" or track.status == "D":
+            service.delete_track(musician, track)
+        else:
+            error = "You can't delete an accepted track"
+            return render(request, 'myTracks.html', {'error': error})
+
+    else:
+        error = "This track is not yours"
+        return render(request, 'myTracks.html', {'error': error})
+
+    return HttpResponseRedirect('/myTracks')
