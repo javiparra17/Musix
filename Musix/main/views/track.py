@@ -4,10 +4,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from main.services import track as service
+import main.functions as functions
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 
 
-#@login_required(login_url='/login.html')
+@login_required(login_url='/login.html')
 def upload_track(request, song_id):
     try:
         musician = request.user.musician
@@ -105,7 +106,7 @@ def deny_track(request, track_id):
     return HttpResponseRedirect('/tracks/' + str(track.song.id))
 
 
-#@login_required(login_url='/login.html')
+@login_required(login_url='/login.html')
 def delete_track(request, track_id):
     try:
         musician = request.user.musician
@@ -126,3 +127,20 @@ def delete_track(request, track_id):
         return render(request, 'myTracks.html', {'error': error})
 
     return HttpResponseRedirect('/myTracks')
+
+
+#@login_required(login_url='/login.html')
+def download_track(request, track_id):
+    try:
+        musician = request.user.musician
+    except ObjectDoesNotExist:
+        raise PermissionDenied
+
+    if not musician.premium:
+        raise PermissionDenied
+
+    track = Track.objects.get(id=track_id)
+
+    response = functions.download_track(str(track.sound))
+
+    return response
