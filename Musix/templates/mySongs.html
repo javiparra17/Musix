@@ -12,6 +12,12 @@
     {% include "menu.html" %}
 </div>
 
+<div>
+    {% if error %}
+        <label class="label label-danger" id="labelError">{{ error }}</label>
+    {% endif %}
+</div>
+
 {% if songs %}
 
     <div>

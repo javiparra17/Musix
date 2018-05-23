@@ -32,6 +32,7 @@ def deny_track(track):
         track.status = 'D'
         track.save()
 
+
 def delete_track(musician, track):
     if track.musician == musician:
         if track.status == "P" or track.status == "D":

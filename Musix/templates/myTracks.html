@@ -12,6 +12,12 @@
     {% include "menu.html" %}
 </div>
 
+<div>
+    {% if error %}
+        <label class="label label-danger" id="labelError">{{ error }}</label>
+    {% endif %}
+</div>
+
 {% if tracks %}
 
     <div>
@@ -25,7 +31,7 @@
                     <th onclick="sortTable(0, 'tableTracksDiv')">Song</th>
                     <th onclick="sortTable(1, 'tableTracksDiv')">Instrument</th>
                     <th onclick="sortTable(2, 'tableTracksDiv')">Status</th>
-                    <th></th>
+                    <th id="thAudio"></th>
                     <th></th>
                 </tr>
             </thead>
@@ -51,12 +57,12 @@
                         <td>
                             <audio src="{% static "media/" %}{{ t.sound }}" controls></audio>
                         </td>
-                        <td>
-                            {% if t.status != "A" %}
+                        {% if t.status != "A" %}
+                            <td>
                                 <a href="/deleteTrack/{{ t.id }}" role="button" class="btn btn-danger" id="deleteButton"
                                    onclick="return confirm('Are you sure?')">Delete</a>
-                            {% endif %}
-                        </td>
+                            </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>

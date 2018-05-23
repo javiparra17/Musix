@@ -52,6 +52,14 @@ tbody{
 	text-decoration: none;
 }
 
+#thAudio{
+    width: 400px;
+}
+
+audio{
+    width: 400px;
+}
+
 #notTracksDiv{
     text-align: center;
 }
