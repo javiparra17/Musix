@@ -12,9 +12,22 @@
 </div>
 
 <div>
-    {% if error %}
-        <h1>{{ error }}</h1>
-    {% endif %}
+    <h1 id="h1GetPremium">What would you do if you were premium?</h1>
+</div>
+
+<div>
+    <h2 id="h2GetPremium">You could create your songs</h2>
+    <h2 id="h2GetPremium">You could manage your songs</h2>
+    <h2 id="h2GetPremium">You could publish your songs</h2>
+</div>
+
+<div>
+    <h2 id="h2GetPremium">So...don't think it more</h2>
+</div>
+
+<div id="divBecomePremium">
+    <a href="becomePremium/{{ user.username }}" role="button"
+       class="btn btn-success" id="buttonBecomePremium">Become premium</a>
 </div>
 
 <div>

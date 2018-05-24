@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^acceptTrack/(?P<track_id>\d+)', views.accept_track,
         name='acceptTrack'),
+    url(r'^becomePremium/(?P<username>\w+)', views.become_premium,
+        name='becomePremium'),
     url(r'^createAccount', views.create_account, name='createAccount'),
     url(r'^createInstrument', views.create_instrument, name='createInstrument'),
     url(r'^createSong', views.create_song, name='createSong'),
