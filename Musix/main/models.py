@@ -27,12 +27,10 @@ class Musician(Actor):
     phone = models.CharField(max_length=20, blank=True)
     gender = models.CharField(max_length=7, blank=True, choices=GENDERS)
     description = models.TextField(max_length=500, blank=True)
-    photo = models.ImageField(null=True, blank=True)
-    bithdate = models.DateField(null=True)
-    country = models.CharField(max_length=100, blank=True, choices=COUNTRIES,
-                               default='ES')
-    city = models.CharField(max_length=50, blank=True)
-    registrationDate = models.DateField(auto_now_add=True)
+    photo = models.ImageField(null=True, blank=True, upload_to='photos')
+    country = models.CharField(max_length=100, blank=True, choices=COUNTRIES)
+    city = models.CharField(max_length=100, blank=True)
+    registrationDate = models.DateField()
     premium = models.BooleanField(default=False, null=False)
 
 

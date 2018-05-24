@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
+from time import gmtime, strftime
 
 
 def create_account(request):
@@ -17,7 +18,7 @@ def create_account(request):
             if password == confirm_password:
                 username = form.cleaned_data['username']
                 email = form.cleaned_data['email']
-                user = User.objects.create_user(username=username,email=email,
+                user = User.objects.create_user(username=username, email=email,
                                                 password=password)
                 name = form.cleaned_data['name']
                 surname = form.cleaned_data['surname']
@@ -29,7 +30,10 @@ def create_account(request):
                 phone = form.cleaned_data['phone']
                 photo = form.cleaned_data['photo']
 
-                Musician.objects.create(user=user, phone=phone, photo=photo)
+                registration_date = strftime("%d-%m-%Y", gmtime())
+
+                Musician.objects.create(user=user, phone=phone, photo=photo,
+                                        registrationDate=registration_date)
 
                 return HttpResponseRedirect('index.html')
             else:
