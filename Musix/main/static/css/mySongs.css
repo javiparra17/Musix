@@ -71,3 +71,12 @@ tbody{
     margin-top: 5%;
     margin-bottom: 2%;
 }
+
+#divError{
+    text-align: center;
+    margin-top: 30px;
+}
+
+#labelError{
+    font-size: 20px;
+}

@@ -132,7 +132,7 @@ def publish_song(request, song_id):
     return render(request, 'publishSong.html', {'form': form, 'song': song})
 
 
-#@login_required(login_url='/login.html')
+@login_required(login_url='/login.html')
 def delete_song(request, song_id):
     try:
         musician = request.user.musician
@@ -145,6 +145,7 @@ def delete_song(request, song_id):
     song = Song.objects.get(id=song_id)
     musician = Musician.objects.get(user=request.user)
     tracks = Track.objects.filter(song=song)
+    songs = Song.objects.filter(creator=musician)
 
     if song.creator == musician:
         if len(tracks) == 0:
@@ -154,17 +155,20 @@ def delete_song(request, song_id):
                 tracks.filter(status='P')
                 if tracks:
                     error = "This song has pending tracks"
-                    return render(request, 'mySongs.html', {'error': error})
+                    return render(request, 'mySongs.html', {'songs': songs,
+                                                            'error': error})
                 else:
                     service.delete_song(musician, song)
                     return redirect("/mySongs")
             else:
                 error = "You can't delete an open song with tracks"
-                return render(request, 'mySongs.html', {'error': error})
+                return render(request, 'mySongs.html', {'songs': songs,
+                                                        'error': error})
 
     else:
         error = "This song is not yours"
-        return render(request, 'mySongs.html', {'error': error})
+        return render(request, 'mySongs.html', {'songs': songs,
+                                                'error': error})
 
     return HttpResponseRedirect('/mySongs')
 
