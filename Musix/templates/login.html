@@ -9,6 +9,12 @@
     </a>
 </div>
 
+<div id="divError">
+    {% if error %}
+        <label class="label label-danger" id="labelError">{{ error }}</label>
+    {% endif %}
+</div>
+
 <div>
     <form method="post" id="form" class="form" role="form" autocomplete="on">
         {% csrf_token %}

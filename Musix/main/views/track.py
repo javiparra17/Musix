@@ -129,7 +129,7 @@ def delete_track(request, track_id):
     return HttpResponseRedirect('/myTracks')
 
 
-#@login_required(login_url='/login.html')
+@login_required(login_url='/login.html')
 def download_track(request, track_id):
     try:
         musician = request.user.musician

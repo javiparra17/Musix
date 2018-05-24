@@ -21,7 +21,7 @@ def login_user(request):
             else:
                 error = "Incorrect user or password"
                 return render(request, 'login.html',
-                              {'form': form}, {'error': error})
+                              {'form': form, 'error': error})
         else:
             return render(request, 'login.html', {'form': form})
     else:
