@@ -2,13 +2,14 @@
     font-family: "Axaxax Rg";
     font-size: 40px;
     color: black;
-    margin-left: 2.3%;
+    margin-left: 20px;
+    margin-bottom: 20px;
 }
 
 form{
     text-align: left;
-    margin-top: 2%;
-    margin-left: 2.3%;
+    margin-top: 5px;
+    margin-left: 20px;
 }
 
 label{
@@ -18,18 +19,23 @@ label{
 }
 
 #id_name{
-    width: 20%;
-    height: 5%;
-    margin-bottom: 2%;
+    width: 250px;
+    height: 30px;
+    margin-bottom: 20px;
 }
 
 #id_image{
     font-size: 17px;
 }
 
+#output{
+    width: 70px;
+    margin-left: 50px;
+}
+
 #buttonCreateInstrument, #buttonCancel{
-    width: 20%;
-    height: 7%;
+    width: 270px;
+    height: 40px;
     font-family: "Axaxax Rg";
     font-size: 20px;
 }

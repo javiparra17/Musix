@@ -2,14 +2,24 @@
 {% load static %}
 
 <link type="text/css" rel="stylesheet" href="{% static "css/createAccount.css" %}"/>
-<script type="text/javascript" src="{% static "js/passwordStatus.js" %}"></script>
+<script src="{% static 'js/showPhoto.js' %}"></script>
 
 <div>
     {% include "header.html" %}
 </div>
 
 <div>
+    {% include "menu.html" %}
+</div>
+
+<div>
     <h1 id="titleAccount">Create account</h1>
+</div>
+
+<div id="divError">
+    {% if error %}
+        <label class="label label-danger" id="labelError">{{ error }}</label>
+    {% endif %}
 </div>
 
 <div>
@@ -45,8 +55,9 @@
         </div>
         <br />
 
-        <div class="form-group">
+        <div class="form-group" id="divPhoto">
             <label for="id_photo">Photo</label>
+            <img id="output">
             <input type="file" name="photo" id="id_photo">
         </div>
         <br />
@@ -62,9 +73,9 @@
         </div>
         <br />
 
-
         <input type="submit" value="Create account" id="buttonCreateAccount" />
         <input type="button" value="Cancel" id="buttonCancel" onclick="location.href='/index'"/>
+
     </form>
 </div>
 
