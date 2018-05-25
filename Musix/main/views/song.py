@@ -196,12 +196,16 @@ def song_info(request, song_id):
     required_instruments = song.requiredInstruments.all()
     musician = song.creator
 
-    tracks = \
-        Track.objects.filter(musician=request.user.musician).exclude(status="D")
-    participations = []
-    for t in tracks:
-        participations.append(t.song)
-
-    return render(request, 'song.html',
-                  {'song': song, 'required_instruments': required_instruments,
-                   'musician': musician, 'participations': participations})
+    try:
+        user = request.user.musician
+        tracks = Track.objects.filter(musician=user).exclude(status="D")
+        participations = []
+        for t in tracks:
+            participations.append(t.song)
+        return render(request, 'song.html',
+                      {'song': song,
+                       'required_instruments': required_instruments,
+                       'musician': musician, 'participations': participations})
+    except:
+        return render(request, 'song.html',
+                      {'song': song})

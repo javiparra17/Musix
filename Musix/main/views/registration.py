@@ -25,12 +25,10 @@ def create_account(request):
                 user.first_name = name
                 user.last_name = surname
 
-                user.save()
-
                 phone = form.cleaned_data['phone']
                 photo = form.cleaned_data['photo']
 
-                registration_date = strftime("%d-%m-%Y", gmtime())
+                registration_date = strftime("%Y-%m-%d", gmtime())
 
                 Musician.objects.create(user=user, phone=phone, photo=photo,
                                         registrationDate=registration_date)

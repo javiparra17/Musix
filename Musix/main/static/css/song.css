@@ -25,6 +25,7 @@
 #imageInstrument{
     width: 80px;
     height: 80px;
+    margin-left: 15px;
 }
 
 #buttonUploadTrack{

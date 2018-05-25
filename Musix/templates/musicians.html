@@ -30,7 +30,15 @@
                 {% for m in musicians %}
                     <tr>
                         <td>
-                            {{ m.photo }}
+                            {% if m.photo %}
+                                <img src="{% static "media/" %}{{ m.photo }}" id="photoMusician">
+                            {% else %}
+                                {% if m.gender == "F" %}
+                                    <img src="{% static "images/avatarMujer.png" %}" id="photoMusician">
+                                {% else %}
+                                    <img src="{% static "images/avatarHombre.png" %}" id="photoMusician">
+                                {% endif %}
+                            {% endif %}
                         </td>
                         <td>
                             <a href="/profile/{{ m.user.username }}" id="profileButton">{{ m.user.username }}</a>
