@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-
 from django.contrib.auth.models import User
 from main import models
 from django.utils.dateparse import parse_date
@@ -36,7 +35,7 @@ class Command(BaseCommand):
         user1.save()
         musician1 = models.Musician(user=user1,
                                     gender='M',
-                                    description="Description1",
+                                    description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibu",
                                     country='ES',
                                     city='Madrid',
                                     registrationDate=parse_date('2017-07-15'),
@@ -160,17 +159,15 @@ class Command(BaseCommand):
         song3.requiredInstruments.add(instrument7)
         song3.save()
 
-        song4 = models.Song(name="Tu canción", author="Alfred y Amaia",
-                            description="La canción que representará a España "
-                                        "en Eurovisión 2018",
+        song4 = models.Song(name="Waka waka", author="Shakira",
+                            description="La canción del mundial de fútbol de "
+                                        "Sudáfrica 2010",
                             additionalInstruments=True,
                             finished=False, creator=musician3)
         song4.save()
 
-        song4.requiredInstruments.add(instrument1)
         song4.requiredInstruments.add(instrument2)
         song4.requiredInstruments.add(instrument5)
-        song4.requiredInstruments.add(instrument7)
         song4.save()
 
         # TRACKS
@@ -185,10 +182,11 @@ class Command(BaseCommand):
                               musician=musician3, song=song1)
         track2.save()
 
-        track3 = models.Track(sound="tracks/Bohemian Rhapsody batería.mp3",
+        track3 = models.Track(sound="tracks/Bohemian Rhapsody bateria.mp3",
                               status="P", instrument=instrument5,
                               musician=musician4, song=song1)
         track3.save()
+
 
     def handle(self, *args, **options):
         djangocmd.call_command('flush', interactive=False)
