@@ -2,6 +2,7 @@
 {% load static %}
 
 <link type="text/css" rel="stylesheet" href="{% static "css/profile.css" %}"/>
+<script type="text/javascript" src="{% static "js/tables.js" %}"></script>
 
 <div>
     {% include "header.html" %}
@@ -11,10 +12,58 @@
     {% include "menu.html" %}
 </div>
 
-<div id="info">
-
+<div id="divProfilePhoto">
+   {% if musician.photo %}
+       <img src="{% static "media/" %}{{ m.photo }}" id="photoMusician">
+   {% else %}
+       {% if m.gender == "F" %}
+           <img src="{% static "images/avatarMujer.png" %}" id="photoMusician">
+       {% else %}
+           <img src="{% static "images/avatarHombre.png" %}" id="photoMusician">
+       {% endif %}
+   {% endif %}
 </div>
 
-<div>
+<div id="divProfileName">
+    <h1 id="profileName">{{ musician.user.first_name }} {{ musician.user.last_name }} ({{ musician.user.username }})</h1>
+</div>
+
+<div id="divProfileDescription">
+    <p id="profileDescription">{{ musician.description }}</p>
+</div>
+
+<div id="divProfileSongs">
+    <table class="table table-responsive table-hover" id="tableSongs">
+        <thead>
+            {% if tracks %}
+                <tr class="info">
+                    <th onclick="sortTable(0, 'divProfileSongs')">Song</th>
+                    <th onclick="sortTable(1, 'divProfileSongs')">Instrument</th>
+                </tr>
+            {% else %}
+                <tr class="info">
+                    <th>Songs</th>
+                </tr>
+            {% endif %}
+        </thead>
+
+        <tbody>
+            {% if tracks %}
+                {% for t in tracks %}
+                    <tr>
+                        <td><a href="/song/{{ t.song.id }}">{{ t.song.name }}</a></td>
+                        <td>{{ t.instrument.name }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td>No songs yet</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+<div id="divFooter">
     {% include "footer.html" %}
 </div>

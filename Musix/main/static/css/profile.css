@@ -1,0 +1,42 @@
+#divProfilePhoto{
+    width: 320px;
+}
+
+#photoMusician{
+    width: 300px;
+}
+
+#divProfileName{
+    position: absolute;
+    top: 230px;
+    left: 310px;
+}
+
+#profileName{
+    font-family: "Arial";
+    color: black;
+    font-size: 40px;
+}
+
+#divProfileDescription{
+    width: 600px;
+    position: absolute;
+    top: 310px;
+    left: 315px;
+}
+
+#profileDescription{
+    color: black;
+    font-size: 20px;
+}
+
+#divProfileSongs{
+    width: 300px;
+    position: absolute;
+    top: 260px;
+    right: 100px;
+}
+
+th{
+    font-size: 20px;
+}
