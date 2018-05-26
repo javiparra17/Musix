@@ -14,7 +14,7 @@
 
 <div id="divProfilePhoto">
    {% if musician.photo %}
-       <img src="{% static "media/" %}{{ m.photo }}" id="photoMusician">
+       <img src="{% static "media/" %}{{ musician.photo }}" id="photoMusician">
    {% else %}
        {% if m.gender == "F" %}
            <img src="{% static "images/avatarMujer.png" %}" id="photoMusician">
@@ -23,6 +23,13 @@
        {% endif %}
    {% endif %}
 </div>
+
+{% if musician.id == user.musician.id %}
+    <div>
+        <a href="/editProfile/{{ musician.user.username }}" role="button" class="btn btn-warning"
+           id="buttonEditProfile">Edit profile</a>
+    </div>
+{% endif %}
 
 <div id="divProfileName">
     <h1 id="profileName">{{ musician.user.first_name }} {{ musician.user.last_name }} ({{ musician.user.username }})</h1>

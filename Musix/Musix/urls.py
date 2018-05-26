@@ -39,6 +39,8 @@ urlpatterns = [
         name='downloadTrack'),
     url(r'^editInstrument/(?P<instrument_id>\d+)', views.edit_instrument,
         name='editInstrument'),
+    url(r'^editProfile/(?P<musician_username>\w+)', views.edit_profile,
+        name='editProfile'),
     url(r'^finishSong/(?P<song_id>\d+)', views.finish_song, name='finishSong'),
     url(r'^getPremium', views.get_premium, name='getPremium'),
     url(r'^index', views.index, name='index'),
