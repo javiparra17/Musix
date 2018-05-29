@@ -26,6 +26,8 @@ urlpatterns = [
         name='acceptTrack'),
     url(r'^becomePremium/(?P<username>\w+)', views.become_premium,
         name='becomePremium'),
+    url(r'^changePassword/(?P<musician_username>\w+)', views.change_password,
+        name='changePassword'),
     url(r'^createAccount', views.create_account, name='createAccount'),
     url(r'^createInstrument', views.create_instrument, name='createInstrument'),
     url(r'^createSong', views.create_song, name='createSong'),

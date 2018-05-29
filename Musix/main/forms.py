@@ -46,6 +46,13 @@ class MusicianForm(forms.ModelForm):
                   'password', 'password2')
 
 
+class PasswordEditForm(forms.Form):
+    newPassword = forms.CharField(label="New password",
+                                  widget=forms.PasswordInput, required=True)
+    checkPassword = forms.CharField(label="Confirm new password",
+                                    widget=forms.PasswordInput, required=True)
+
+
 class ProfileEditForm(forms.ModelForm):
     name = forms.CharField(label="Name", widget=forms.TextInput, required=True)
     surname = forms.CharField(label="Surname", widget=forms.TextInput,
