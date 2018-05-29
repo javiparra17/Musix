@@ -57,6 +57,7 @@
 </div>
 
 {% if not song.finished and user.id == musician.user.id %}
+    <input type="button" value="Edit song" id="buttonEditSong" onclick="location.href='/editSong/{{ song.id }}'"/>
     <input type="button" value="Publish song" id="buttonPublishSong" onclick="location.href='/publishSong/{{ song.id }}'"/>
 {% endif %}
 

@@ -51,6 +51,27 @@ def publish_song(song, sound):
     return song
 
 
+def edit_song(song, name, author, tune, accidental, tonality, bpm, description,
+              score, required_instruments, additional_instruments):
+    song.name = name
+    song.author = author
+    song.tune = tune
+    song.accidental = accidental
+    song.tonality = tonality
+    song.bpm = bpm
+    song.description = description
+    song.score = score
+    song.requiredInstruments = required_instruments
+    song.additionalInstruments = additional_instruments
+
+    if not song.finished:
+        song.save()
+    else:
+        return "You can not edit a finished song"
+
+    return song
+
+
 def delete_song(musician, song):
     tracks = Track.objects.filter(song=song)
 

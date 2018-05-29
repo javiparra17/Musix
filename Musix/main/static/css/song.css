@@ -59,7 +59,7 @@
     margin-left: 15px;
 }
 
-#buttonPublishSong{
+#buttonEditSong, #buttonPublishSong{
     width: 200px;
     height: 40px;
     font-family: "Axaxax Rg";

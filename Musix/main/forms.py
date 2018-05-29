@@ -8,6 +8,14 @@ GENDERS = choices.GENDERS
 YESORNOT = choices.YESORNOT
 
 
+class EditSongForm(forms.ModelForm):
+    class Meta:
+        model = Song
+        fields = ('name', 'author', 'tune', 'accidental', 'tonality', 'bpm',
+                  'description', 'score', 'additionalInstruments',
+                  'requiredInstruments')
+
+
 class FinishedSongForm(forms.ModelForm):
     class Meta:
         model = Song

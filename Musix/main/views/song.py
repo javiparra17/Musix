@@ -1,5 +1,5 @@
 from main.models import Song, Musician, Track, Instrument
-from main.forms import SongForm, FinishedSongForm
+from main.forms import SongForm, FinishedSongForm, EditSongForm
 from main.services import song as service
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -145,6 +145,54 @@ def publish_song(request, song_id):
     else:
         form = FinishedSongForm()
     return render(request, 'publishSong.html', {'form': form, 'song': song})
+
+
+@login_required(login_url='/login.html')
+def edit_song(request, song_id):
+    try:
+        musician = request.user.musician
+    except ObjectDoesNotExist:
+        raise PermissionDenied
+
+    if not musician.premium:
+        raise PermissionDenied
+
+    song = Song.objects.get(id=song_id)
+
+    if song.finished:
+        raise PermissionDenied
+
+    instruments = Instrument.objects.all()
+    required_instruments_names = []
+    for i in song.requiredInstruments.all():
+        required_instruments_names.append(i.name)
+
+    if request.method == 'POST':
+        form = EditSongForm(request.POST, request.FILES)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            author = form.cleaned_data['author']
+            tune = form.cleaned_data['tune']
+            accidental = form.cleaned_data['accidental']
+            tonality = form.cleaned_data['tonality']
+            bpm = form.cleaned_data['bpm']
+            description = form.cleaned_data['description']
+            score = form.cleaned_data['score']
+            required_instruments = form.cleaned_data['requiredInstruments']
+            additional_instruments = form.cleaned_data['additionalInstruments']
+
+            service.edit_song(song, name, author, tune, accidental,
+                              tonality, bpm, description, score,
+                              required_instruments, additional_instruments)
+
+
+            return HttpResponseRedirect('/song/' + str(song.id))
+    else:
+        form = EditSongForm()
+    return render(request, 'editSong.html', {'form': form, 'song': song,
+                                             'instruments': instruments,
+                                             'required_instruments_names':
+                                                 required_instruments_names})
 
 
 @login_required(login_url='/login.html')
