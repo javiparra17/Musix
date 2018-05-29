@@ -6,12 +6,36 @@
     margin-bottom: 20px;
 }
 
+#divDescription{
+    width: 800px;
+    float: left;
+}
+
 #pDescription{
     font-family: "Arial";
     font-size: 20px;
     color: black;
     margin-left: 15px;
     margin-bottom: 20px;
+}
+
+#divTune{
+    width: 170px;
+    height: 50px;
+    float: right;
+}
+
+#divBPM{
+    width: 170px;
+    height: 50px;
+    margin-right: 20px;
+    float: right;
+}
+
+#tune, #bpm{
+    color: black;
+    font-family: Arial;
+    font-size: 30px;
 }
 
 #iNeed{

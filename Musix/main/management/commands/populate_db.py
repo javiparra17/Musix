@@ -87,6 +87,97 @@ class Command(BaseCommand):
                                     premium=False)
         musician4.save()
 
+        user5 = User.objects.create_user(first_name='Mónica',
+                                         last_name='Fernández Sanz',
+                                         email='musician5@hotmail.com',
+                                         username='musician5',
+                                         password='musician5')
+        user5.save()
+        musician5 = models.Musician(user=user5,
+                                    gender='F',
+                                    description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibu",
+                                    country='',
+                                    city='',
+                                    registrationDate=parse_date('2017-09-03'),
+                                    premium=False)
+        musician5.save()
+
+        user6 = User.objects.create_user(first_name='Sancho',
+                                         last_name='Molino Fernández',
+                                         email='musician6@hotmail.com',
+                                         username='musician6',
+                                         password='musician6')
+        user6.save()
+        musician6 = models.Musician(user=user6,
+                                    gender='M',
+                                    description="",
+                                    country='ES',
+                                    city='Murcia',
+                                    registrationDate=parse_date('2017-12-20'),
+                                    premium=False)
+        musician6.save()
+
+        user7 = User.objects.create_user(first_name='Eva',
+                                         last_name='Ramírez Morón',
+                                         email='musician7@hotmail.com',
+                                         username='musician7',
+                                         password='musician7')
+        user7.save()
+        musician7 = models.Musician(user=user7,
+                                    gender='F',
+                                    description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel.",
+                                    country='ES',
+                                    city='Navalmoral de la Mata',
+                                    registrationDate=parse_date('2017-08-01'),
+                                    premium=True)
+        musician7.save()
+
+        user8 = User.objects.create_user(first_name='Ramona',
+                                         last_name='Domínguez Perogil',
+                                         email='musician8@hotmail.com',
+                                         username='musician8',
+                                         password='musician8')
+
+        user8.save()
+        musician8 = models.Musician(user=user8,
+                                    gender='F',
+                                    description="",
+                                    country='ES',
+                                    city='Guadalajara',
+                                    registrationDate=parse_date('2017-08-19'),
+                                    premium=False)
+        musician8.save()
+
+        user9 = User.objects.create_user(first_name='Jacobo',
+                                         last_name='Gustos Túnez',
+                                         email='musician9@hotmail.com',
+                                         username='musician9',
+                                         password='musician9')
+        user9.save()
+        musician9 = models.Musician(user=user9,
+                                    gender='M',
+                                    description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.",
+                                    country='ES',
+                                    city='Valencia',
+                                    registrationDate=parse_date('2017-05-03'),
+                                    premium=False)
+        musician9.save()
+
+        user10 = User.objects.create_user(first_name='Raquel',
+                                          last_name='Adame Martínez',
+                                          email='musician10@hotmail.com',
+                                          username='musician10',
+                                          password='musician10')
+        user10.save()
+        musician10 = models.Musician(user=user10,
+                                    gender='F',
+                                    description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibu",
+                                    country='ES',
+                                    city='Fregenal de la Sierra',
+                                    registrationDate=parse_date('2017-11-22'),
+                                    premium=True)
+        musician10.save()
+
         # INSTRUMENT
 
         instrument1 = models.Instrument(name="Acoustic guitar",
@@ -124,6 +215,7 @@ class Command(BaseCommand):
         # SONG
 
         song1 = models.Song(name="Bohemian rhapsody", author="Queen",
+                            tune="B", accidental="b", tonality="M", bpm=78,
                             description="An amazing song of Queen",
                             additionalInstruments=False, finished=False,
                             creator=musician2)
@@ -135,7 +227,8 @@ class Command(BaseCommand):
         song1.save()
 
         song2 = models.Song(name="I dreamed a dream", author="Les Miserables",
-                            description="A song of the film Les Miserables",
+                            tune="E", accidental="b", tonality="M", bpm=80,
+                            description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.",
                             additionalInstruments=True,
                             finished=False, creator=musician2)
         song2.save()
@@ -147,6 +240,7 @@ class Command(BaseCommand):
         song2.save()
 
         song3 = models.Song(name="Yellow submarine", author="The Beatles",
+                            tune="D", tonality="M", bpm=100,
                             description="A song of The Beatles",
                             additionalInstruments=False,
                             finished=True, creator=musician2,
@@ -160,6 +254,7 @@ class Command(BaseCommand):
         song3.save()
 
         song4 = models.Song(name="Waka waka", author="Shakira",
+                            tune="D", tonality="M", bpm=125,
                             description="La canción del mundial de fútbol de "
                                         "Sudáfrica 2010",
                             additionalInstruments=True,

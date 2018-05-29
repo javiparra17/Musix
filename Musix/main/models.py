@@ -1,10 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 import main.choices as choices
+from django.core.validators import MinValueValidator, MaxValueValidator
 
+ACCIDENTALS = choices.ACCIDENTALS
 COUNTRIES = choices.COUNTRIES
 GENDERS = choices.GENDERS
 STATUS = choices.STATUS
+TONALITIES = choices.TONALITIES
+TUNES = choices.TUNES
 
 
 class Actor(models.Model):
@@ -37,14 +41,35 @@ class Musician(Actor):
 class Song(models.Model):
     name = models.CharField(max_length=20, blank=False)
     author = models.CharField(max_length=30, blank=False)
+    tune = models.CharField(max_length=10, blank=False, choices=TUNES)
+    accidental = models.CharField(max_length=10, blank=True,
+                                  choices=ACCIDENTALS)
+    tonality = models.CharField(max_length=10, blank=False, choices=TONALITIES)
+    bpm = models.IntegerField(null=False, validators=[MinValueValidator(0),
+                                                      MaxValueValidator(500)])
     description = models.TextField(max_length=500, blank=False)
     additionalInstruments = models.BooleanField(null=False)
+    score = models.FileField(blank=True, upload_to='scores', null=True)
     finished = models.BooleanField(default=False, null=False)
     finishedSong = models.FileField(blank=True, upload_to='songs', null=True)
 
     creator = models.ForeignKey(Musician, on_delete=models.DO_NOTHING,
                                 null=True)
-    requiredInstruments = models.ManyToManyField(Instrument)
+    requiredInstruments = models.ManyToManyField(Instrument, blank=True)
+
+    @property
+    def song_tune(self):
+        if self.accidental:
+            if self.tonality == "m":
+                res = str(self.tune) + str(self.accidental) + str(self.tonality)
+            else:
+                res = str(self.tune) + str(self.accidental)
+        else:
+            if self.tonality == "m":
+                res = str(self.tune) + str(self.tonality)
+            else:
+                res = str(self.tune)
+        return res
 
 
 class Track(models.Model):

@@ -8,13 +8,13 @@ body {
 }
 
 hr {
-  max-width: 50px;
+  max-width: 1300px;
   border-width: 3px;
-  border-color: #F05F40;
+  border-color: black;
 }
 
 hr.light {
-  border-color: #fff;
+  border-color: black;
 }
 
 a {

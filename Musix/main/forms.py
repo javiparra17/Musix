@@ -78,7 +78,8 @@ class ProfileEditForm(forms.ModelForm):
 class SongForm(forms.ModelForm):
     class Meta:
         model = Song
-        fields = ('name', 'author', 'description', 'additionalInstruments',
+        fields = ('name', 'author', 'tune', 'accidental', 'tonality', 'bpm',
+                  'description', 'score', 'additionalInstruments',
                   'requiredInstruments')
 
 

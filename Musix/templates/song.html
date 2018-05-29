@@ -14,7 +14,20 @@
 
 <h1 id="h1">{{ song.name }} - {{ song.author }}</h1>
 
-<p id="pDescription">{{ song.description }}</p>
+<div id="divDescription">
+    <p id="pDescription">{{ song.description }}</p>
+</div>
+
+<div id="divBPM">
+    <h1 id="bpm">BPM: {{ song.bpm }}</h1>
+</div>
+
+<div id="divTune">
+    <h1 id="tune">Tune: {{ song.song_tune }}</h1>
+</div>
+
+<br><br><br>
+<hr>
 
 <div>
     {% if not song.finished and user.is_authenticated %}

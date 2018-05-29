@@ -2,10 +2,11 @@ from main.models import Song, Track
 import main.functions as functions
 
 
-def create_song(name, author, description, required_instruments,
-                additional_instruments, creator):
-    song = Song.objects.create(name=name, author=author,
-                               description=description,
+def create_song(name, author, tune, accidental, tonality, bpm, description, score,
+                required_instruments, additional_instruments, creator):
+    song = Song.objects.create(name=name, author=author, tune=tune,
+                               accidental=accidental, tonality=tonality,
+                               bpm=bpm, description=description, score=score,
                                additionalInstruments=additional_instruments,
                                finished=False, creator=creator)
 

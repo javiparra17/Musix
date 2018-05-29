@@ -31,8 +31,28 @@
         <br />
 
         <div class="form-group">
+            <label for="id_tune">Tune</label>
+            {{ form.tune }}
+            {{ form.accidental }}
+            {{ form.tonality }}
+        </div>
+        <br />
+
+        <div class="form-group">
+            <label for="id_bpm">BPM</label>
+            <input type="number" name="bpm" id="id_bpm" class="form-control" required>
+        </div>
+        <br />
+
+        <div class="form-group">
             <label for="id_description">Description</label>
             <textarea name="description" id="id_description" class="form-control" required></textarea>
+        </div>
+        <br />
+
+        <div class="form-group">
+            <label for="id_score">Score</label>
+            <input type="file" name="score" id="id_score">
         </div>
         <br />
 

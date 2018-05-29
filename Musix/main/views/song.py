@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 
 
-@login_required(login_url='/login.html')
+#@login_required(login_url='/login.html')
 def create_song(request):
     try:
         musician = request.user.musician
@@ -24,12 +24,18 @@ def create_song(request):
         if form.is_valid():
             name = form.cleaned_data['name']
             author = form.cleaned_data['author']
+            tune = form.cleaned_data['tune']
+            accidental = form.cleaned_data['accidental']
+            tonality = form.cleaned_data['tonality']
+            bpm = form.cleaned_data['bpm']
             description = form.cleaned_data['description']
+            score = form.cleaned_data['score']
             required_instruments = form.cleaned_data['requiredInstruments']
             additional_instruments = form.cleaned_data['additionalInstruments']
             creator = musician
 
-            service.create_song(name, author, description, required_instruments,
+            service.create_song(name, author, tune, accidental, tonality, bpm,
+                                description, score, required_instruments,
                                 additional_instruments, creator)
 
             return redirect('mySongs.html')
