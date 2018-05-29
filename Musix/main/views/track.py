@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from main.services import track as service
 import main.functions as functions
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required(login_url='/login.html')
@@ -46,7 +47,15 @@ def my_tracks(request):
 
     mytracks = service.my_tracks(musician)
 
-    return render(request, 'myTracks.html', {'tracks': mytracks})
+    page_mytracks = request.GET.get("page", 1)
+    paginator_mytracks = Paginator(mytracks, 3)
+
+    try:
+        p_mytracks = paginator_mytracks.page(page_mytracks)
+    except (PageNotAnInteger, EmptyPage):
+        p_mytracks = paginator_mytracks.page(1)
+
+    return render(request, 'myTracks.html', {'tracks': p_mytracks})
 
 
 @login_required(login_url='/login.html')

@@ -80,3 +80,7 @@ tbody{
 #labelError{
     font-size: 20px;
 }
+
+#pagination li{
+    margin-right: 5px;
+}

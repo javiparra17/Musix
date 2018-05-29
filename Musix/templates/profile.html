@@ -72,6 +72,27 @@
             {% endif %}
         </tbody>
     </table>
+    {% if tracks.has_other_pages %}
+            <ul id="pagination">
+                {% if tracks.has_previous %}
+                    <li><a href="?songPage={{ tracks.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for t in tracks.paginator.page_range %}
+                    {% if tracks.number == t %}
+                        <li class="active"><span>{{ t }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li><a href="?songPage={{ t }}">{{ t }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if tracks.has_next %}
+                    <li><a href="?songPage={{ tracks.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+            </ul>
+        {% endif %}
 </div>
 
 </div>

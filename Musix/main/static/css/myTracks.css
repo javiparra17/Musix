@@ -78,3 +78,7 @@ audio{
     font-size: 28px;
     color: black;
 }
+
+#pagination li{
+    margin-right: 5px;
+}

@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 COUNTRIES = choices.COUNTRIES
 
@@ -22,8 +23,16 @@ def profile(request, musician_username):
         if t.song in finished_songs:
             accepted_tracks.append(t)
 
+    page_tracks = request.GET.get("songPage", 1)
+    paginator_tracks = Paginator(accepted_tracks, 4)
+
+    try:
+        p_tracks = paginator_tracks.page(page_tracks)
+    except (PageNotAnInteger, EmptyPage):
+        p_tracks = paginator_tracks.page(1)
+
     return render(request, 'profile.html', {'musician': musician,
-                                            'tracks': accepted_tracks})
+                                            'tracks': p_tracks})
 
 
 @login_required(login_url='/login.html')

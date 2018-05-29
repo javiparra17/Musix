@@ -5,9 +5,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-#@login_required(login_url='/login.html')
+@login_required(login_url='/login.html')
 def create_song(request):
     try:
         musician = request.user.musician
@@ -60,7 +61,15 @@ def my_songs(request):
     musician = Musician.objects.get(user=user)
     all_songs = service.my_songs(musician)
 
-    return render(request, 'mySongs.html', {'songs': all_songs})
+    page_mysongs = request.GET.get("page", 1)
+    paginator_mysongs = Paginator(all_songs, 5)
+
+    try:
+        p_songs = paginator_mysongs.page(page_mysongs)
+    except (PageNotAnInteger, EmptyPage):
+        p_songs = paginator_mysongs.page(1)
+
+    return render(request, 'mySongs.html', {'songs': p_songs})
 
 
 @login_required(login_url='/login.html')
@@ -193,7 +202,15 @@ def songs(request):
 
     all_songs = service.songs(logged)
 
-    return render(request, 'songs.html', {'songs': all_songs,
+    page_songs = request.GET.get("page", 1)
+    paginator_songs = Paginator(all_songs, 7)
+
+    try:
+        p_songs = paginator_songs.page(page_songs)
+    except (PageNotAnInteger, EmptyPage):
+        p_songs = paginator_songs.page(1)
+
+    return render(request, 'songs.html', {'songs': p_songs,
                                           'participations': participations})
 
 
