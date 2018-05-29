@@ -12,6 +12,8 @@
     {% include "menu.html" %}
 </div>
 
+<div id="divProfile">
+
 <div id="divProfilePhoto">
    {% if musician.photo %}
        <img src="{% static "media/" %}{{ musician.photo }}" id="photoMusician">
@@ -29,13 +31,14 @@
         <a href="/editProfile/{{ musician.user.username }}" role="button" class="btn btn-warning"
            id="buttonEditProfile">Edit profile</a>
     </div>
+    <div>
+        <a href="/changePassword/{{ musician.user.username }}" role="button" class="btn btn-warning"
+           id="buttonChangePassword">Change password</a>
+    </div>
 {% endif %}
 
-<div id="divProfileName">
+<div id="divProfileInfo">
     <h1 id="profileName">{{ musician.user.first_name }} {{ musician.user.last_name }} ({{ musician.user.username }})</h1>
-</div>
-
-<div id="divProfileDescription">
     <p id="profileDescription">{{ musician.description }}</p>
 </div>
 
@@ -69,6 +72,8 @@
             {% endif %}
         </tbody>
     </table>
+</div>
+
 </div>
 
 <div id="divFooter">

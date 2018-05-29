@@ -1,3 +1,7 @@
+#divProfile{
+    height: 300px;
+}
+
 #divProfilePhoto{
     margin-top: 30px;
     width: 320px;
@@ -8,34 +12,29 @@
     margin-left: 10px;
 }
 
-#buttonEditProfile{
+#buttonEditProfile, #buttonChangePassword{
     width: 200px;
     margin-top: 20px;
     margin-left: 10px;
 }
 
-#buttonEditProfile:link, #buttonEditProfile:visited{
+#buttonEditProfile:link, #buttonEditProfile:visited,
+#buttonChangePassword:link, #buttonChangePassword:visited{
     color: white;
 	text-decoration: none;
 }
 
-#divProfileName{
+#divProfileInfo{
     position: absolute;
     top: 230px;
     left: 320px;
+    width: 600px;
 }
 
 #profileName{
     font-family: "Arial";
     color: black;
     font-size: 40px;
-}
-
-#divProfileDescription{
-    width: 600px;
-    position: absolute;
-    top: 310px;
-    left: 325px;
 }
 
 #profileDescription{
@@ -45,6 +44,7 @@
 
 #divProfileSongs{
     width: 300px;
+    height: 270px;
     position: absolute;
     top: 260px;
     right: 100px;
