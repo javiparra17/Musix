@@ -49,3 +49,7 @@ tbody{
     color: white;
 	text-decoration: none;
 }
+
+#pagination li{
+    margin-right: 5px;
+}
