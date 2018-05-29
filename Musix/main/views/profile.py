@@ -1,5 +1,5 @@
 from main.models import Musician, Track, Song
-from main.forms import ProfileEditForm
+from main.forms import ProfileEditForm, PasswordEditForm
 from main.services import profile as service
 import main.choices as choices
 from django.shortcuts import render, get_object_or_404
@@ -63,3 +63,38 @@ def edit_profile(request, musician_username):
 
     return render(request, "editProfile.html",
                   {'form': form, 'musician': musician2, 'countries': COUNTRIES})
+
+
+@login_required(login_url='/login.html')
+def change_password(request, musician_username):
+    try:
+        musician = request.user.musician
+    except ObjectDoesNotExist:
+        raise PermissionDenied
+
+    user = User.objects.get(username=musician_username)
+    musician2 = Musician.objects.get(user=user)
+
+    if musician != musician2:
+        raise PermissionDenied
+
+    if request.method == "POST":
+        form = PasswordEditForm(request.POST)
+        if form.is_valid():
+            new_password = form.cleaned_data['newPassword']
+            check_password = form.cleaned_data['checkPassword']
+
+            if new_password == check_password:
+                service.change_password(musician2, new_password)
+                return HttpResponseRedirect('/profile/' +
+                                            str(musician.user.username))
+            else:
+                error = "The passwords are not the same"
+                return render(request, 'changePassword.html',
+                              {'form': form, 'musician': musician2,
+                               'error': error})
+    else:
+        form = ProfileEditForm(instance=musician2)
+
+    return render(request, "changePassword.html", {'form': form,
+                                                   'musician': musician2})
