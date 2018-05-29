@@ -1,0 +1,63 @@
+#titleEditProfile{
+    font-family: "Axaxax Rg";
+    font-size: 40px;
+    color: black;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
+
+form{
+    text-align: left;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+label{
+    font-family: "Arial";
+    font-size: 20px;
+    color: black;
+}
+
+.sp{
+    color: red;
+    font-size: 18px;
+    margin-left: 2px;
+}
+
+#id_name, #id_surname, #id_username, #id_phone, #id_city{
+    width: 400px;
+    height: 40px;
+    font-size: 20px;
+}
+
+#id_description{
+    width: 400px;
+    height: 200px;
+}
+
+#output{
+    width: 110px;
+    margin-left: 70px;
+}
+
+input[type=radio]{
+    font-size: 20px;
+    transform: scale(1.25);
+}
+
+#gender{
+    margin-left: 7px;
+    font-size: 18px;
+}
+
+#id_country{
+    width: 400px;
+    font-size: 18px;
+}
+
+#buttonEditProfile, #buttonCancel{
+    width: 270px;
+    height: 50px;
+    font-family: "Axaxax Rg";
+    font-size: 20px;
+}

@@ -1,4 +1,5 @@
 from main.models import Track
+import main.functions as functions
 
 
 def upload_track(instrument, sound, musician, song):
@@ -30,3 +31,17 @@ def deny_track(track):
     if track.status == 'P':
         track.status = 'D'
         track.save()
+
+
+def delete_track(musician, track):
+    if track.musician == musician:
+        if track.status == "P" or track.status == "D":
+            sound = track.sound
+            path = "/static/media/" + str(sound)
+            functions.delete_file(path)
+
+            track.delete()
+        else:
+            return "You can't delete an accepted track"
+    else:
+        return "This track is not yours"

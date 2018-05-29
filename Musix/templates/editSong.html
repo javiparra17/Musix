@@ -1,0 +1,111 @@
+{% include "base.html" %}
+{% load static %}
+
+<link type="text/css" rel="stylesheet" href="{% static "css/editSong.css" %}"/>
+
+<div>
+    {% include "header.html" %}
+</div>
+
+<div>
+    {% include "menu.html" %}
+</div>
+
+<div>
+    <h1 id="titleEditSong">Edit song</h1>
+</div>
+
+
+{% if error %}
+    <div id="divError">
+        <label class="label label-danger" id="labelError">{{ error }}</label>
+    </div>
+{% endif %}
+
+<div>
+    <form method="post" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_name">Name</label>
+            <input type="text" name="name" id="id_name" class="form-control" required
+            value="{{ song.name }}">
+        </div>
+        <br />
+
+        <div class="form-group">
+            <label for="id_author">Author</label>
+            <input type="text" name="author" id="id_author" class="form-control" required
+            value="{{ song.author }}">
+        </div>
+        <br />
+
+        <div class="form-group">
+            <label for="id_tune">Tune</label>
+            {{ form.tune }}
+            {{ form.accidental }}
+            {{ form.tonality }}
+        </div>
+        <br />
+
+        <div class="form-group">
+            <label for="id_bpm">BPM</label>
+            <input type="number" name="bpm" id="id_bpm" class="form-control" required
+            value="{{ song.bpm }}">
+        </div>
+        <br />
+
+        <div class="form-group">
+            <label for="id_description">Description</label>
+            <textarea name="description" id="id_description" class="form-control" required>{{ song.description }}
+            </textarea>
+        </div>
+        <br />
+
+        <div class="form-group">
+            <label for="id_score">Score</label>
+            <input type="file" name="score" id="id_score">
+        </div>
+        <br />
+
+        <div class="form-group">
+            <label>Required instruments</label>
+            <br />
+            {% for i in instruments %}
+                {% if i.name in required_instruments_names %}
+                    <input type="checkbox" id="id_requiredInstruments" name="requiredInstruments" value="{{ i.id }}" checked>
+                        <label id="nameInstrument" for="id_requiredInstruments">{{ i.name }}</label>
+                    <br />
+                {% else %}
+                    <input type="checkbox" id="id_requiredInstruments" name="requiredInstruments" value="{{ i.id }}">
+                        <label id="nameInstrument" for="id_requiredInstruments">{{ i.name }}</label>
+                    <br />
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_additionalInstruments">Additional instruments?</label>
+            <br />
+            {% if song.additionalInstruments %}
+                <input type="radio" id="id_additionalInstruments" name="additionalInstruments" value="True" checked>
+                <label id="yesornot">Yes</label>
+                <br />
+                <input type="radio" id="id_additionalInstruments" name="additionalInstruments" value="False">
+                <label id="yesornot">No</label>
+            {% else %}
+                <input type="radio" id="id_additionalInstruments" name="additionalInstruments" value="True">
+                <label id="yesornot">Yes</label>
+                <br />
+                <input type="radio" id="id_additionalInstruments" name="additionalInstruments" value="False" checked>
+                <label id="yesornot">No</label>
+            {% endif %}
+        </div>
+
+        <input type="submit" value="Edit song" id="buttonEditSong" />
+        <input type="button" value="Cancel" id="buttonCancel" onclick="location.href='/song/{{ song.id }}'"/>
+    </form>
+</div>
+
+<div>
+    {% include "footer.html" %}
+</div>

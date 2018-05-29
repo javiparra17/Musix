@@ -30,7 +30,15 @@
                 {% for m in musicians %}
                     <tr>
                         <td>
-                            {{ m.photo }}
+                            {% if m.photo %}
+                                <img src="{% static "media/" %}{{ m.photo }}" id="photoMusician">
+                            {% else %}
+                                {% if m.gender == "F" %}
+                                    <img src="{% static "images/avatarMujer.png" %}" id="photoMusician">
+                                {% else %}
+                                    <img src="{% static "images/avatarHombre.png" %}" id="photoMusician">
+                                {% endif %}
+                            {% endif %}
                         </td>
                         <td>
                             <a href="/profile/{{ m.user.username }}" id="profileButton">{{ m.user.username }}</a>
@@ -42,6 +50,29 @@
                 {% endfor %}
             </tbody>
         </table>
+
+        {% if musicians.has_other_pages %}
+            <ul id="pagination">
+                {% if musicians.has_previous %}
+                    <li><a href="?page={{ musicians.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for m in musicians.paginator.page_range %}
+                    {% if musicians.number == m %}
+                        <li class="active"><span>{{ m }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li><a href="?page={{ m }}">{{ m }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if musicians.has_next %}
+                    <li><a href="?page={{ musicians.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+
     </div>
 {% endif %}
 

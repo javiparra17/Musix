@@ -2,6 +2,11 @@
 
 # Dictionaries for choice fields. Organised alphabetically.
 
+ACCIDENTALS = (
+    ('#', '#'),
+    ('b', 'b'),
+)
+
 COUNTRIES = (
     ('AF', 'Afganistán'),
     ('AL', 'Albania'),
@@ -251,13 +256,19 @@ STATUS = (
     ('D', 'Denied'),
 )
 
-VOICES = (
-    ('Soprano', 'Soprano'),
-    ('Mezzosoprano', 'Mezzosoprano'),
-    ('Contralto', 'Contralto'),
-    ('Tenor', 'Tenor'),
-    ('Baritone', 'Baritone'),
-    ('Bass', 'Bass'),
+TONALITIES = (
+    ('M', 'M'),
+    ('m', 'm'),
+)
+
+TUNES = (
+    ('A', 'A'),
+    ('B', 'B'),
+    ('C', 'C'),
+    ('D', 'D'),
+    ('E', 'E'),
+    ('F', 'F'),
+    ('G', 'G'),
 )
 
 YESORNOT = (

@@ -1,0 +1,30 @@
+#h1GetPremium{
+    text-align: center;
+    color: black;
+    font-family: Arial;
+    font-size: 50px;
+    margin-top: 30px;
+}
+
+#h2GetPremium{
+    text-align: center;
+    color: black;
+    font-family: Arial;
+    margin-top: 30px;
+}
+
+#divBecomePremium{
+    text-align: center;
+    margin-top: 30px;
+}
+
+#buttonBecomePremium{
+    width: 500px;
+    height: 60px;
+    font-size: 30px;
+}
+
+#buttonBecomePremium:link, #buttonBecomePremium:visited{
+    color: white;
+	text-decoration: none;
+}

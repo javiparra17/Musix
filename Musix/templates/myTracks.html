@@ -12,7 +12,84 @@
     {% include "menu.html" %}
 </div>
 
+<div>
+    {% if error %}
+        <label class="label label-danger" id="labelError">{{ error }}</label>
+    {% endif %}
+</div>
+
 {% if tracks %}
+
+    <div>
+        <h1 id="titleMyTracks">My tracks</h1>
+    </div>
+
+    <div id="tableTracksDiv">
+        <table class="table table-responsive table-hover" id="tableTracks">
+            <thead>
+                <tr class="info">
+                    <th onclick="sortTable(0, 'tableTracksDiv')">Song</th>
+                    <th onclick="sortTable(1, 'tableTracksDiv')">Instrument</th>
+                    <th onclick="sortTable(2, 'tableTracksDiv')">Status</th>
+                    <th id="thAudio"></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in tracks %}
+                    <tr>
+                        <td>
+                            <a href="/song/{{ t.song.id }}" id="infoSong">{{ t.song.name }}</a>
+                        </td>
+                        <td>
+                            <img src="{% static "media/" %}{{ t.instrument.image }}"
+                                 id="imageInstrument" alt="{{ t.instrument.name }}">
+                        </td>
+                        <td>
+                            {% if t.status == 'P' %}
+                                Pending
+                            {% elif t.status == 'A' %}
+                                Accepted
+                            {% elif t.status == 'D' %}
+                                Denied
+                            {% endif %}
+                        </td>
+                        <td>
+                            <audio src="{% static "media/" %}{{ t.sound }}" controls></audio>
+                        </td>
+                        {% if t.status != "A" %}
+                            <td>
+                                <a href="/deleteTrack/{{ t.id }}" role="button" class="btn btn-danger" id="deleteButton"
+                                   onclick="return confirm('Are you sure?')">Delete</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if tracks.has_other_pages %}
+            <ul id="pagination">
+                {% if tracks.has_previous %}
+                    <li><a href="?page={{ tracks.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for t in tracks.paginator.page_range %}
+                    {% if tracks.number == t %}
+                        <li class="active"><span>{{ t }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li><a href="?page={{ t }}">{{ t }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if tracks.has_next %}
+                    <li><a href="?page={{ tracks.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </div>
 
 {% else %}
     <div id="notTracksDiv">

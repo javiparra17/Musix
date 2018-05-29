@@ -1,3 +1,65 @@
+#titleMyTracks{
+    font-family: "Axaxax Rg";
+    font-size: 40px;
+    color: black;
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+
+#tableTracks{
+    width: 1320px;
+    margin-left: 15px;
+}
+
+th{
+    font-size: 24px;
+}
+
+td{
+    font-size: 20px;
+}
+
+td, th, tr{
+    text-align: center;
+}
+
+tbody{
+    padding-right: 50%;
+}
+
+#imageInstrument{
+    width: 50px;
+    height: 50px;
+}
+
+#infoSong, #deleteButton{
+    width: 100px;
+    color: black;
+	text-decoration: none;
+}
+
+#infoSong:link, #infoSong:visited{
+    color: black;
+	text-decoration: none;
+}
+
+#infoSong:hover{
+    color: #0066d9;
+}
+
+#deleteButton:link, #deleteButton:visited{
+    color: white;
+	text-decoration: none;
+}
+
+#thAudio{
+    width: 400px;
+}
+
+audio{
+    width: 400px;
+}
+
 #notTracksDiv{
     text-align: center;
 }
@@ -15,4 +77,8 @@
     width: 300px;
     font-size: 28px;
     color: black;
+}
+
+#pagination li{
+    margin-right: 5px;
 }

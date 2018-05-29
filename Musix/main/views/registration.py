@@ -3,29 +3,35 @@ from main.forms import MusicianForm
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.core.exceptions import PermissionDenied
+from time import gmtime, strftime
 
 
 def create_account(request):
     if not request.user.is_anonymous():
-        return HttpResponseRedirect('index.html')
+        raise PermissionDenied
     if request.method == 'POST':
         form = MusicianForm(request.POST, request.FILES)
         if form.is_valid():
-            if form.cleaned_data['password'] == form.cleaned_data['password2']:
-                user = User.objects.create_user(form.cleaned_data['username'],
-                                                form.cleaned_data['email'],
-                                                form.cleaned_data['password'])
-                user.first_name = form.cleaned_data['name']
-                user.last_name = form.cleaned_data['surname']
+            password = form.cleaned_data['password']
+            confirm_password = form.cleaned_data['password2']
+            if password == confirm_password:
+                username = form.cleaned_data['username']
+                email = form.cleaned_data['email']
+                user = User.objects.create_user(username=username, email=email,
+                                                password=password)
+                name = form.cleaned_data['name']
+                surname = form.cleaned_data['surname']
+                user.first_name = name
+                user.last_name = surname
 
-                gender = form.cleaned_data['gender']
-                description = form.cleaned_data['description']
-                country = form.cleaned_data['country']
+                phone = form.cleaned_data['phone']
                 photo = form.cleaned_data['photo']
-                city = form.cleaned_data['city']
-                Musician.objects.create(user=user, gender=gender,
-                                        description=description,
-                                        country=country, photo=photo, city=city)
+
+                registration_date = strftime("%Y-%m-%d", gmtime())
+
+                Musician.objects.create(user=user, phone=phone, photo=photo,
+                                        registrationDate=registration_date)
 
                 return HttpResponseRedirect('index.html')
             else:

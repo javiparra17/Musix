@@ -1,3 +1,4 @@
+from .premium import *
 from .index import *
 from .instrument import *
 from .login import *

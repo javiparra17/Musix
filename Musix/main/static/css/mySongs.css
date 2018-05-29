@@ -2,13 +2,13 @@
     font-family: "Axaxax Rg";
     font-size: 40px;
     color: black;
-    margin-left: 1%;
-    margin-bottom: 2%;
+    margin-left: 15px;
+    margin-bottom: 20px;
 }
 
 #tableSongs{
-    width: 98%;
-    margin-left: 1%;
+    width: 1320px;
+    margin-left: 15px;
 }
 
 th{
@@ -42,6 +42,7 @@ tbody{
 
 #buttonCreateSong{
     width: 200px;
+    margin-left: 15px;
 }
 
 #buttonCreateSong2{
@@ -69,4 +70,17 @@ tbody{
     text-align: center;
     margin-top: 5%;
     margin-bottom: 2%;
+}
+
+#divError{
+    text-align: center;
+    margin-top: 30px;
+}
+
+#labelError{
+    font-size: 20px;
+}
+
+#pagination li{
+    margin-right: 5px;
 }

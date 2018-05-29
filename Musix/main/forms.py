@@ -8,6 +8,14 @@ GENDERS = choices.GENDERS
 YESORNOT = choices.YESORNOT
 
 
+class EditSongForm(forms.ModelForm):
+    class Meta:
+        model = Song
+        fields = ('name', 'author', 'tune', 'accidental', 'tonality', 'bpm',
+                  'description', 'score', 'additionalInstruments',
+                  'requiredInstruments')
+
+
 class FinishedSongForm(forms.ModelForm):
     class Meta:
         model = Song
@@ -46,10 +54,40 @@ class MusicianForm(forms.ModelForm):
                   'password', 'password2')
 
 
+class PasswordEditForm(forms.Form):
+    newPassword = forms.CharField(label="New password",
+                                  widget=forms.PasswordInput, required=True)
+    checkPassword = forms.CharField(label="Confirm new password",
+                                    widget=forms.PasswordInput, required=True)
+
+
+class ProfileEditForm(forms.ModelForm):
+    name = forms.CharField(label="Name", widget=forms.TextInput, required=True)
+    surname = forms.CharField(label="Surname", widget=forms.TextInput,
+                              required=True)
+    username = forms.CharField(label="Username", widget=forms.TextInput,
+                               required=True)
+    description = forms.CharField(label="Description", widget=forms.Textarea,
+                                  required=False)
+    gender = forms.CharField(label="Gender",
+                             widget=forms.RadioSelect(choices=GENDERS),
+                             required=False)
+    country = forms.CharField(label="Country",
+                              widget=forms.Select(choices=COUNTRIES),
+                              required=False)
+    city = forms.CharField(label="City", widget=forms.TextInput, required=False)
+
+    class Meta:
+        model = Musician
+        fields = ('name', 'surname', 'username', 'phone', 'photo',
+                  'description', 'gender', 'country', 'city')
+
+
 class SongForm(forms.ModelForm):
     class Meta:
         model = Song
-        fields = ('name', 'author', 'description', 'additionalInstruments',
+        fields = ('name', 'author', 'tune', 'accidental', 'tonality', 'bpm',
+                  'description', 'score', 'additionalInstruments',
                   'requiredInstruments')
 
 

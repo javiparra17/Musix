@@ -2,6 +2,7 @@
 {% load static %}
 
 <link type="text/css" rel="stylesheet" href="{% static "css/profile.css" %}"/>
+<script type="text/javascript" src="{% static "js/tables.js" %}"></script>
 
 <div>
     {% include "header.html" %}
@@ -11,10 +12,91 @@
     {% include "menu.html" %}
 </div>
 
-<div id="info">
+<div id="divProfile">
+
+<div id="divProfilePhoto">
+   {% if musician.photo %}
+       <img src="{% static "media/" %}{{ musician.photo }}" id="photoMusician">
+   {% else %}
+       {% if m.gender == "F" %}
+           <img src="{% static "images/avatarMujer.png" %}" id="photoMusician">
+       {% else %}
+           <img src="{% static "images/avatarHombre.png" %}" id="photoMusician">
+       {% endif %}
+   {% endif %}
+</div>
+
+{% if musician.id == user.musician.id %}
+    <div>
+        <a href="/editProfile/{{ musician.user.username }}" role="button" class="btn btn-warning"
+           id="buttonEditProfile">Edit profile</a>
+    </div>
+    <div>
+        <a href="/changePassword/{{ musician.user.username }}" role="button" class="btn btn-warning"
+           id="buttonChangePassword">Change password</a>
+    </div>
+{% endif %}
+
+<div id="divProfileInfo">
+    <h1 id="profileName">{{ musician.user.first_name }} {{ musician.user.last_name }} ({{ musician.user.username }})</h1>
+    <p id="profileDescription">{{ musician.description }}</p>
+</div>
+
+<div id="divProfileSongs">
+    <table class="table table-responsive table-hover" id="tableSongs">
+        <thead>
+            {% if tracks %}
+                <tr class="info">
+                    <th onclick="sortTable(0, 'divProfileSongs')">Song</th>
+                    <th onclick="sortTable(1, 'divProfileSongs')">Instrument</th>
+                </tr>
+            {% else %}
+                <tr class="info">
+                    <th>Songs</th>
+                </tr>
+            {% endif %}
+        </thead>
+
+        <tbody>
+            {% if tracks %}
+                {% for t in tracks %}
+                    <tr>
+                        <td><a href="/song/{{ t.song.id }}">{{ t.song.name }}</a></td>
+                        <td>{{ t.instrument.name }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td>No songs yet</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    {% if tracks.has_other_pages %}
+            <ul id="pagination">
+                {% if tracks.has_previous %}
+                    <li><a href="?songPage={{ tracks.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for t in tracks.paginator.page_range %}
+                    {% if tracks.number == t %}
+                        <li class="active"><span>{{ t }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li><a href="?songPage={{ t }}">{{ t }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if tracks.has_next %}
+                    <li><a href="?songPage={{ tracks.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+</div>
 
 </div>
 
-<div>
+<div id="divFooter">
     {% include "footer.html" %}
 </div>
