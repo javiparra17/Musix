@@ -35,6 +35,22 @@
         <a href="/changePassword/{{ musician.user.username }}" role="button" class="btn btn-warning"
            id="buttonChangePassword">Change password</a>
     </div>
+
+{% elif musician.id != user.musician.id and user.is_authenticated and user.username != "admin" %}
+    <div>
+        <a href="/createReport/{{ musician.user.username }}" role="button" class="btn btn-danger"
+           id="buttonCreateReport">Report</a>
+    </div>
+{% elif user.username == "admin" %}
+    <div>
+        {% if not musician.banned %}
+            <a href="/ban/{{ musician.id }}" role="button" class="btn btn-danger"
+               id="buttonBan" onclick="return confirm('Are you sure?')">Ban</a>
+        {% else %}
+            <a href="/unban/{{ musician.id }}" role="button" class="btn btn-success"
+               id="buttonBan" onclick="return confirm('Are you sure?')">Unban</a>
+        {% endif %}
+    </div>
 {% endif %}
 
 <div id="divProfileInfo">
@@ -42,6 +58,7 @@
     <p id="profileDescription">{{ musician.description }}</p>
 </div>
 
+{% if user.username != "admin" %}
 <div id="divProfileSongs">
     <table class="table table-responsive table-hover" id="tableSongs">
         <thead>
@@ -94,6 +111,7 @@
             </ul>
         {% endif %}
 </div>
+{% endif %}
 
 </div>
 

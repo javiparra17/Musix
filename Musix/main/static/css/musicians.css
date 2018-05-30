@@ -8,6 +8,7 @@
 
 #divSearcher{
     margin-left: 15px;
+    margin-top: 30px;
 }
 
 #id_text{
@@ -55,12 +56,11 @@ tbody{
     color: #0066d9;
 }
 
-#infoButton, #likeButton, #dislikeButton{
+#infoButton, #banButton{
     width: 100px;
 }
 
-#likeButton:link, #likeButton:visited,
-#dislikeButton:link, #dislikeButton:visited{
+#banButton:link, #banButton:visited{
     color: white;
 	text-decoration: none;
 }

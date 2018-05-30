@@ -37,7 +37,10 @@
                 <tr class="info">
                     <th></th>
                     <th onclick="sortTable(1, 'tableMusiciansDiv')">Username</th>
-                    <th></th>
+                    <th>Name</th>
+                    {% if user.username == "admin" %}
+                        <th onclick="sortTable(3, 'tableMusiciansDiv')"></th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -58,8 +61,21 @@
                             <a href="/profile/{{ m.user.username }}" id="profileButton">{{ m.user.username }}</a>
                         </td>
                         <td>
-                            <a href="/likeUser/{{ m.id }}" role="button" class="btn btn-success" id="likeButton">Like</a>
+                            <a href="/profile/{{ m.user.username }}" id="profileButton">
+                                {{ m.user.first_name }} {{ m.user.last_name }}
+                            </a>
                         </td>
+                        {% if user.username == "admin" %}
+                            <td>
+                                {% if not m.banned %}
+                                    <a href="/ban/{{ m.id }}" role="button" class="btn btn-danger" id="banButton"
+                                        onclick="return confirm('Are you sure?')">Ban</a>
+                                {% else %}
+                                    <a href="/unban/{{ m.id }}" role="button" class="btn btn-success" id="banButton"
+                                        onclick="return confirm('Are you sure?')">Unban</a>
+                                {% endif %}
+                            </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>

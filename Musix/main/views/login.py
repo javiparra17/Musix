@@ -15,11 +15,16 @@ def login_user(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(username=username, password=password)
-            if user is not None:
-                auth_views.login(request, user)
-                return HttpResponseRedirect('/index')
+            if not user.musician.banned:
+                if user is not None:
+                    auth_views.login(request, user)
+                    return HttpResponseRedirect('/index')
+                else:
+                    error = "Incorrect user or password"
+                    return render(request, 'login.html',
+                                  {'form': form, 'error': error})
             else:
-                error = "Incorrect user or password"
+                error = "Your account have been banned"
                 return render(request, 'login.html',
                               {'form': form, 'error': error})
         else:
