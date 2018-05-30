@@ -1,0 +1,35 @@
+{% include 'base.html' %}
+{% load static %}
+
+<link type="text/css" rel="stylesheet" href="{% static "css/createReport.css" %}"/>
+
+<div>
+    {% include "header.html" %}
+</div>
+
+<div>
+    {% include "menu.html" %}
+</div>
+
+<div>
+    <h1 id="titleReports">Create report</h1>
+</div>
+
+<div>
+    <form method="post" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_description">Description</label>
+            <textarea name="description" id="id_description" class="form-control" required></textarea>
+        </div>
+        <br />
+
+        <input type="submit" value="Report" id="buttonCreateReport" />
+        <input type="button" value="Cancel" id="buttonCancel"
+               onclick="location.href='/profile/{{ reported.user.username }}'"/>
+    </form>
+</div>
+
+<div>
+    {% include "footer.html" %}
+</div>

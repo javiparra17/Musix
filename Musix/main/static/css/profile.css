@@ -12,14 +12,16 @@
     margin-left: 10px;
 }
 
-#buttonEditProfile, #buttonChangePassword{
+#buttonEditProfile, #buttonChangePassword, #buttonCreateReport, #buttonBan{
     width: 200px;
     margin-top: 20px;
     margin-left: 10px;
 }
 
 #buttonEditProfile:link, #buttonEditProfile:visited,
-#buttonChangePassword:link, #buttonChangePassword:visited{
+#buttonChangePassword:link, #buttonChangePassword:visited,
+#buttonCreateReport:link, #buttonCreateReport:visited,
+#buttonBan:link, #buttonBan:visited{
     color: white;
 	text-decoration: none;
 }

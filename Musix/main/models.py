@@ -36,6 +36,16 @@ class Musician(Actor):
     city = models.CharField(max_length=100, blank=True)
     registrationDate = models.DateField()
     premium = models.BooleanField(default=False, null=False)
+    banned = models.BooleanField(default=False, null=False)
+
+
+class Report(models.Model):
+    description = models.TextField(max_length=500, blank=False)
+    processed = models.BooleanField(default=False, null=False)
+    affected = models.ForeignKey(Musician, on_delete=models.DO_NOTHING,
+                                 null=False, related_name='affected')
+    reported = models.ForeignKey(Musician, on_delete=models.DO_NOTHING,
+                                 null=False, related_name='reported')
 
 
 class Song(models.Model):

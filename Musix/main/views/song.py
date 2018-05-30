@@ -1,6 +1,7 @@
 from main.models import Song, Musician, Track, Instrument
-from main.forms import SongForm, FinishedSongForm, EditSongForm
+from main.forms import SongForm, FinishedSongForm, EditSongForm, SearchSongForm
 from main.services import song as service
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -185,7 +186,6 @@ def edit_song(request, song_id):
                               tonality, bpm, description, score,
                               required_instruments, additional_instruments)
 
-
             return HttpResponseRedirect('/song/' + str(song.id))
     else:
         form = EditSongForm()
@@ -250,16 +250,42 @@ def songs(request):
 
     all_songs = service.songs(logged)
 
-    page_songs = request.GET.get("page", 1)
-    paginator_songs = Paginator(all_songs, 7)
+    if request.method == 'POST':
+        form = SearchSongForm(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data['text']
+            if text == "":
+                found_songs = all_songs
+            else:
+                found_songs = Song.objects.filter(Q(name__icontains=text) |
+                                                  Q(author__icontains=text))
 
-    try:
-        p_songs = paginator_songs.page(page_songs)
-    except (PageNotAnInteger, EmptyPage):
-        p_songs = paginator_songs.page(1)
+            page_songs = request.GET.get("page", 1)
+            paginator_songs = Paginator(found_songs, 7)
 
-    return render(request, 'songs.html', {'songs': p_songs,
-                                          'participations': participations})
+            try:
+                p_songs = paginator_songs.page(page_songs)
+            except (PageNotAnInteger, EmptyPage):
+                p_songs = paginator_songs.page(1)
+
+            return render(request, 'songs.html', {'form': form,
+                                                  'songs': p_songs,
+                                                  'participations':
+                                                      participations})
+    else:
+        form = SearchSongForm()
+
+        page_songs = request.GET.get("page", 1)
+        paginator_songs = Paginator(all_songs, 7)
+
+        try:
+            p_songs = paginator_songs.page(page_songs)
+        except (PageNotAnInteger, EmptyPage):
+            p_songs = paginator_songs.page(1)
+
+        return render(request, 'songs.html', {'form': form, 'songs': p_songs,
+                                              'participations':
+                                                  participations})
 
 
 def song_info(request, song_id):

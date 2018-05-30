@@ -1,0 +1,32 @@
+#titleReports{
+    font-family: "Axaxax Rg";
+    font-size: 40px;
+    color: black;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+form{
+    text-align: left;
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+label{
+    font-family: "Arial";
+    font-size: 20px;
+    color: black;
+}
+
+#id_description{
+    width: 400px;
+    height: 150px;
+    margin-bottom: 30px;
+}
+
+#buttonCreateReport, #buttonCancel{
+    width: 270px;
+    height: 40px;
+    font-family: "Axaxax Rg";
+    font-size: 20px;
+}

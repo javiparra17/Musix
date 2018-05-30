@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required(login_url='/login.html')
@@ -42,7 +43,15 @@ def instruments(request):
 
     all_instruments = service.instruments()
 
-    return render(request, 'instruments.html', {'instruments': all_instruments})
+    page_instruments = request.GET.get("page", 1)
+    paginator_instruments = Paginator(all_instruments, 7)
+
+    try:
+        p_instruments = paginator_instruments.page(page_instruments)
+    except (PageNotAnInteger, EmptyPage):
+        p_instruments = paginator_instruments.page(1)
+
+    return render(request, 'instruments.html', {'instruments': p_instruments})
 
 
 @login_required(login_url='/login.html')

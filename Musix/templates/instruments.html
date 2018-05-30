@@ -44,6 +44,28 @@
                 {% endfor %}
             </tbody>
         </table>
+
+        {% if instruments.has_other_pages %}
+            <ul id="pagination">
+                {% if instruments.has_previous %}
+                    <li><a href="?page={{ instruments.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for i in instruments.paginator.page_range %}
+                    {% if instruments.number == i %}
+                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if instruments.has_next %}
+                    <li><a href="?page={{ instruments.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+            </ul>
+        {% endif %}
     </div>
 
 {% endif %}

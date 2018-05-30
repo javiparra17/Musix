@@ -12,6 +12,20 @@
     {% include "menu.html" %}
 </div>
 
+<div id="divSearcher">
+    <form class="form-inline" id='searchForm' method='post' action='' name="search">
+        {% csrf_token %}
+        <div class="form-group">
+            <input id="id_text" type='text' name="text"
+                   placeholder="Musician"
+                   class="form-control" size="20"/>
+        </div>
+        <input type="submit" class="btn btn-default" value="Search" id="buttonSearch">
+
+    </form>
+
+</div>
+
 {% if musicians %}
     <div>
         <h1 id="titleMusicians">Musicians</h1>
@@ -22,8 +36,11 @@
             <thead>
                 <tr class="info">
                     <th></th>
-                    <th onclick="sortTable(0, 'tableMusiciansDiv')">Username</th>
-                    <th></th>
+                    <th onclick="sortTable(1, 'tableMusiciansDiv')">Username</th>
+                    <th>Name</th>
+                    {% if user.username == "admin" %}
+                        <th onclick="sortTable(3, 'tableMusiciansDiv')"></th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -44,8 +61,21 @@
                             <a href="/profile/{{ m.user.username }}" id="profileButton">{{ m.user.username }}</a>
                         </td>
                         <td>
-                            <a href="/likeUser/{{ m.id }}" role="button" class="btn btn-success" id="likeButton">Like</a>
+                            <a href="/profile/{{ m.user.username }}" id="profileButton">
+                                {{ m.user.first_name }} {{ m.user.last_name }}
+                            </a>
                         </td>
+                        {% if user.username == "admin" %}
+                            <td>
+                                {% if not m.banned %}
+                                    <a href="/ban/{{ m.id }}" role="button" class="btn btn-danger" id="banButton"
+                                        onclick="return confirm('Are you sure?')">Ban</a>
+                                {% else %}
+                                    <a href="/unban/{{ m.id }}" role="button" class="btn btn-success" id="banButton"
+                                        onclick="return confirm('Are you sure?')">Unban</a>
+                                {% endif %}
+                            </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>
@@ -73,6 +103,11 @@
             </ul>
         {% endif %}
 
+    </div>
+
+{% else %}
+    <div id="notMusiciansDiv">
+        <h1 id="h1NotMusicians">No musicians found</h1>
     </div>
 {% endif %}
 
