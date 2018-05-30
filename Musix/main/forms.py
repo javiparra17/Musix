@@ -93,6 +93,10 @@ class SearchMusicianForm(forms.Form):
     text = forms.CharField(label='', widget=forms.TextInput, required=False)
 
 
+class SearchSongForm(forms.Form):
+    text = forms.CharField(label='', widget=forms.TextInput, required=False)
+
+
 class SongForm(forms.ModelForm):
     class Meta:
         model = Song

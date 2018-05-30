@@ -6,6 +6,22 @@
     margin-bottom: 20px;
 }
 
+#divSearcher{
+    margin-left: 15px;
+    margin-top: 30px;
+}
+
+#id_text{
+    width: 1100px;
+    height: 42px;
+    font-size: 20px;
+}
+
+#buttonSearch{
+    width: 220px;
+    font-size: 20px;
+}
+
 #tableSongs{
     width: 1320px;
     margin-left: 15px;
@@ -53,4 +69,17 @@ tbody{
 
 #pagination li{
     margin-right: 5px;
+}
+
+#notSongsDiv{
+    text-align: center;
+}
+
+#h1NotSongs{
+    font-family: "Axaxax Rg";
+    font-size: 50px;
+    color: black;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
 }

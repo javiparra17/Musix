@@ -12,6 +12,18 @@
     {% include "menu.html" %}
 </div>
 
+<div id="divSearcher">
+    <form class="form-inline" id='searchForm' method='post' action='' name="search">
+        {% csrf_token %}
+        <div class="form-group">
+            <input id="id_text" type='text' name="text"
+                   placeholder="Song"
+                   class="form-control" size="20"/>
+        </div>
+        <input type="submit" class="btn btn-default" value="Search" id="buttonSearch">
+    </form>
+</div>
+
 {% if songs %}
     <div>
         <h1 id="titleSongs">Songs</h1>
@@ -83,6 +95,11 @@
                 {% endif %}
             </ul>
         {% endif %}
+    </div>
+
+{% else %}
+    <div id="notSongsDiv">
+        <h1 id="h1NotSongs">No songs found</h1>
     </div>
 {% endif %}
 
