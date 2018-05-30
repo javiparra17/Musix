@@ -25,6 +25,7 @@ def musicians(request):
                 found_user = User.objects.filter(Q(first_name__icontains=text) |
                                                  Q(last_name__icontains=text) |
                                                  Q(username__icontains=text))
+                found_user.exclude(username="admin")
                 found_musicians = []
                 for u in found_user:
                     if request.user.is_authenticated():
@@ -57,5 +58,5 @@ def musicians(request):
         except (PageNotAnInteger, EmptyPage):
             p_musicians = paginator_musicians.page(1)
 
-        return render(request, 'musicians.html', {'form':form,
+        return render(request, 'musicians.html', {'form': form,
                                                   'musicians': p_musicians})

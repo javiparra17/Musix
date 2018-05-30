@@ -21,9 +21,9 @@
         <table class="table table-responsive table-hover" id="tableSongs">
             <thead>
                 <tr class="info">
-                    <th onclick="sortTable(0, 'tableSongsDiv')">Name</th>
-                    <th onclick="sortTable(1, 'tableSongsDiv')"></th>
-                    <th></th>
+                    <th>Name</th>
+                    <th onclick="sortTable(1, 'tableSongsDiv')">Creator</th>
+                    <th onclick="sortTable(2, 'tableSongsDiv')"></th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +33,11 @@
                             <a href="/song/{{ s.id }}" id="infoButton">{{ s.name }}</a>
                         </td>
                         {% if s.creator.user != user %}
+                            <td>
+                                <a href="profile/{{ s.creator.user.username }}" id="infoButton">
+                                    {{ s.creator.user.username }}
+                            </a>
+                            </td>
                             <td>
                                 {% if not s.finished %}
                                     {% if s not in participations  %}
@@ -48,11 +53,8 @@
                                     </button>
                                 {% endif %}
                             </td>
-                            <td>
-                                <a href="/likeSong/{{ s.id }}" role="button" class="btn btn-success" id="likeButton">Like</a>
-                            </td>
                         {% else %}
-                            <td></td>
+                            <td>You</td>
                             <td></td>
                         {% endif %}
                     </tr>
