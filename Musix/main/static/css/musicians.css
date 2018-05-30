@@ -2,13 +2,28 @@
     font-family: "Axaxax Rg";
     font-size: 40px;
     color: black;
-    margin-left: 1%;
-    margin-bottom: 2%;
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+
+#divSearcher{
+    margin-left: 15px;
+}
+
+#id_text{
+    width: 1100px;
+    height: 42px;
+    font-size: 20px;
+}
+
+#buttonSearch{
+    width: 220px;
+    font-size: 20px;
 }
 
 #tableMusicians{
-    width: 98%;
-    margin-left: 1%;
+    width: 1320px;
+    margin-left: 15px;
 }
 
 th{
@@ -52,4 +67,17 @@ tbody{
 
 #pagination li{
     margin-right: 5px;
+}
+
+#notMusiciansDiv{
+    text-align: center;
+}
+
+#h1NotMusicians{
+    font-family: "Axaxax Rg";
+    font-size: 50px;
+    color: black;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
 }

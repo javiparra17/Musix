@@ -83,6 +83,10 @@ class ProfileEditForm(forms.ModelForm):
                   'description', 'gender', 'country', 'city')
 
 
+class SearchMusicianForm(forms.Form):
+    text = forms.CharField(label='', widget=forms.TextInput, required=False)
+
+
 class SongForm(forms.ModelForm):
     class Meta:
         model = Song
