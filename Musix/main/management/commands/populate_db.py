@@ -265,6 +265,17 @@ class Command(BaseCommand):
         song4.requiredInstruments.add(instrument5)
         song4.save()
 
+        song5 = models.Song(name="Jueves", author="La Oreja de Van Gogh",
+                            tune="F", tonality="M", bpm=100,
+                            description="La canción que este grupo dedicó a las víctimas del atentado"
+                                        " del 11M en 2004 en Madrid",
+                            additionalInstruments=False,
+                            finished=False, creator=musician7)
+        song5.save()
+
+        song5.requiredInstruments.add(instrument7)
+        song5.save()
+
         # TRACKS
 
         track1 = models.Track(sound="tracks/Bohemian Rhapsody piano.mp3",
@@ -281,6 +292,11 @@ class Command(BaseCommand):
                               status="P", instrument=instrument5,
                               musician=musician4, song=song1)
         track3.save()
+
+        track4 = models.Track(sound="tracks/Jueves piano.mp3",
+                              status="P", instrument=instrument7,
+                              musician=musician2, song=song5)
+        track4.save()
 
 
     def handle(self, *args, **options):
