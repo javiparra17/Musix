@@ -83,6 +83,12 @@ class ProfileEditForm(forms.ModelForm):
                   'description', 'gender', 'country', 'city')
 
 
+class ReportForm(forms.ModelForm):
+    class Meta:
+        model = Report
+        fields = ('description',)
+
+
 class SearchMusicianForm(forms.Form):
     text = forms.CharField(label='', widget=forms.TextInput, required=False)
 

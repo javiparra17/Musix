@@ -1,0 +1,92 @@
+{% include 'base.html' %}
+{% load static %}
+
+<link type="text/css" rel="stylesheet" href="{% static "css/reports.css" %}"/>
+<script type="text/javascript" src="{% static "js/tables.js" %}"></script>
+
+<div>
+    {% include "header.html" %}
+</div>
+
+<div>
+    {% include "menu.html" %}
+</div>
+
+{% if reports %}
+    <div>
+        <h1 id="titleReports">Reports</h1>
+    </div>
+
+    <div id="tableReportsDiv">
+        <table class="table table-responsive table-hover" id="tableReports">
+            <thead>
+                <tr class="info">
+                    <th onclick="sortTable(0, 'tableReportsDiv')">Affected</th>
+                    <th onclick="sortTable(1, 'tableReportsDiv')">Reported</th>
+                    <th>Description</th>
+                    <th onclick="sortTable(3, 'tableReportsDiv')"></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in reports %}
+                    <tr>
+                        <td>
+                            <a href="/profile/{{ r.affected.user.username }}" id="infoButton">{{ r.affected.user.username }}</a>
+                        </td>
+                        <td>
+                            <a href="/profile/{{ r.reported.user.username }}" id="infoButton">{{ r.reported.user.username }}</a>
+                        </td>
+                        <td>
+                            <button onclick="window.alert('{{ r.description }}')">Show description</button>
+                        </td>
+                        <td>
+                            {% if r.processed %}
+                                Processed
+                            {% else %}
+                                <a href="/processReport/{{ r.id }}" role="button" class="btn btn-success" id="processButton"
+                                   onclick="return confirm('Are you sure?')">Process</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if r.processed %}
+                                <a href="/deleteReport/{{ r.id }}" role="button" class="btn btn-danger" id="deleteButton"
+                                   onclick="return confirm('Are you sure?')">Delete</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if reports.has_other_pages %}
+            <ul id="pagination">
+                {% if reports.has_previous %}
+                    <li><a href="?page={{ reports.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for r in reports.paginator.page_range %}
+                    {% if reports.number == r %}
+                        <li class="active"><span>{{ r }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li><a href="?page={{ r }}">{{ r }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if reports.has_next %}
+                    <li><a href="?page={{ reports.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </div>
+{% else %}
+    <div id="notReportsDiv">
+        <h1 id="h1NotReports">There are not reports</h1>
+    </div>
+{% endif %}
+
+<div>
+    {% include "footer.html" %}
+</div>
