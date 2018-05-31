@@ -170,12 +170,13 @@ class Command(BaseCommand):
                                           password='musician10')
         user10.save()
         musician10 = models.Musician(user=user10,
-                                    gender='F',
-                                    description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibu",
-                                    country='ES',
-                                    city='Fregenal de la Sierra',
-                                    registrationDate=parse_date('2017-11-22'),
-                                    premium=True)
+                                     photo="photos/Foto_Raquel.jpg",
+                                     gender='F',
+                                     description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibu",
+                                     country='ES',
+                                     city='Fregenal de la Sierra',
+                                     registrationDate=parse_date('2017-11-22'),
+                                     premium=True)
         musician10.save()
 
         # INSTRUMENT
