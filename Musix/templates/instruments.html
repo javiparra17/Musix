@@ -37,8 +37,10 @@
                             <a href="/editInstrument/{{ i.id }}" role="button" class="btn btn-warning" id="editDeleteButton">Edit</a>
                         </td>
                         <td>
-                            <a href="/deleteInstrument/{{ i.id }}" role="button" class="btn btn-danger" id="editDeleteButton"
-                            onclick="return confirm('Are you sure?')">Delete</a>
+                            {% if i not in used_instruments %}
+                                <a href="/deleteInstrument/{{ i.id }}" role="button" class="btn btn-danger" id="editDeleteButton"
+                                onclick="return confirm('Are you sure?')">Delete</a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
