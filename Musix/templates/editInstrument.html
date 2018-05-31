@@ -9,6 +9,10 @@
 </div>
 
 <div>
+    {% include "menu.html" %}
+</div>
+
+<div>
     <h1 id="titleInstruments">Edit instrument</h1>
 </div>
 
@@ -16,8 +20,9 @@
     <form method="post" enctype="multipart/form-data" action="">
         {% csrf_token %}
         <div class="form-group">
-            <label for="id_name">Name</label>
-            <input type="text" name="name" id="id_name" class="form-control" required value="{{ instrument.name }}"/>
+            <label for="id_name">Name<sup class="sp">*</sup></label>
+            <input type="text" name="name" id="id_name" class="form-control" required
+                   value="{{ instrument.name }}"/>
             {% if error %}
                 <label class="label label-danger" id="labelError">{{ error }}</label>
             {% endif %}
@@ -25,7 +30,7 @@
         <br />
 
         <div class="form-group">
-            <label for="id_image">Image</label>
+            <label for="id_image">Image<sup class="sp">*</sup></label>
             <img src="{% static "media/" %}{{ instrument.image }}" id="output">
             <img id="output">
             <input type="file" name="image" id="id_image" required />

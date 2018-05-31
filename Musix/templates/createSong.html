@@ -19,19 +19,19 @@
     <form method="post" enctype="multipart/form-data" action="">
         {% csrf_token %}
         <div class="form-group">
-            <label for="id_name">Name</label>
+            <label for="id_name">Name<sup class="sp">*</sup></label>
             <input type="text" name="name" id="id_name" class="form-control" required>
         </div>
         <br />
 
         <div class="form-group">
-            <label for="id_author">Author</label>
+            <label for="id_author">Author<sup class="sp">*</sup></label>
             <input type="text" name="author" id="id_author" class="form-control" required>
         </div>
         <br />
 
         <div class="form-group">
-            <label for="id_tune">Tune</label>
+            <label for="id_tune">Tune<sup class="sp">*</sup></label>
             {{ form.tune }}
             {{ form.accidental }}
             {{ form.tonality }}
@@ -39,13 +39,13 @@
         <br />
 
         <div class="form-group">
-            <label for="id_bpm">BPM</label>
+            <label for="id_bpm">BPM<sup class="sp">*</sup></label>
             <input type="number" name="bpm" id="id_bpm" class="form-control" required>
         </div>
         <br />
 
         <div class="form-group">
-            <label for="id_description">Description</label>
+            <label for="id_description">Description<sup class="sp">*</sup></label>
             <textarea name="description" id="id_description" class="form-control" required></textarea>
         </div>
         <br />
@@ -67,7 +67,7 @@
         </div>
 
         <div class="form-group">
-            <label for="id_additionalInstruments">Additional instruments?</label>
+            <label for="id_additionalInstruments">Additional instruments?<sup class="sp">*</sup></label>
             <br />
             <input type="radio" id="id_additionalInstruments" name="additionalInstruments" value="True">
             <label id="yesornot">Yes</label>
