@@ -65,8 +65,6 @@ class ProfileEditForm(forms.ModelForm):
     name = forms.CharField(label="Name", widget=forms.TextInput, required=True)
     surname = forms.CharField(label="Surname", widget=forms.TextInput,
                               required=True)
-    username = forms.CharField(label="Username", widget=forms.TextInput,
-                               required=True)
     description = forms.CharField(label="Description", widget=forms.Textarea,
                                   required=False)
     gender = forms.CharField(label="Gender",
@@ -79,8 +77,8 @@ class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = Musician
-        fields = ('name', 'surname', 'username', 'phone', 'photo',
-                  'description', 'gender', 'country', 'city')
+        fields = ('name', 'surname', 'phone', 'photo', 'description', 'gender',
+                  'country', 'city')
 
 
 class ReportForm(forms.ModelForm):

@@ -9,6 +9,7 @@
 
 #photoMusician{
     width: 280px;
+    height: 280px;
     margin-left: 10px;
 }
 
@@ -58,4 +59,8 @@ th{
 
 td{
     height: 50px;
+}
+
+#divFooter{
+    margin-top: 100px;
 }
