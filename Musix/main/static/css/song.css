@@ -71,3 +71,14 @@
     width: 400px;
     margin-left: 15px;
 }
+
+#divCreators{
+    font-family: Arial;
+    color: black;
+    margin-left: 15px;
+}
+
+#h2Creators{
+    font-size: 30px;
+    text-decoration: underline;
+}
