@@ -1,9 +1,8 @@
-def edit_profile(musician, name, surname, username, description, photo, phone,
+def edit_profile(musician, name, surname, description, photo, phone,
                  gender, country, city):
     user = musician.user
     user.firs_name = name
     user.last_name = surname
-    user.username = username
 
     user.save()
 

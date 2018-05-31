@@ -53,8 +53,6 @@ def edit_profile(request, musician_username):
         if form.is_valid():
             name = form.cleaned_data['name']
             surname = form.cleaned_data['surname']
-            username = form.cleaned_data['username']
-
             description = form.cleaned_data['description']
             photo = form.cleaned_data['photo']
             phone = form.cleaned_data['phone']
@@ -62,9 +60,8 @@ def edit_profile(request, musician_username):
             country = form.cleaned_data['country']
             city = form.cleaned_data['city']
 
-            service.edit_profile(musician2, name, surname, username,
-                                 description, photo, phone, gender, country,
-                                 city)
+            service.edit_profile(musician2, name, surname, description, photo,
+                                 phone, gender, country, city)
 
             return HttpResponseRedirect('/profile/'+str(musician.user.username))
     else:
