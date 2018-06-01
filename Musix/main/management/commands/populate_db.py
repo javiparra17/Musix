@@ -197,21 +197,57 @@ class Command(BaseCommand):
                                         image="instruments/clarinet.png")
         instrument4.save()
 
-        instrument5 = models.Instrument(name="Drums",
-                                        image="instruments/drums.png")
+        instrument5 = models.Instrument(name="Contrabass",
+                                        image="instruments/contrabass.png")
         instrument5.save()
 
-        instrument6 = models.Instrument(name="Electric guitar",
-                                        image="instruments/electricGuitar.png")
+        instrument6 = models.Instrument(name="Drums",
+                                        image="instruments/drums.png")
         instrument6.save()
 
-        instrument7 = models.Instrument(name="Piano",
-                                        image="instruments/piano.png")
+        instrument7 = models.Instrument(name="Electric guitar",
+                                        image="instruments/electricGuitar.png")
         instrument7.save()
 
-        instrument8 = models.Instrument(name="Violin",
-                                        image="instruments/violin.png")
+        instrument8 = models.Instrument(name="Flute",
+                                        image="instruments/flute.png")
         instrument8.save()
+
+        instrument9 = models.Instrument(name="Harp",
+                                        image="instruments/harp.png")
+        instrument9.save()
+
+        instrument10 = models.Instrument(name="Organ",
+                                         image="instruments/organ.png")
+        instrument10.save()
+
+        instrument11 = models.Instrument(name="Piano",
+                                         image="instruments/piano.png")
+        instrument11.save()
+
+        instrument12 = models.Instrument(name="Saxophone",
+                                         image="instruments/saxophone.png")
+        instrument12.save()
+
+        instrument13 = models.Instrument(name="Trombone",
+                                         image="instruments/trombone.png")
+        instrument13.save()
+
+        instrument14 = models.Instrument(name="Trumpet",
+                                         image="instruments/trumpet.png")
+        instrument14.save()
+
+        instrument15 = models.Instrument(name="Tube",
+                                         image="instruments/tube.png")
+        instrument15.save()
+
+        instrument16 = models.Instrument(name="Violin",
+                                         image="instruments/violin.png")
+        instrument16.save()
+
+        instrument17 = models.Instrument(name="Xylophone",
+                                         image="instruments/xylophone.png")
+        instrument17.save()
 
         # SONG
 
@@ -222,9 +258,9 @@ class Command(BaseCommand):
                             creator=musician2)
         song1.save()
         song1.requiredInstruments.add(instrument2)
-        song1.requiredInstruments.add(instrument5)
         song1.requiredInstruments.add(instrument6)
         song1.requiredInstruments.add(instrument7)
+        song1.requiredInstruments.add(instrument11)
         song1.save()
 
         song2 = models.Song(name="I dreamed a dream", author="Les Miserables",
@@ -236,22 +272,24 @@ class Command(BaseCommand):
 
         song2.requiredInstruments.add(instrument3)
         song2.requiredInstruments.add(instrument4)
-        song2.requiredInstruments.add(instrument7)
+        song2.requiredInstruments.add(instrument5)
         song2.requiredInstruments.add(instrument8)
+        song2.requiredInstruments.add(instrument11)
+        song2.requiredInstruments.add(instrument16)
         song2.save()
 
         song3 = models.Song(name="Yellow submarine", author="The Beatles",
                             tune="D", tonality="M", bpm=100,
                             description="A song of The Beatles",
-                            additionalInstruments=False,
+                            additionalInstruments=True,
                             finished=True, creator=musician2,
                             finishedSong="songs/Yellow submarine.mp3")
         song3.save()
 
         song3.requiredInstruments.add(instrument1)
         song3.requiredInstruments.add(instrument2)
-        song3.requiredInstruments.add(instrument5)
-        song3.requiredInstruments.add(instrument7)
+        song3.requiredInstruments.add(instrument6)
+        song3.requiredInstruments.add(instrument11)
         song3.save()
 
         song4 = models.Song(name="Waka waka", author="Shakira",
@@ -263,7 +301,8 @@ class Command(BaseCommand):
         song4.save()
 
         song4.requiredInstruments.add(instrument2)
-        song4.requiredInstruments.add(instrument5)
+        song4.requiredInstruments.add(instrument11)
+        song4.requiredInstruments.add(instrument17)
         song4.save()
 
         song5 = models.Song(name="Jueves", author="La Oreja de Van Gogh",
@@ -274,13 +313,25 @@ class Command(BaseCommand):
                             finished=False, creator=musician7)
         song5.save()
 
-        song5.requiredInstruments.add(instrument7)
+        song5.requiredInstruments.add(instrument11)
         song5.save()
+
+        song6 = models.Song(name="Thriller", author="Michael Jackson",
+                            tune="C", accidental="#", tonality="m", bpm=120,
+                            description="An amazing song of Michael Jackson. I love it",
+                            additionalInstruments=True,
+                            finished=False, creator=musician2)
+        song6.save()
+
+        song6.requiredInstruments.add(instrument2)
+        song6.requiredInstruments.add(instrument6)
+        song6.requiredInstruments.add(instrument11)
+        song6.save()
 
         # TRACKS
 
         track1 = models.Track(sound="tracks/Bohemian Rhapsody piano.mp3",
-                              status="P", instrument=instrument7,
+                              status="P", instrument=instrument11,
                               musician=musician1, song=song1)
         track1.save()
 
@@ -290,12 +341,12 @@ class Command(BaseCommand):
         track2.save()
 
         track3 = models.Track(sound="tracks/Bohemian Rhapsody bateria.mp3",
-                              status="P", instrument=instrument5,
+                              status="P", instrument=instrument6,
                               musician=musician4, song=song1)
         track3.save()
 
         track4 = models.Track(sound="tracks/Jueves piano.mp3",
-                              status="P", instrument=instrument7,
+                              status="P", instrument=instrument11,
                               musician=musician2, song=song5)
         track4.save()
 
