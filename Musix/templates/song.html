@@ -12,7 +12,9 @@
     {% include "menu.html" %}
 </div>
 
-<h1 id="h1">{{ song.name }} - {{ song.author }}</h1>
+<h1 id="h1">{{ song.name }} - {{ song.author }}
+    (<a href="/profile/{{ song.creator.user.username }}">{{ song.creator.user.username }}</a>)
+</h1>
 
 <div id="divDescription">
     <p id="pDescription">{{ song.description }}</p>
@@ -32,9 +34,17 @@
 <div>
     {% if not song.finished and user.is_authenticated %}
         {% if song.additionalInstruments %}
-            <h3 id="iNeed">I need this instruments or an instrument that you want</h3>
+            {% if required_instruments|length == 1 %}
+                <h3 id="iNeed">I need this instrument or an instrument that you want</h3>
+            {% else %}
+                <h3 id="iNeed">I need these instruments or an instrument that you want</h3>
+            {% endif %}
         {% else %}
-            <h3 id="iNeed">I need this instruments</h3>
+            {% if required_instruments|length == 1 %}
+                <h3 id="iNeed">I need this instrument</h3>
+            {% else %}
+                <h3 id="iNeed">I need these instruments</h3>
+            {% endif %}
         {% endif %}
         <table class="table table-responsive " id="tableInstruments">
             <tbody>
