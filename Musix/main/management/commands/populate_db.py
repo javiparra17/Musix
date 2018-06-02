@@ -217,8 +217,8 @@ class Command(BaseCommand):
                                         image="instruments/harp.png")
         instrument9.save()
 
-        instrument10 = models.Instrument(name="Organ",
-                                         image="instruments/organ.png")
+        instrument10 = models.Instrument(name="Oboe",
+                                         image="instruments/oboe.png")
         instrument10.save()
 
         instrument11 = models.Instrument(name="Piano",
