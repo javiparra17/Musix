@@ -70,9 +70,6 @@ class ProfileEditForm(forms.ModelForm):
     gender = forms.CharField(label="Gender",
                              widget=forms.RadioSelect(choices=GENDERS),
                              required=False)
-    country = forms.CharField(label="Country",
-                              widget=forms.Select(choices=COUNTRIES),
-                              required=False)
     city = forms.CharField(label="City", widget=forms.TextInput, required=False)
 
     class Meta:
