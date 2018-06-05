@@ -17,32 +17,45 @@ def create_account(request):
             confirm_password = form.cleaned_data['password2']
 
             username = form.cleaned_data['username']
-            exist_username = User.objects.get(username=username)
+            email = form.cleaned_data['email']
 
-            if exist_username is None:
+            exist_username = User.objects.filter(username=username)
+            exist_email = User.objects.filter(email=email)
 
-                if password == confirm_password:
-                    email = form.cleaned_data['email']
-                    user = User.objects.create_user(username=username,
-                                                    email=email,
-                                                    password=password)
-                    name = form.cleaned_data['name']
-                    surname = form.cleaned_data['surname']
-                    user.first_name = name
-                    user.last_name = surname
+            if len(exist_username) is 0:
 
-                    phone = form.cleaned_data['phone']
-                    photo = form.cleaned_data['photo']
+                if len(exist_email) is 0:
 
-                    registration_date = strftime("%Y-%m-%d", gmtime())
+                    if password == confirm_password:
+                        user = User.objects.create_user(username=username,
+                                                        email=email,
+                                                        password=password)
+                        name = form.cleaned_data['name']
+                        surname = form.cleaned_data['surname']
+                        user.first_name = name
+                        user.last_name = surname
 
-                    Musician.objects.create(user=user, phone=phone, photo=photo,
-                                            registrationDate=registration_date)
+                        user.save()
 
-                    return HttpResponseRedirect('index.html')
+                        phone = form.cleaned_data['phone']
+                        photo = form.cleaned_data['photo']
+
+                        registration_date = strftime("%Y-%m-%d", gmtime())
+
+                        Musician.objects.create(user=user, phone=phone,
+                                                photo=photo,
+                                                registrationDate=registration_date)
+
+                        return HttpResponseRedirect('index.html')
+
+                    else:
+                        error = "The passwords are not the same"
+                        return render(request, 'createAccount.html',
+                                      {'form': form, 'error': error})
 
                 else:
-                    error = "The passwords are not the same"
+                    error = "This email already exists. " \
+                            "Choose another one, please"
                     return render(request, 'createAccount.html',
                                   {'form': form, 'error': error})
 
