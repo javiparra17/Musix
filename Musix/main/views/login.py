@@ -18,7 +18,12 @@ def login_user(request):
             if user is not None:
                 if user.username == "admin" or not user.musician.banned:
                     auth_views.login(request, user)
-                    return HttpResponseRedirect('/index')
+
+                    if request.GET.get('next'):
+                        return HttpResponseRedirect(request.GET['next'])
+                    else:
+                        return HttpResponseRedirect("/index")
+
                 else:
                     error = "Your account have been banned"
                     return render(request, 'login.html',
