@@ -29,8 +29,14 @@ def edit_instrument(instrument, name, image):
 
 
 def delete_instrument(instrument):
-    image = instrument.image
-    path = "/static/media/" + str(image)
-    functions.delete_file(path)
+    used_instruments = functions.get_all_used_instruments()
 
-    instrument.delete()
+    if instrument not in used_instruments:
+        image = instrument.image
+        path = "/static/media/" + str(image)
+        functions.delete_file(path)
+
+        instrument.delete()
+
+    else:
+        return "You can not delete an used instrument"

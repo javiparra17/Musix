@@ -2,8 +2,8 @@ from main.models import Song, Track
 import main.functions as functions
 
 
-def create_song(name, author, tune, accidental, tonality, bpm, description, score,
-                required_instruments, additional_instruments, creator):
+def create_song(name, author, tune, accidental, tonality, bpm, description,
+                score, required_instruments, additional_instruments, creator):
     song = Song.objects.create(name=name, author=author, tune=tune,
                                accidental=accidental, tonality=tonality,
                                bpm=bpm, description=description, score=score,
@@ -89,7 +89,7 @@ def delete_song(musician, song):
                     functions.delete_file(path)
                     song.delete()
             else:
-                return "You can't delete an open song with tracks"
+                return "You can't delete an open song"
     else:
         return "This song is not yours"
 

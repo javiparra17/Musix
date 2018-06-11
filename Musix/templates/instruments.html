@@ -37,8 +37,10 @@
                             <a href="/editInstrument/{{ i.id }}" role="button" class="btn btn-warning" id="editDeleteButton">Edit</a>
                         </td>
                         <td>
-                            <a href="/deleteInstrument/{{ i.id }}" role="button" class="btn btn-danger" id="editDeleteButton"
-                            onclick="return confirm('Are you sure?')">Delete</a>
+                            {% if i not in used_instruments %}
+                                <a href="/deleteInstrument/{{ i.id }}" role="button" class="btn btn-danger" id="editDeleteButton"
+                                onclick="return confirm('Are you sure?')">Delete</a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
@@ -68,11 +70,16 @@
         {% endif %}
     </div>
 
-{% endif %}
+    <div>
+        <button class="btn btn-default" onclick="location.href='/createInstrument'" id="buttonCreateInstrument">Create instrument</button>
+    </div>
 
-<div>
-    <button class="btn btn-default" onclick="location.href='/createInstrument'" id="buttonCreateInstrument">Create instrument</button>
-</div>
+{% else %}
+    <div id="notInstrumentsDiv">
+        <h1 id="h1NotInstruments">There are not instruments</h1>
+        <button class="btn btn-default" onclick="location.href='/createInstrument'" id="buttonCreateInstrument2">Create instrument</button>
+    </div>
+{% endif %}
 
 <div>
     {% include "footer.html" %}

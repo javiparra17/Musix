@@ -24,7 +24,7 @@ label{
     margin-left: 2px;
 }
 
-#id_name, #id_surname, #id_username, #id_phone, #id_city{
+#id_name, #id_surname, #id_phone, #id_city{
     width: 400px;
     height: 40px;
     font-size: 20px;

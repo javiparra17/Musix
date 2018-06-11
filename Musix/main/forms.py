@@ -65,22 +65,17 @@ class ProfileEditForm(forms.ModelForm):
     name = forms.CharField(label="Name", widget=forms.TextInput, required=True)
     surname = forms.CharField(label="Surname", widget=forms.TextInput,
                               required=True)
-    username = forms.CharField(label="Username", widget=forms.TextInput,
-                               required=True)
     description = forms.CharField(label="Description", widget=forms.Textarea,
                                   required=False)
     gender = forms.CharField(label="Gender",
                              widget=forms.RadioSelect(choices=GENDERS),
                              required=False)
-    country = forms.CharField(label="Country",
-                              widget=forms.Select(choices=COUNTRIES),
-                              required=False)
     city = forms.CharField(label="City", widget=forms.TextInput, required=False)
 
     class Meta:
         model = Musician
-        fields = ('name', 'surname', 'username', 'phone', 'photo',
-                  'description', 'gender', 'country', 'city')
+        fields = ('name', 'surname', 'phone', 'photo', 'description', 'gender',
+                  'country', 'city')
 
 
 class ReportForm(forms.ModelForm):

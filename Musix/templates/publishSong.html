@@ -15,7 +15,7 @@
     <form method="post" enctype="multipart/form-data" action="">
         {% csrf_token %}
         <div class="form-group">
-            <label for="id_finishedSong">Song</label>
+            <label for="id_finishedSong">Song<sup class="sp">*</sup></label>
             <input type="file" name="finishedSong" id="id_finishedSong" required>
         </div>
         <br />

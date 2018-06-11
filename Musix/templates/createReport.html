@@ -19,7 +19,7 @@
     <form method="post" enctype="multipart/form-data" action="">
         {% csrf_token %}
         <div class="form-group">
-            <label for="id_description">Description</label>
+            <label for="id_description">Description<sup class="sp">*</sup></label>
             <textarea name="description" id="id_description" class="form-control" required></textarea>
         </div>
         <br />

@@ -33,6 +33,7 @@ th{
 
 td{
     font-size: 20px;
+    color: black;
 }
 
 td, th, tr{
@@ -52,16 +53,10 @@ tbody{
     color: #0066d9;
 }
 
-#likeButton, #dislikeButton{
-    width: 100px;
-}
-
 #participateButton{
     width: 120px;
 }
 
-#likeButton:link, #likeButton:visited,
-#dislikeButton:link, #dislikeButton:visited,
 #participateButton:link, #participateButton:visited{
     color: white;
 	text-decoration: none;

@@ -18,6 +18,11 @@
 <div>
     <form method="post" id="form" class="form" role="form" autocomplete="on">
         {% csrf_token %}
+
+        {% if next %}
+            <input type="hidden" name="next" value="{{ name }}"/>
+        {% endif %}
+
         <input type="text" name="username" id="id_username" placeholder="Username" required>
         <br />
         <input type="password" name="password" id="id_password" placeholder="Password" required>

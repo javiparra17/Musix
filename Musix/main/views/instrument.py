@@ -1,6 +1,7 @@
 from main.models import Instrument, Administrator
 from main.forms import InstrumentForm
 from main.services import instrument as service
+import main.functions as functions
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -42,6 +43,7 @@ def instruments(request):
         raise PermissionDenied
 
     all_instruments = service.instruments()
+    used_instruments = functions.get_all_used_instruments()
 
     page_instruments = request.GET.get("page", 1)
     paginator_instruments = Paginator(all_instruments, 7)
@@ -51,7 +53,9 @@ def instruments(request):
     except (PageNotAnInteger, EmptyPage):
         p_instruments = paginator_instruments.page(1)
 
-    return render(request, 'instruments.html', {'instruments': p_instruments})
+    return render(request, 'instruments.html', {'instruments': p_instruments,
+                                                'used_instruments':
+                                                    used_instruments})
 
 
 @login_required(login_url='/login.html')
@@ -86,6 +90,12 @@ def delete_instrument(request, instrument_id):
 
     instrument = Instrument.objects.get(id=instrument_id)
 
-    service.delete_instrument(instrument)
+    used_instruments = functions.get_all_used_instruments()
 
-    return HttpResponseRedirect('/instruments')
+    if instrument not in used_instruments:
+        service.delete_instrument(instrument)
+
+        return HttpResponseRedirect('/instruments')
+    else:
+        error = "You can not delete an used instrument"
+        return render(request, "instruments.html", {'error': error})

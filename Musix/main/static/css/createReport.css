@@ -18,6 +18,12 @@ label{
     color: black;
 }
 
+.sp{
+    color: red;
+    font-size: 18px;
+    margin-left: 2px;
+}
+
 #id_description{
     width: 400px;
     height: 150px;

@@ -17,6 +17,7 @@ th{
 
 td{
     font-size: 20px;
+    color: black;
 }
 
 td, th, tr{
@@ -24,7 +25,7 @@ td, th, tr{
 }
 
 tbody{
-    padding-right: 500px;
+    margin-right: 50%;
 }
 
 #imageInstrument{
@@ -48,4 +49,23 @@ tbody{
 
 #pagination li{
     margin-right: 5px;
+}
+
+#notInstrumentsDiv{
+    text-align: center;
+}
+
+#h1NotInstruments{
+    font-family: "Axaxax Rg";
+    font-size: 50px;
+    color: black;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+#buttonCreateInstrument2{
+    width: 400px;
+    font-size: 28px;
+    color: black;
 }

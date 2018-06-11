@@ -19,7 +19,7 @@
     <form method="post" enctype="multipart/form-data" action="">
         {% csrf_token %}
         <div class="form-group">
-            <label for="id_instrument">Instrument</label>
+            <label for="id_instrument">Instrument<sup class="sp">*</sup></label>
             <select id="id_instrument" name="instrument" required>
                 {% for i in instruments %}
                     <option id="id_instrument" value="{{ i.id }}">{{ i.name }}</option>
@@ -29,7 +29,7 @@
         <br />
 
         <div class="form-group">
-            <label for="id_sound">Track</label>
+            <label for="id_sound">Track<sup class="sp">*</sup></label>
             <input type="file" name="sound" id="id_sound" required>
         </div>
         <br />

@@ -17,6 +17,12 @@ label{
     color: black;
 }
 
+.sp{
+    color: red;
+    font-size: 18px;
+    margin-left: 2px;
+}
+
 #id_instrument{
     font-family: "Arial";
     font-size: 18px;

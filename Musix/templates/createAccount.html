@@ -27,31 +27,36 @@
         {% csrf_token %}
         <div class="form-group">
             <label for="id_name">Name<sup class="sp">*</sup></label>
-            <input type="text" name="name" id="id_name" class="form-control" required>
+            <input type="text" name="name" id="id_name" class="form-control" required
+            value="{{ form.name.value|default_if_none:'' }}" >
         </div>
         <br />
 
         <div class="form-group">
             <label for="id_surname">Surname<sup class="sp">*</sup></label>
-            <input type="text" name="surname" id="id_surname" class="form-control" required>
+            <input type="text" name="surname" id="id_surname" class="form-control" required
+            value="{{ form.surname.value|default_if_none:'' }}">
         </div>
         <br />
 
         <div class="form-group">
             <label for="id_username">Username<sup class="sp">*</sup></label>
-            <input type="text" name="username" id="id_username" class="form-control" required>
+            <input type="text" name="username" id="id_username" class="form-control" required
+            value="{{ form.username.value|default_if_none:'' }}">
         </div>
         <br />
 
         <div class="form-group">
             <label for="id_email">Email<sup class="sp">*</sup></label>
-            <input type="email" name="email" id="id_email" class="form-control" required>
+            <input type="email" name="email" id="id_email" class="form-control" required
+            value="{{ form.email.value|default_if_none:'' }}">
         </div>
         <br />
 
         <div class="form-group">
             <label for="id_phone">Phone</label>
-            <input type="text" name="phone" id="id_phone" class="form-control">
+            <input type="text" name="phone" id="id_phone" class="form-control"
+            value="{{ form.phone.value|default_if_none:'' }}">
         </div>
         <br />
 
