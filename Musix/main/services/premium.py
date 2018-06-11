@@ -3,3 +3,7 @@ def become_premium(musician):
         musician.premium = True
 
         musician.save()
+
+        return musician
+    else:
+        return "You are already premium"
