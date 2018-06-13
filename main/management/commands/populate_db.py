@@ -9,6 +9,18 @@ import os
 BASE_DIR = \
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+lorem_short = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. " \
+        "Aenean commodo ligula eget dolor. Aenean massa. " \
+        "Cum sociis natoque penatibus et magnis dis parturient montes."
+
+lorem_long = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. " \
+             "Aenean commodo ligula eget dolor. Aenean massa. " \
+             "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. " \
+             "Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. " \
+             "Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. " \
+             "In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. " \
+             "Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibu"
+
 
 class Command(BaseCommand):
     args = 'none'
@@ -35,11 +47,11 @@ class Command(BaseCommand):
         user1.save()
         musician1 = models.Musician(user=user1,
                                     gender='M',
-                                    description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibu",
+                                    description=lorem_long,
                                     country='ES',
                                     city='Madrid',
                                     registrationDate=parse_date('2017-07-15'),
-                                    premium=False)
+                                    premium=False, banned=False)
         musician1.save()
 
         user2 = User.objects.create_user(first_name='Javier',
@@ -54,7 +66,7 @@ class Command(BaseCommand):
                                     country='ES',
                                     city='Fregenal de la Sierra',
                                     registrationDate=parse_date('2018-01-04'),
-                                    premium=True)
+                                    premium=True, banned=False)
         musician2.save()
 
         user3 = User.objects.create_user(first_name='Alicia',
@@ -69,7 +81,7 @@ class Command(BaseCommand):
                                     country='ES',
                                     city='Valencia',
                                     registrationDate=parse_date('2018-01-28'),
-                                    premium=True)
+                                    premium=True, banned=False)
         musician3.save()
 
         user4 = User.objects.create_user(first_name='Miguel',
@@ -84,7 +96,7 @@ class Command(BaseCommand):
                                     country='ES',
                                     city='Badajoz',
                                     registrationDate=parse_date('2017-02-15'),
-                                    premium=False)
+                                    premium=False, banned=False)
         musician4.save()
 
         user5 = User.objects.create_user(first_name='Mónica',
@@ -99,7 +111,7 @@ class Command(BaseCommand):
                                     country='',
                                     city='',
                                     registrationDate=parse_date('2017-09-03'),
-                                    premium=False)
+                                    premium=False, banned=False)
         musician5.save()
 
         user6 = User.objects.create_user(first_name='Sancho',
@@ -114,7 +126,7 @@ class Command(BaseCommand):
                                     country='ES',
                                     city='Murcia',
                                     registrationDate=parse_date('2017-12-20'),
-                                    premium=False)
+                                    premium=False, banned=False)
         musician6.save()
 
         user7 = User.objects.create_user(first_name='Eva',
@@ -129,7 +141,7 @@ class Command(BaseCommand):
                                     country='ES',
                                     city='Navalmoral de la Mata',
                                     registrationDate=parse_date('2017-08-01'),
-                                    premium=True)
+                                    premium=True, banned=False)
         musician7.save()
 
         user8 = User.objects.create_user(first_name='Ramona',
@@ -145,7 +157,7 @@ class Command(BaseCommand):
                                     country='ES',
                                     city='Guadalajara',
                                     registrationDate=parse_date('2017-08-19'),
-                                    premium=False)
+                                    premium=False, banned=False)
         musician8.save()
 
         user9 = User.objects.create_user(first_name='Jacobo',
@@ -160,7 +172,7 @@ class Command(BaseCommand):
                                     country='ES',
                                     city='Valencia',
                                     registrationDate=parse_date('2017-05-03'),
-                                    premium=False)
+                                    premium=False, banned=True)
         musician9.save()
 
         user10 = User.objects.create_user(first_name='Raquel',
@@ -176,7 +188,7 @@ class Command(BaseCommand):
                                      country='ES',
                                      city='Fregenal de la Sierra',
                                      registrationDate=parse_date('2017-11-22'),
-                                     premium=True)
+                                     premium=True, banned=False)
         musician10.save()
 
         # INSTRUMENT
@@ -265,7 +277,7 @@ class Command(BaseCommand):
 
         song2 = models.Song(name="I dreamed a dream", author="Les Miserables",
                             tune="E", accidental="b", tonality="M", bpm=80,
-                            description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.",
+                            description=lorem_short,
                             additionalInstruments=True,
                             finished=False, creator=musician2)
         song2.save()
@@ -349,6 +361,20 @@ class Command(BaseCommand):
                               status="P", instrument=instrument11,
                               musician=musician2, song=song5)
         track4.save()
+
+        # REPORTS
+
+        report1 = models.Report(description=lorem_short, processed=False,
+                                affected=musician6, reported=musician8)
+        report1.save()
+
+        report2 = models.Report(description=lorem_short, processed=False,
+                                affected=musician2, reported=musician8)
+        report2.save()
+
+        report3 = models.Report(description=lorem_short, processed=False,
+                                affected=musician1, reported=musician8)
+        report3.save()
 
 
     def handle(self, *args, **options):
