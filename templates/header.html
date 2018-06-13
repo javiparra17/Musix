@@ -8,7 +8,7 @@
     </a>
 
     {% if user.is_authenticated and user.username != "admin" and not user.musician.premium %}
-        <a href="getPremium.html">
+        <a href="/getPremium.html">
             <h2 id="getPremium">Get Premium</h2>
         </a>
     {% endif %}
