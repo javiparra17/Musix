@@ -40,6 +40,6 @@ def download_track(path):
 
     myfile = open(root).read()
     response = HttpResponse(myfile, content_type="audio/mpeg")
-    response['Content-Disposition'] = 'attachment; filename=hola.mp3'
+    response['Content-Disposition'] = 'attachment; filename=track.mp3'
 
     return response

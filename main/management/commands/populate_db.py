@@ -13,6 +13,12 @@ lorem_short = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. " \
         "Aenean commodo ligula eget dolor. Aenean massa. " \
         "Cum sociis natoque penatibus et magnis dis parturient montes."
 
+lorem_medium = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. " \
+             "Aenean commodo ligula eget dolor. Aenean massa. " \
+             "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. " \
+             "Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. " \
+             "Nulla consequat massa quis enim. Donec pede justo, fringilla vel"
+
 lorem_long = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. " \
              "Aenean commodo ligula eget dolor. Aenean massa. " \
              "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. " \
@@ -61,6 +67,7 @@ class Command(BaseCommand):
                                          password='musician2')
         user2.save()
         musician2 = models.Musician(user=user2,
+                                    photo="photos/Foto_Javier.jpg",
                                     gender='M',
                                     description="Description2",
                                     country='ES',
@@ -107,7 +114,7 @@ class Command(BaseCommand):
         user5.save()
         musician5 = models.Musician(user=user5,
                                     gender='F',
-                                    description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibu",
+                                    description=lorem_short,
                                     country='',
                                     city='',
                                     registrationDate=parse_date('2017-09-03'),
@@ -137,7 +144,7 @@ class Command(BaseCommand):
         user7.save()
         musician7 = models.Musician(user=user7,
                                     gender='F',
-                                    description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel.",
+                                    description=lorem_medium,
                                     country='ES',
                                     city='Navalmoral de la Mata',
                                     registrationDate=parse_date('2017-08-01'),
@@ -264,7 +271,7 @@ class Command(BaseCommand):
         # SONG
 
         song1 = models.Song(name="Bohemian rhapsody", author="Queen",
-                            tune="B", accidental="b", tonality="M", bpm=78,
+                            tune="B", accidental="b", tonality="M", bpm=79,
                             description="An amazing song of Queen",
                             additionalInstruments=False, finished=False,
                             creator=musician2)
@@ -340,6 +347,22 @@ class Command(BaseCommand):
         song6.requiredInstruments.add(instrument11)
         song6.save()
 
+        song7 = models.Song(name="Himno de España", author="España",
+                            tune="G", tonality="M", bpm=80,
+                            description="El himno de España",
+                            additionalInstruments=True,
+                            finished=False, creator=musician7)
+        song7.save()
+
+        song7.requiredInstruments.add(instrument4)
+        song7.requiredInstruments.add(instrument8)
+        song7.requiredInstruments.add(instrument10)
+        song7.requiredInstruments.add(instrument12)
+        song7.requiredInstruments.add(instrument13)
+        song7.requiredInstruments.add(instrument14)
+        song7.requiredInstruments.add(instrument15)
+        song7.save()
+
         # TRACKS
 
         track1 = models.Track(sound="tracks/Bohemian Rhapsody piano.mp3",
@@ -357,14 +380,24 @@ class Command(BaseCommand):
                               musician=musician4, song=song1)
         track3.save()
 
-        track4 = models.Track(sound="tracks/Jueves piano.mp3",
+        track4 = models.Track(sound="tracks/Bohemian Rhapsody piano2.mp3",
+                              status="P", instrument=instrument11,
+                              musician=musician5, song=song1)
+        track4.save()
+
+        track5 = models.Track(sound="tracks/Jueves piano.mp3",
                               status="P", instrument=instrument11,
                               musician=musician2, song=song5)
-        track4.save()
+        track5.save()
+
+        track6 = models.Track(sound="tracks/Himno flauta.mp3",
+                              status="P", instrument=instrument8,
+                              musician=musician4, song=song7)
+        track6.save()
 
         # REPORTS
 
-        report1 = models.Report(description=lorem_short, processed=False,
+        report1 = models.Report(description=lorem_short, processed=True,
                                 affected=musician6, reported=musician8)
         report1.save()
 

@@ -13,7 +13,7 @@ def create_instrument(name, image):
 
 
 def instruments():
-    all_instruments = Instrument.objects.all()
+    all_instruments = Instrument.objects.all().order_by("name")
 
     return all_instruments
 
